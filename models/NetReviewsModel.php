@@ -16,7 +16,6 @@ class NetReviewsModel extends ObjectModel{
 
 	public $reviews_by_page;
 	public $id_order;
-	public $id_order_state = null;
 	public $id_shop = null;
 
 	public function __construct()
@@ -56,6 +55,8 @@ class NetReviewsModel extends ObjectModel{
 		$o_netreviews = new NetReviews;
 
 		$duree = Tools::getValue('duree');
+		$order_statut_list = Tools::getValue('orderstates');
+		$order_statut_list = (!empty($order_statut_list)) ? implode(',', Tools::getValue('orderstates')) : null;
 
 		if (! empty($id_shop))
 		{
@@ -83,7 +84,8 @@ class NetReviewsModel extends ObjectModel{
 			}
 			else
 			{
-				foreach (glob(_PS_MODULE_DIR_.'netreviews/Export_NetReviews_*') as $filename_to_delete) {
+				foreach (glob(_PS_MODULE_DIR_.'netreviews/Export_NetReviews_*') as $filename_to_delete)
+				{
 					if (is_writable($filename_to_delete))
 				   		unlink($filename_to_delete);
 				}
@@ -151,11 +153,14 @@ class NetReviewsModel extends ObjectModel{
 		$where_id_shop = (! empty($id_shop)) ?  'AND o.id_shop = '.(int)$id_shop  : '';
 		$select_id_shop = (! empty($id_shop)) ?  ', o.id_shop' : '';
 
-		$qry_sql = '		SELECT o.id_order, o.id_customer, o.date_add, c.firstname, c.lastname, c.email '.$select_id_shop.'
+		$where_id_state = (! empty($order_statut_list)) ?  ' AND o.current_state IN ('.$order_statut_list.')'  : '';
+		$select_id_state = (! empty($order_statut_list)) ?  ', o.current_state' : '';
+
+		$qry_sql = '		SELECT o.id_order, o.id_customer, o.date_add, c.firstname, c.lastname, c.email '.$select_id_shop.$select_id_state.'
 						FROM '._DB_PREFIX_.'orders o
 						LEFT JOIN '._DB_PREFIX_.'customer c ON o.id_customer = c.id_customer
 						WHERE (TO_DAYS(DATE_ADD(o.date_add,'.$duree_sql.')) - TO_DAYS(NOW())) >= 0
-						'.$where_id_shop;
+						'.$where_id_shop.$where_id_state;
 
 		$item_list = Db::getInstance()->ExecuteS($qry_sql);
 
@@ -173,7 +178,7 @@ class NetReviewsModel extends ObjectModel{
 										),
 				'EMAIL_CLIENT' => '',
 				'NOM_CLIENT'   => '',
-				'ORDER_STATE'  => '',
+				'ORDER_STATE'  => $item['current_state'],
 				'PRODUCTS'     => array()
 			);
 
@@ -181,9 +186,13 @@ class NetReviewsModel extends ObjectModel{
 			$product_list = Db::getInstance()->ExecuteS($qry_sql);
 			foreach ($product_list as $product)
 			{
+				$array_url = NetReviewsModel::getUrlsProduct($product['product_id']);
+				
 				$all_orders[$product['id_order']]['PRODUCTS'][] = array(
-					'ID_PRODUIT' => $product['product_id'],
-					'NOM_PRODUIT' => $product['product_name']
+					'ID_PRODUCT' => $product['product_id'],
+					'NOM_PRODUCT' => $product['product_name'],
+					'URL_PRODUCT' => $array_url['url_product'],
+					'URL_IMAGE_PRODUCT' => $array_url['url_image_product'],
 				);
 
 			}
@@ -210,10 +219,11 @@ class NetReviewsModel extends ObjectModel{
 							$line[] = utf8_decode($order['ID_CUSTOMER']['FIRST_NAME']);
 							$line[] = $order['DATE_ORDER'];
 							$line[] = $delay;
-							$line[] = $order['PRODUCTS'][$i]['ID_PRODUIT'];
+							$line[] = $order['PRODUCTS'][$i]['ID_PRODUCT'];
 							$line[] = ''; // Categorie du produit
-							$line[] = utf8_decode($order['PRODUCTS'][$i]['NOM_PRODUIT']);
-							$line[] = ''; //Url fiche produit
+							$line[] = utf8_decode($order['PRODUCTS'][$i]['NOM_PRODUCT']);
+							$line[] = utf8_decode($order['PRODUCTS'][$i]['URL_PRODUCT']); //Url fiche product
+							$line[] = utf8_decode($order['PRODUCTS'][$i]['URL_IMAGE_PRODUCT']); //Url image fiche product
 							$line[] = $order['ORDER_STATE']; //Etat de la commande
 							if (! empty($id_shop)) $line[] = $id_shop;
 							fwrite($csv, self::generateCsvLine($line));
@@ -232,6 +242,7 @@ class NetReviewsModel extends ObjectModel{
 						$line[] = ''; // Product category
 						$line[] = '';
 						$line[] = '';// URL
+						$line[] = ''; //Url image fiche product
 						$line[] = $order['ORDER_STATE']; //Order state
 						if (! empty($id_shop)) $line[] = $id_shop;
 						fwrite($csv, self::generateCsvLine($line));
@@ -239,7 +250,6 @@ class NetReviewsModel extends ObjectModel{
 				}
 
 				fclose($csv);
-
 				
 				if (file_exists($file_path))
 				{
@@ -247,14 +257,10 @@ class NetReviewsModel extends ObjectModel{
 					return array($file_name, count($all_orders), $file_path);
 				}
 				else
-				{
-					throw new Exception($o_netreviews->l('Unable to read/write export file'));
-				}				
+					throw new Exception($o_netreviews->l('Unable to read/write export file'));			
 			}
 			else
-			{
 				throw new Exception($o_netreviews->l('Unable to read/write export file'));
-			}
 		}
 		else
 			throw new Exception($o_netreviews->l('No order to export'));
@@ -264,17 +270,50 @@ class NetReviewsModel extends ObjectModel{
 	{
 		$qry_order = 'SELECT id_order FROM '._DB_PREFIX_.'av_orders WHERE id_order = '.$this->id_order;
 
-		$this->id_order_state = (!empty($this->id_order_state)) ? $this->id_order_state : 'NULL';
 		$this->id_shop = (!empty($this->id_shop)) ? $this->id_shop : 'NULL';
 
 		if (!Db::getInstance()->getRow($qry_order, false)) //Save order only if not exist in table
 			Db::getInstance()->Execute('INSERT INTO '._DB_PREFIX_.'av_orders 
-													(id_order, id_shop, id_order_state, id_lang_order)
+													(id_order, id_shop, id_lang_order)
 													VALUES ('.$this->id_order.',
 														'.$this->id_shop.',
-														'.$this->id_order_state.',
 														'.$this->id_lang_order.'
 													)');
+	}
+
+	public function getTotalReviews()
+	{
+		return Db::getInstance()->getRow('SELECT count(*) as nb_reviews FROM '._DB_PREFIX_.'av_products_reviews');
+	}
+
+	public function getTotalReviewsAverage()
+	{
+		return Db::getInstance()->getRow('SELECT count(*) as nb_reviews_average FROM '._DB_PREFIX_.'av_products_average');		
+	}
+
+	public function getTotalOrders()
+	{
+		$results = array();
+		$results['all'] = Db::getInstance()->getRow('SELECT count(*) as nb FROM '._DB_PREFIX_.'av_orders');
+		$results['flagged'] = Db::getInstance()->getRow('SELECT count(*) as nb FROM '._DB_PREFIX_.'av_orders WHERE flag_get IS NULL');
+		$results['not_flagged'] = Db::getInstance()->getRow('SELECT count(*) as nb FROM '._DB_PREFIX_.'av_orders WHERE flag_get IS NOT NULL');
+		return $results;		
+	}
+
+	public static function getUrlsProduct($product_id)
+	{
+		$product_exist = Db::getInstance()->getRow('SELECT * FROM '._DB_PREFIX_.'product WHERE id_product ='.(int)$product_id);
+
+		if ($product_exist)
+		{
+			$o_product = new Product($product_id, false, (int)Configuration::get('PS_LANG_DEFAULT'));		
+			$link = new Link;
+			$id_cover_image = Image::getCover($product_id);
+			$image_path = $link->getImageLink($o_product->link_rewrite, $id_cover_image['id_image']);
+			$url_product = $link->getProductLink($product_id);
+			return array('url_product' => $url_product,'url_image_product' => $image_path);
+		}
+		return;
 	}
 
 	private static function generateCsvLine($list)

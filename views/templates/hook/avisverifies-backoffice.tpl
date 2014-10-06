@@ -186,12 +186,13 @@ span.asterisc{
 .tg-031e.valigntop{
 	vertical-align: top;
 }
+
+#debug-part{
+	font-style: italic;
+}
+
 </style>
 {/literal}
-
-
-
-
 
 <div id="avisverifies_module">
 
@@ -295,15 +296,23 @@ span.asterisc{
 			
 				<div class="clear"></div>
 
+				<label class="">{l s='Order state to export' mod='netreviews'}</label>
+
+				<div style="float:left">
+					{foreach from=$order_statut_list item=state}
+						<input type="checkbox" checked="checked" name="orderstates[]" value="{$state['id_order_state']}"/> <span id="{$state['id_order_state']}">{$state['name']}</span><br>
+					{/foreach}
+				</div>
+
+			
+				<div class="clear"></div>
 				
 				<center><input type="submit"  name="submit_export" id="submit_export" value="{l s='Export' mod='netreviews'}" class="button"></center>
 
 				<i style="font-size:10px">Module Version {$version|escape:'html'}</i>
 
-
 			</form>
-			
-			
+					
 		
 		</div>
 			
@@ -337,8 +346,20 @@ span.asterisc{
 			
 	</fieldset>
 
-	<br>
 
-	<br>
+	<div id="debug-part">
+		<i>Debug</i>
+		<div id='hidden-part'>
+			<ul>
+				<li>Reviews : {$debug_nb_reviews|intval}</li>
+				<li>Average reviews : {$debug_nb_reviews_average|intval}</li>
+				<li>Orders pending : {$debug_nb_orders_not_flagged|intval}</li>
+				<li>Orders getted : {$debug_nb_orders_flagged|intval}</li>
+				<li>Orders all : {$debug_nb_orders_all|intval}</li>
+			</ul>		
+		</div>
+	</div>
+			
+
 
 </div>

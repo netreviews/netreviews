@@ -66,7 +66,7 @@
 		
 		
 	</div>
-	<img src="{$base_dir|escape:'html'}modules/netreviews/img/pagination-loader.gif" id="av_loader" style="display:none" />
+	<img src="{if $is_https}{$base_dir_ssl|escape:'html'}{else}{$base_dir|escape:'html'}{/if}modules/netreviews/img/pagination-loader.gif" id="av_loader" style="display:none" />
 	{if $count_reviews > 10}
 		<a href="#" id="av_load_comments" class="av-btn-morecomment" rel="2">{l s='More reviews...' mod='netreviews' }</a>
 	{/if}
@@ -91,7 +91,7 @@
     	}
     	
 	        $.ajax({
-	            url: "{/literal}{$base_dir}{literal}modules/netreviews/ajax-load.php",
+	            url: "{/literal}{if $is_https}{$base_dir_ssl|escape:'html'}{else}{$base_dir|escape:'html'}{/if}{literal}modules/netreviews/ajax-load.php",
 	            type: "POST",
 	            data: {p : $(this).attr('rel'), id_product : $('input[name="id_product"]').val(), count_reviews : counted_reviews},
 	            beforeSend: function() {

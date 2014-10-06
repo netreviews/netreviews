@@ -72,6 +72,9 @@ switch ($post_data['query'])
 	case 'truncateTables' :
 		$to_reply = truncateTables($post_data);
 		break;
+	case 'getUrlProducts' :
+		$to_reply = getUrlProducts($post_data);
+		break;
 	default:
 		break;
 }
@@ -143,8 +146,6 @@ function checkSecurityData(&$post_data)
 	{
 		$reponse['message'] = 'Clé Website incorrecte';
 		$reponse['debug'] = 'Clé Website incorrecte';
-		$reponse['debug'] .= "\n Clé Local Client : ".$local_id_website;
-		$reponse['debug'] .= "\n Clé AvisVerifies : ".$uns_msg['idWebsite'];
 		$reponse['return'] = 4;
 		$reponse['query'] = 'checkSecurityData';
 		return $reponse;
@@ -154,8 +155,6 @@ function checkSecurityData(&$post_data)
 	{
 		$reponse['message'] = 'La signature est incorrecte';
 		$reponse['debug'] = 'La signature est incorrecte';
-		$reponse['debug'] .= "\n Signature Client : ".SHA1($post_data['query'].$local_id_website.$local_secure_key);
-		$reponse['debug'] .= "\n Signature AvisVerifies : ".$uns_msg['sign'];
 		$reponse['return'] = 5;
 		$reponse['query'] = 'checkSecurityData';
 		return $reponse;
@@ -433,17 +432,27 @@ function getOrders(&$post_data)
 
 		$allowed_products = Configuration::get('AVISVERIFIES_GETPRODREVIEWS', null, null, $post_message['id_shop']);
 		$process_choosen = Configuration::get('AVISVERIFIES_PROCESSINIT', null, null, $post_message['id_shop']);
+		$order_status_choosen = Configuration::get('AVISVERIFIES_ORDERSTATESCHOOSEN', null, null, $post_message['id_shop']);
 		$forbidden_mail_extensions = explode(';', Configuration::get('AVISVERIFIES_FORBIDDEN_EMAIL', null, null, $post_message['id_shop']));
 	}
 	else
 	{
 		$allowed_products = Configuration::get('AVISVERIFIES_GETPRODREVIEWS');
 		$process_choosen = Configuration::get('AVISVERIFIES_PROCESSINIT');
+		$order_status_choosen = Configuration::get('AVISVERIFIES_ORDERSTATESCHOOSEN');
 		$forbidden_mail_extensions = explode(';', Configuration::get('AVISVERIFIES_FORBIDDEN_EMAIL'));
 	}
 
 	$query_iso_lang = '';
 	$query_id_shop = '';
+	$query_status = '';
+
+	if ($process_choosen == 'onorderstatuschange' && !empty($order_status_choosen))
+	{
+		$order_status_choosen = str_replace(';', ',', $order_status_choosen);
+		$query_status = ' AND oh.id_order_state IN ('.$order_status_choosen.')';
+	}
+
 	if (isset($post_message['iso_lang']))
 	{
 		$o_lang = new Language;
@@ -451,31 +460,24 @@ function getOrders(&$post_data)
 		$query_iso_lang = ' AND o.id_lang = '.(int)$id_lang;
 	}
 
-	if ($process_choosen == 'onorder' || $process_choosen == 'onorderstatuschange')
-	{
-		if (!empty($post_message['id_shop']))
-			$query_id_shop = ' AND oav.id_shop = '.(int)$post_message['id_shop'];
+	if (!empty($post_message['id_shop']))
+		$query_id_shop = ' AND oav.id_shop = '.(int)$post_message['id_shop'];	
 
-		$query = ' 	SELECT oav.horodate_now as date_last_status_change, oav.id_order, oav.id_order_state, o.date_add as date_order,
-					oav.horodate_get as av_horodate_get, o.id_customer, oav.flag_get as av_flag
-					FROM '._DB_PREFIX_.'av_orders oav
-					LEFT JOIN '._DB_PREFIX_.'orders o
-					ON oav.id_order = o.id_order
-					WHERE (oav.flag_get IS NULL OR oav.flag_get = 0)'
-					.$query_id_shop.$query_iso_lang;
+	$query = ' 	SELECT oav.id_order, o.date_add as date_order,o.id_customer
+				FROM '._DB_PREFIX_.'av_orders oav
+				LEFT JOIN '._DB_PREFIX_.'orders o
+				ON oav.id_order = o.id_order
+				LEFT JOIN '._DB_PREFIX_.'order_history oh
+				ON oh.id_order = o.id_order				
+				WHERE (oav.flag_get IS NULL OR oav.flag_get = 0)'
+				.$query_status.$query_id_shop.$query_iso_lang;
 
-		$orders_list = Db::getInstance()->ExecuteS($query);
+			
+	$orders_list = Db::getInstance()->ExecuteS($query);
 
-		$reponse['debug'][] = $query;
-		$reponse['debug']['mode'] = '['.$process_choosen.'] '.Db::getInstance()->numRows().' commandes récupérées';
+	$reponse['debug'][] = $query;
 
-	}
-	else
-	{
-		$reponse['debug'][] = "no event onorder or onorderstatuschange selected";
-		$reponse['return'] = 3;
-		return $reponse;
-	}
+	$reponse['debug']['mode'] = '['.$process_choosen.'] '.Db::getInstance()->numRows().' commandes récupérées';	
 
 	$orders_list_toreturn = array();
 
@@ -484,18 +486,14 @@ function getOrders(&$post_data)
 		/* Test if customer email domain is forbidden (marketplaces case) */
 		$o_customer = new Customer($order['id_customer']);
 		$customer_email_extension = explode('@', $o_customer->email);
-
+		
 		if (!in_array($customer_email_extension[1], $forbidden_mail_extensions))
 		{
 			$array_order = array(
 				'id_order' => $order['id_order'],
 				'id_customer' => $order['id_customer'],
 				'date_order' => strtotime($order['date_order']), /* date timestamp in orders table*/
-				'date_order_formatted' => $order['date_order'], /* date in orders table formatted*/
-				'date_last_status_change' => $order['date_last_status_change'], /* last status change date */
-				'date_av_getted_order' => $order['av_horodate_get'], /* date Netreviews getted order */
-				'is_flag' => $order['av_flag'], /* if order already flag */
-				'state_order' => $order['id_order_state'],
+				'date_order_formatted' => $order['date_order'], /* date in orders table formatted*/			
 				'firstname_customer' => $o_customer->firstname,
 				'lastname_customer' => $o_customer->lastname,
 				'email_customer' => $o_customer->email,
@@ -512,9 +510,14 @@ function getOrders(&$post_data)
 
 				foreach ($products_in_order as $element)
 				{
+
+					$array_url = NetReviewsModel::getUrlsProduct($element['product_id']);
+
 					$product = array(
 						'id_product' => $element['product_id'],
-						'name_product' => $element['product_name']
+						'name_product' => $element['product_name'],
+						'url_image' => $array_url['url_image_product'],
+						'url' => $array_url['url_product']
 					);
 
 					$array_products[] = $product;
@@ -703,6 +706,39 @@ function setProductsReviews(&$post_data)
 		$reponse['debug'][] = 'An error occured. Numbers of line received is not the same as line saved in DB';
 
 	return $reponse;
+
+}
+
+
+/**
+ * Return of Product URL (image and link)
+ *
+ * @param $post_data : sent parameters
+ * @return array with info data
+ */
+
+function getUrlProducts(&$post_data)
+{
+
+	$reponse = array();
+	$array_url = array();
+
+	$post_message = json_decode(NetReviewsModel::acDecodeBase64($post_data['message']), true);
+
+	$ids_product = $post_message['list_produits'];
+	
+	foreach ($ids_product as $id_product)
+	{	
+		$urls = NetReviewsModel::getUrlsProduct($id_product);
+		if($urls) //return urls only if product exist
+			$array_url[$id_product] = $urls;
+	}
+
+	$reponse['return'] = 1;
+	$reponse['query'] = 1;
+	$reponse['list_produits'] = $array_url;
+
+	return $array_url;
 
 }
 
