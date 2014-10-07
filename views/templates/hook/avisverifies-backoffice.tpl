@@ -296,7 +296,7 @@ span.asterisc{
 			
 				<div class="clear"></div>
 
-				<label class="">{l s='Order state to export' mod='netreviews'}</label>
+				<label class="">{l s='Export orders with status' mod='netreviews'}</label>
 
 				<div style="float:left">
 					{foreach from=$order_statut_list item=state}
