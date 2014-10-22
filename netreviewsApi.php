@@ -450,7 +450,7 @@ function getOrders(&$post_data)
 	if ($process_choosen == 'onorderstatuschange' && !empty($order_status_choosen))
 	{
 		$order_status_choosen = str_replace(';', ',', $order_status_choosen);
-		$query_status = ' AND oh.id_order_state IN ('.$order_status_choosen.')';
+		$query_status = ' AND oh.id_order_state IN ('.pSQL($order_status_choosen).')';
 	}
 
 	if (isset($post_message['iso_lang']))

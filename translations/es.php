@@ -72,6 +72,10 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_a8bb570895287fec2bb25b
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5eb6bb157528b365f84c27bb4784031b'] = 'CLAVE';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_da53162e36f24caf03cf7a9d47748928'] = 'IDENTIFICADOR WEB';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_c9cc8cce247e49bae79f15173ce97354'] = 'Registrar';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_9b6545e4cea9b4ad4979d41bb9170e2b'] = 'Advanced';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_29a643370f1bbfe18b466a928ec2874a'] = 'Use the light product widget';
+$_MODULE['<{netreviews}prestashop>avisverifies-extraright-light_74dcb1cec50854d2f880279f3dd19da9'] = 'opiniones';
+$_MODULE['<{netreviews}prestashop>avisverifies-extraright-light_1c67665285fb6a7d761414e12578e574'] = 'opinión';
 $_MODULE['<{netreviews}prestashop>avisverifies-extraright_74dcb1cec50854d2f880279f3dd19da9'] = 'opiniones';
 $_MODULE['<{netreviews}prestashop>avisverifies-extraright_1c67665285fb6a7d761414e12578e574'] = 'opinión';
 $_MODULE['<{netreviews}prestashop>avisverifies-extraright_db2c7e1a1a790a59b6f2632f84fcb3e1'] = 'Ver las opiniones';

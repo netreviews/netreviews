@@ -5,7 +5,7 @@
  * @license   NetReviews 
  * @date 09/04/2014
  -->
-<div id="av_product_award">
+<div class="av_product_award">
 
 <div id="top">
 	<div class="ratingWrapper">

@@ -55,8 +55,8 @@ class NetReviewsModel extends ObjectModel{
 		$o_netreviews = new NetReviews;
 
 		$duree = Tools::getValue('duree');
-		$order_statut_list = Tools::getValue('orderstates');
-		$order_statut_list = (!empty($order_statut_list)) ? implode(',', Tools::getValue('orderstates')) : null;
+		$order_statut_list = array_map('intval',Tools::getValue('orderstates'));
+		$order_statut_list = (!empty($order_statut_list)) ? implode(',', $order_statut_list) : null;
 
 		if (! empty($id_shop))
 		{

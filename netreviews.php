@@ -92,6 +92,7 @@ class NetReviews extends Module
 			$this->registerHook('rightColumn');
 			$this->registerHook('leftColumn');
 			$this->registerHook('header');
+			$this->registerHook('footer');
 			$this->registerHook('orderConfirmation');
 		}
 		else
@@ -102,6 +103,7 @@ class NetReviews extends Module
 			$this->registerHook('displayRightColumnProduct');
 			$this->registerHook('displayLeftColumnProduct');
 			$this->registerHook('displayHeader');
+			$this->registerHook('displayFooter');
 			$this->registerHook('displayRightColumn');
 			$this->registerHook('displayLeftColumn');
 			$this->registerHook('displayOrderConfirmation');
@@ -172,6 +174,12 @@ class NetReviews extends Module
 			Configuration::updateValue('AVISVERIFIES_CLESECRETE', Tools::getValue('avisverifies_clesecrete'));
 			$this->_html .= $this->displayConfirmation($this->l('The informations have been registered'));
 		}
+
+		if (Tools::isSubmit('submit_design'))
+		{
+			Configuration::updateValue('AVISVERIFIES_LIGHTWIDGET', Tools::getValue('avisverifies_lightwidget'));
+			$this->_html .= $this->displayConfirmation($this->l('The informations have been registered'));
+		}
 	}
 
 	public function getContent()
@@ -196,11 +204,11 @@ class NetReviews extends Module
 		$nb_orders = $o_av->getTotalOrders();
 
 		$order_statut_list = OrderState::getOrderStates((int)Configuration::get('PS_LANG_DEFAULT'));
-		
 		$this->context->smarty->assign(array(
 				'current_avisverifies_urlapi' => Configuration::get('AVISVERIFIES_URLAPI'),
 				'current_avisverifies_idwebsite' => Configuration::get('AVISVERIFIES_IDWEBSITE'),
 				'current_avisverifies_clesecrete' => Configuration::get('AVISVERIFIES_CLESECRETE'),
+				'current_lightwidget_checked' => Configuration::get('AVISVERIFIES_LIGHTWIDGET'),
 				'version' => $this->version,
 				'order_statut_list' => $order_statut_list,
 				'debug_nb_reviews' => $nb_reviews['nb_reviews'],
@@ -464,11 +472,15 @@ class NetReviews extends Module
 						'av_rate' =>  $reviews['rate'],
 						'av_rate_percent' =>  $reviews['rate'] * 20,
 					));
+		if(Configuration::get('AVISVERIFIES_LIGHTWIDGET') == 'checked')
+			$tpl = 'avisverifies-extraright-light.tpl';
+		else
+			$tpl = 'avisverifies-extraright.tpl';
 
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
-			return $this->display(__FILE__, 'views/templates/hook/avisverifies-extraright.tpl');
+			return $this->display(__FILE__, "views/templates/hook/$tpl");
 		else
-			return $this->display(__FILE__, 'avisverifies-extraright.tpl');
+			return $this->display(__FILE__, "$tpl");
 	}
 
 	public function uninstall()
@@ -500,6 +512,7 @@ class NetReviews extends Module
 			$this->unregisterHook('rightColumn');
 			$this->unregisterHook('leftColumn');
 			$this->unregisterHook('header');
+			$this->unregisterHook('footer');
 			$this->unregisterHook('orderConfirmation');
 		}
 		else
@@ -510,6 +523,7 @@ class NetReviews extends Module
 			$this->unregisterHook('displayRightColumnProduct');
 			$this->unregisterHook('displayLeftColumnProduct');
 			$this->unregisterHook('displayHeader');
+			$this->unregisterHook('displayFooter');
 			$this->unregisterHook('displayRightColumn');
 			$this->unregisterHook('displayLeftColumn');
 		}
@@ -563,6 +577,7 @@ class NetReviews extends Module
 					  `id_shop` int(2) DEFAULT NULL,
 					  `flag_get` int(2) DEFAULT NULL,
 					  `horodate_get` varchar(25) DEFAULT NULL,
+					  `id_order_state` int(5) DEFAULT NULL,
 					  `id_lang_order` int(5) DEFAULT NULL,
 					  `horodate_now` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
 					  PRIMARY KEY (`id_order`)

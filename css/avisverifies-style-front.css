@@ -210,7 +210,7 @@
 
 /* ExtraRight */ 
 
-#av_product_award{
+.av_product_award{
 	height:77px;
 	background-color: #e6e6e6;
 	border: solid 1px #b6b6b6;
@@ -221,14 +221,14 @@
 	max-width: 260px;
 }
 
-#av_product_award img#sceau{
+.av_product_award img#sceau{
 	position: absolute;
 	right:-15px;
 	top:-12px;
 	width: 90px;
 }
 
-#av_product_award #bottom{
+.av_product_award #bottom{
 	background: #f7ad26; /* Old browsers */
 	background: -moz-linear-gradient(top,  #f7ad26 1%, #f49112 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#f7ad26), color-stop(100%,#f49112)); /* Chrome,Safari4+ */
@@ -248,7 +248,7 @@
 
 
 }
-#av_product_award #bottom a{
+.av_product_award #bottom a{
 	color:black;
 	margin-left: 56px;
 	margin-top: 3px;
@@ -257,13 +257,13 @@
 }
 
 
-#av_product_award #top {
+.av_product_award #top {
 	width: 68%;
 	text-align: center;
 	padding-top:6px; 
 }
 
-#av_product_award #top b{ 
+.av_product_award #top b{ 
 	display: block;
 }
 
@@ -283,6 +283,29 @@ div.ratingInner{
 	height: 21px;
 	text-align: left;
 }
+
+.av_product_award.light div.ratingWrapper{
+		background-size: 100px;
+		width: 100px;
+ }
+ .av_product_award.light div.ratingInner{
+	background-size: 100px;
+ }
+ .av_product_award.light{
+	height:35px;
+	background-color: #FFF;
+	border: none;
+	position: relative;
+	margin: 0 0 10px 0;
+	max-width: 260px;
+
+}
+
+ .av_product_award.light #top{
+	width: 70%;
+ }
+
+
 /* FIN ratingWrapper et ratingInner utilisé dans ExtraRight et product_list.tpl*/ 
 
 
