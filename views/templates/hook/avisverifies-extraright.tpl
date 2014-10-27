@@ -9,7 +9,7 @@
 
 <div id="top">
 	<div class="ratingWrapper">
-    	<div class="ratingInner" style="width:{$av_rate_percent|intval}%;"></div>
+    	<div class="ratingInner percent{$av_rate_percent|intval}" ></div>
     </div>
 	<b>{$av_nb_reviews|intval} &nbsp;
 

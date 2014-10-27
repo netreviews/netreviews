@@ -284,6 +284,40 @@ div.ratingInner{
 	text-align: left;
 }
 
+div.ratingInner.percent5{
+	width:5%;
+}
+div.ratingInner.percent10{
+	width:10%;
+}
+div.ratingInner.percent20{
+	width:20%;
+}
+div.ratingInner.percent30{
+	width:30%;
+}
+div.ratingInner.percent40{
+	width:40%;
+}
+div.ratingInner.percent50{
+	width:50%;
+}
+div.ratingInner.percent60{
+	width:60%;
+}
+div.ratingInner.percent70{
+	width:70%;
+}
+div.ratingInner.percent80{
+	width:80%;
+}
+div.ratingInner.percent90{
+	width:90%;
+}
+div.ratingInner.percent100{
+	width:100%;
+}
+
 .av_product_award.light div.ratingWrapper{
 		background-size: 100px;
 		width: 100px;
@@ -303,6 +337,11 @@ div.ratingInner{
 
  .av_product_award.light #top{
 	width: 70%;
+ }
+
+ .av_product_award.light #slide{
+ 	display: inline-block;
+ 	vertical-align: text-bottom;
  }
 
 

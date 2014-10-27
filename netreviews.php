@@ -463,14 +463,16 @@ class NetReviews extends Module
 		$id_product = (int)Tools::getValue('id_product');
 
 		$o = new NetReviewsModel();
-		$reviews = $o->getStatsProduct($id_product);
+		$reviews = $o->getStatsProduct($id_product);		
 
 		if ($reviews['nb_reviews'] < 1 || $display_prod_reviews != 'yes') return ''; //Si Aucun avis, on retourne vide
+
+		$percent = round($reviews['rate']) * 20;
 
 		$this->context->smarty->assign(array(
 						'av_nb_reviews' => $reviews['nb_reviews'],
 						'av_rate' =>  $reviews['rate'],
-						'av_rate_percent' =>  $reviews['rate'] * 20,
+						'av_rate_percent' =>  ($percent) ? $percent : 100,
 					));
 		if(Configuration::get('AVISVERIFIES_LIGHTWIDGET') == 'checked')
 			$tpl = 'avisverifies-extraright-light.tpl';
@@ -480,7 +482,7 @@ class NetReviews extends Module
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
 			return $this->display(__FILE__, "views/templates/hook/$tpl");
 		else
-			return $this->display(__FILE__, "$tpl");
+			return $this->display(__FILE__, $tpl);
 	}
 
 	public function uninstall()

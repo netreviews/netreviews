@@ -1,9 +1,9 @@
 <div class="av_product_award light">
 	<div id="top">
 		<div class="ratingWrapper">
-			<div class="ratingInner" style="width:{$av_rate_percent|intval}%;"></div>
+			<div class="ratingInner percent{$av_rate_percent|intval}"></div>
 		</div>
-		<div  id="slide" style="display: inline-block;vertical-align: text-bottom;">
+		<div  id="slide">
 			<a href="javascript:()" id="AV_button">
 				<b>
 					{$av_nb_reviews|intval} &nbsp;
