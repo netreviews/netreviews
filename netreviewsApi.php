@@ -267,7 +267,7 @@ function setModuleConfiguration(&$post_data)
 		$reponse['debug'] = 'La configuration du site a été mise à jour';
 		$reponse['return'] = 1;
 		$reponse['query'] = $post_data['query'];
-
+		Configuration::updateValue('NETREVIEWS_CONFIGURATION_OK', true);
 	}
 	else
 	{
