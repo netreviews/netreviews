@@ -49,7 +49,7 @@ if(typeof jQuery == 'undefined') {
 
 jQuery(document).ready(function($) {
 					
-		$('div#av_product_award #bottom #AV_button').live( "click" ,function(){
+		$('#AV_button').live( "click" ,function(){
 			$('#tab_avisverifies').click();
 
 			console.log($('#idTabavisverifies'));

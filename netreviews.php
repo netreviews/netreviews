@@ -13,7 +13,6 @@
 * to license@prestashop.com so we can send you a copy immediately.
 *
 * DISCLAIMER
-*
 * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
 * versions in the future. If you wish to customize PrestaShop for your
 * needs please refer to http://www.prestashop.com for more information.
@@ -54,7 +53,7 @@ class NetReviews extends Module
 			$this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
 		}
 
-		$this->version = '7.1';
+		$this->version = '7.1.1';
 		parent::__construct();
 		// Retrocompatibility
 		$this->initContext();
@@ -93,12 +92,8 @@ class NetReviews extends Module
 			$this->registerHook('rightColumn');
 			$this->registerHook('leftColumn');
 			$this->registerHook('header');
+			$this->registerHook('footer');
 			$this->registerHook('orderConfirmation');
-
-			if (version_compare(_PS_VERSION_, '1.4', '<'))//PS < 1.4 Hook
-				$this->registerHook('updateOrderStatus');
-			else
-				$this->registerHook('postUpdateOrderStatus');
 		}
 		else
 		{
@@ -108,10 +103,10 @@ class NetReviews extends Module
 			$this->registerHook('displayRightColumnProduct');
 			$this->registerHook('displayLeftColumnProduct');
 			$this->registerHook('displayHeader');
+			$this->registerHook('displayFooter');
 			$this->registerHook('displayRightColumn');
 			$this->registerHook('displayLeftColumn');
 			$this->registerHook('displayOrderConfirmation');
-			$this->registerHook('actionOrderStatusPostUpdate');
 		}
 
 		// Create PS configuration variable
@@ -151,13 +146,13 @@ class NetReviews extends Module
 				if (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1)
 				{
 					//Do not use simple quote for \r\n
-					$header_colums = 'id_order;email;lastname;firstname;date_order;delay;id_product;category;description;product_url;id_order_state;id_shop'."\r\n";
+					$header_colums = 'id_order;email;lastname;firstname;date_order;delay;id_product;category;description;product_url;image_product_url;id_order_state;id_shop'."\r\n";
 					$return_export = $o_av->export($this->context->shop->getContextShopID(), $header_colums);
 				}
 				else
 				{
 					//Do not use simple quote for \r\n
-					$header_colums = 'id_order;email;lastname;firstname;date_order;delay;id_product;category;description;product_url;id_order_state'."\r\n";
+					$header_colums = 'id_order;email;lastname;firstname;date_order;delay;id_product;category;description;product_url;image_product_url;id_order_state'."\r\n";
 					$return_export = $o_av->export(null, $header_colums);
 				}
 
@@ -179,6 +174,12 @@ class NetReviews extends Module
 			Configuration::updateValue('AVISVERIFIES_CLESECRETE', Tools::getValue('avisverifies_clesecrete'));
 			$this->_html .= $this->displayConfirmation($this->l('The informations have been registered'));
 		}
+
+		if (Tools::isSubmit('submit_design'))
+		{
+			Configuration::updateValue('AVISVERIFIES_LIGHTWIDGET', Tools::getValue('avisverifies_lightwidget'));
+			$this->_html .= $this->displayConfirmation($this->l('The informations have been registered'));
+		}
 	}
 
 	public function getContent()
@@ -197,12 +198,24 @@ class NetReviews extends Module
 			(Shop::getContext() == Shop::CONTEXT_ALL || Shop::getContext() == Shop::CONTEXT_GROUP))
 				$this->_html .= $this->displayError($this->l('Multistore feature is enabled. Please choose above the store to configure.'));
 
+		$o_av = new NetReviewsModel();
+		$nb_reviews = $o_av->getTotalReviews();
+		$nb_reviews_average = $o_av->getTotalReviewsAverage();
+		$nb_orders = $o_av->getTotalOrders();
 
+		$order_statut_list = OrderState::getOrderStates((int)Configuration::get('PS_LANG_DEFAULT'));
 		$this->context->smarty->assign(array(
 				'current_avisverifies_urlapi' => Configuration::get('AVISVERIFIES_URLAPI'),
 				'current_avisverifies_idwebsite' => Configuration::get('AVISVERIFIES_IDWEBSITE'),
 				'current_avisverifies_clesecrete' => Configuration::get('AVISVERIFIES_CLESECRETE'),
+				'current_lightwidget_checked' => Configuration::get('AVISVERIFIES_LIGHTWIDGET'),
 				'version' => $this->version,
+				'order_statut_list' => $order_statut_list,
+				'debug_nb_reviews' => $nb_reviews['nb_reviews'],
+				'debug_nb_reviews_average' => $nb_reviews_average['nb_reviews_average'],
+				'debug_nb_orders_flagged' => $nb_orders['flagged']['nb'],
+				'debug_nb_orders_not_flagged' => $nb_orders['not_flagged']['nb'],
+				'debug_nb_orders_all' => $nb_orders['all']['nb'],
 				'av_path' => $this->_path,
 				'url_back' => Tools::safeOutput($currentIndex.'&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules'))
 		));
@@ -245,7 +258,6 @@ class NetReviews extends Module
 
 		return $widget_flottant_code;
 	}
-
 
 	public function hookProductTab()
 	{
@@ -308,7 +320,7 @@ class NetReviews extends Module
 			$my_review['customer_name'] = urldecode($review['customer_name']);
 			$my_review['discussion'] = '';
 
-			$unserialized_discussion = json_decode(NetReviewsModel::acDecodeBase64($review['discussion']),true);
+			$unserialized_discussion = json_decode(NetReviewsModel::acDecodeBase64($review['discussion']), true);
 
 			if ($unserialized_discussion)
 			{
@@ -343,6 +355,7 @@ class NetReviews extends Module
 			'count_reviews' => $stats_product['nb_reviews'],
 			'average_rate' => round($stats_product['rate'], 1),
 			'average_rate_percent' => $stats_product['rate'] * 20,
+			'is_https' => (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on' ? 1 : 0),
 			'url_certificat' => $url_certificat
 		));
 
@@ -350,51 +363,6 @@ class NetReviews extends Module
 			return ($this->display(__FILE__, '/views/templates/hook/avisverifies-tab-content.tpl'));
 		else
 			return ($this->display(__FILE__, 'avisverifies-tab-content.tpl'));
-	}
-
-	public function hookPostUpdateOrderStatus($params)
-	{
-		if (version_compare(_PS_VERSION_, '1.5', '<'))
-		{
-			$process_init = Configuration::get('AVISVERIFIES_PROCESSINIT');
-			$order_status_choosen = Configuration::get('AVISVERIFIES_ORDERSTATESCHOOSEN');
-			$id_website = configuration::get('AVISVERIFIES_IDWEBSITE');
-			$secret_key = configuration::get('AVISVERIFIES_CLESECRETE');
-		}
-		else
-		{
-			$process_init = Configuration::get('AVISVERIFIES_PROCESSINIT', null, null, $this->context->shop->getContextShopID());
-			$order_status_choosen = Configuration::get('AVISVERIFIES_ORDERSTATESCHOOSEN', null, null, $this->context->shop->getContextShopID());
-			$id_website = configuration::get('AVISVERIFIES_IDWEBSITE', null, null, $this->context->shop->getContextShopID());
-			$secret_key = configuration::get('AVISVERIFIES_CLESECRETE', null, null, $this->context->shop->getContextShopID());
-		}
-
-		if (empty($id_website) || empty($secret_key))
-			return;
-
-		if (empty($process_init) || empty($order_status_choosen) || $process_init != 'onorderstatuschange')
-			return;
-
-		if (!Validate::isLoadedObject($params['newOrderStatus']))
-			die($this->displayName.' -> Missing parameters');
-
-		$new_order_status = $params['newOrderStatus'];
-		$order = new Order((int)$params['id_order']);
-
-		if ($order && !Validate::isLoadedObject($order))
-			die($this->displayName.' -> Incorrect Order object.');
-
-		if ($process_init == 'onorderstatuschange' && in_array($new_order_status->id, explode(';', $order_status_choosen)))
-		{
-			$o_av = new NetReviewsModel();
-			$o_av->id_order = (int)$params['id_order'];
-			$o_av->id_order_state = $new_order_status->id;
-			$o_av->id_shop = (!empty($order->id_shop)) ? $order->id_shop : null;
-			$o_av->id_lang_order = $order->id_lang;
-			$o_av->saveOrderToRequest();
-		}
-
-		return true;
 	}
 
 	public function hookOrderConfirmation($params)
@@ -428,16 +396,11 @@ class NetReviews extends Module
 			$o_av = new NetReviewsModel();
 			$o_av->id_order = (int)$id_order;
 
-			if (!empty($o_order->current_state))
-				$o_av->id_order_state = $o_order->current_state;
-
 			if (!empty($o_order->id_shop))
 				$o_av->id_shop = $o_order->id_shop;
 
 			$o_av->id_lang_order = $o_order->id_lang;
-
-			if ($process_init == 'onorder')
-				$o_av->saveOrderToRequest();
+			$o_av->saveOrderToRequest();
 
 			$order_total = ($o_order->total_paid) ? (100 * $o_order->total_paid) : 0;
 			return "<img height='1' hspace='0' 
@@ -500,20 +463,26 @@ class NetReviews extends Module
 		$id_product = (int)Tools::getValue('id_product');
 
 		$o = new NetReviewsModel();
-		$reviews = $o->getStatsProduct($id_product);
+		$reviews = $o->getStatsProduct($id_product);		
 
 		if ($reviews['nb_reviews'] < 1 || $display_prod_reviews != 'yes') return ''; //Si Aucun avis, on retourne vide
+
+		$percent = round($reviews['rate']) * 20;
 
 		$this->context->smarty->assign(array(
 						'av_nb_reviews' => $reviews['nb_reviews'],
 						'av_rate' =>  $reviews['rate'],
-						'av_rate_percent' =>  $reviews['rate'] * 20,
+						'av_rate_percent' =>  ($percent) ? $percent : 100,
 					));
+		if(Configuration::get('AVISVERIFIES_LIGHTWIDGET') == 'checked')
+			$tpl = 'avisverifies-extraright-light.tpl';
+		else
+			$tpl = 'avisverifies-extraright.tpl';
 
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
-			return $this->display(__FILE__, 'views/templates/hook/avisverifies-extraright.tpl');
+			return $this->display(__FILE__, "views/templates/hook/$tpl");
 		else
-			return $this->display(__FILE__, 'avisverifies-extraright.tpl');
+			return $this->display(__FILE__, $tpl);
 	}
 
 	public function uninstall()
@@ -545,12 +514,8 @@ class NetReviews extends Module
 			$this->unregisterHook('rightColumn');
 			$this->unregisterHook('leftColumn');
 			$this->unregisterHook('header');
+			$this->unregisterHook('footer');
 			$this->unregisterHook('orderConfirmation');
-
-			if (version_compare(_PS_VERSION_, '1.4', '<'))	//PS < 1.4 Hook
-				$this->unregisterHook('updateOrderStatus');
-			else
-				$this->unregisterHook('postUpdateOrderStatus');
 		}
 		else
 		{
@@ -560,10 +525,9 @@ class NetReviews extends Module
 			$this->unregisterHook('displayRightColumnProduct');
 			$this->unregisterHook('displayLeftColumnProduct');
 			$this->unregisterHook('displayHeader');
+			$this->unregisterHook('displayFooter');
 			$this->unregisterHook('displayRightColumn');
 			$this->unregisterHook('displayLeftColumn');
-			$this->unregisterHook('displayOrderConfirmation');
-			$this->unregisterHook('actionOrderStatusPostUpdate');
 		}
 
 		if (!parent::uninstall() || !$this->uninstallDatabase())
@@ -626,24 +590,9 @@ class NetReviews extends Module
 			$error = false;
 			if (!Db::getInstance()->Execute($sql))
 			{
-				$this->context->controller->errors[] = sprintf($this->l('SQL ERROR : %s | Query can\'t be executed. Maybe, check SQL user permissions.'),$sql);
+				$this->context->controller->errors[] = sprintf($this->l('SQL ERROR : %s | Query can\'t be executed. Maybe, check SQL user permissions.'), $sql);
 				$error = true;
 			}
-		}
-
-		if (Db::getInstance()->ExecuteS("SHOW tables LIKE '"._DB_PREFIX_."av_orders'"))
-		{
-			if (!Db::getInstance()->Execute('INSERT INTO '._DB_PREFIX_.'av_orders(id_order, flag_get) SELECT id_order,1 FROM '._DB_PREFIX_.'orders WHERE date_add > DATE_SUB(NOW(), INTERVAL 2 MONTH)'))
-			{
-				$this->context->controller->errors[] = $this->l('SQL ERROR : Inserting already getted orders | Query can\'t be executed. Maybe, check SQL user permissions.');
-				$error = true;
-			}
-				
-		}
-		else
-		{
-			$this->context->controller->errors[] = $this->l('SQL ERROR : Table av_orders doest not exist |');
-			$error = true;
 		}
 
 		return !$error;
@@ -657,16 +606,16 @@ class NetReviews extends Module
 	public function uninstallDatabase()
 	{
 		$query = array();
-		$query[] = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'av_products_reviews';
-		$query[] = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'av_products_average';
-		$query[] = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'av_orders';
+		$query[] = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'av_products_reviews;';
+		$query[] = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'av_products_average;';
+		$query[] = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'av_orders;';
 
 		foreach ($query as $sql)
 		{
 			$error = false;
 			if (!Db::getInstance()->Execute($sql))
 			{
-				$this->context->controller->errors[] =  sprintf($this->l('SQL ERROR : %s | Query can\'t be executed. Maybe, check SQL user permissions.'),$sql);
+				$this->context->controller->errors[] = sprintf($this->l('SQL ERROR : %s | Query can\'t be executed. Maybe, check SQL user permissions.'), $sql);
 				$error = true;
 			}
 		}

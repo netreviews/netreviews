@@ -186,12 +186,13 @@ span.asterisc{
 .tg-031e.valigntop{
 	vertical-align: top;
 }
+
+#debug-part{
+	font-style: italic;
+}
+
 </style>
 {/literal}
-
-
-
-
 
 <div id="avisverifies_module">
 
@@ -295,15 +296,23 @@ span.asterisc{
 			
 				<div class="clear"></div>
 
+				<label class="">{l s='Export orders with status' mod='netreviews'}</label>
+
+				<div style="float:left">
+					{foreach from=$order_statut_list item=state}
+						<input type="checkbox" checked="checked" name="orderstates[]" value="{$state['id_order_state']|intval}"/> <span id="{$state['id_order_state']}">{$state['name']}</span><br>
+					{/foreach}
+				</div>
+
+			
+				<div class="clear"></div>
 				
 				<center><input type="submit"  name="submit_export" id="submit_export" value="{l s='Export' mod='netreviews'}" class="button"></center>
 
 				<i style="font-size:10px">Module Version {$version|escape:'html'}</i>
 
-
 			</form>
-			
-			
+					
 		
 		</div>
 			
@@ -324,21 +333,48 @@ span.asterisc{
 				<div class="clear"></div>
 
 				<label>{l s='ID Website' mod='netreviews'}</label><input type="text" name="avisverifies_idwebsite" id="avisverifies_idwebsite" value="{$current_avisverifies_idwebsite|escape:'html'}"/>
-				<div class="clear"></div>
+				<div class="clear"></div>			
 
-				<center><input type="submit"  name="submit_configuration" id="submit_configuration" value="{l s='Save' mod='netreviews'}" class="button"></center>
-				
+				<center><input type="submit"  name="submit_configuration" id="submit_configuration" value="{l s='Save' mod='netreviews'}" class="button"></center>				
 
-			</form>
-			
-			
+			</form>			
 		
 		</div>
 			
 	</fieldset>
 
-	<br>
+	<fieldset>
+		<legend>{l s='Advanced' mod='netreviews'}</legend>
+		<div class='config'>				
+			
+			<form method="post" action="{$url_back|unescape:'htmlall'}" enctype="multipart/form-data">
+				
+				<label>{l s='Use the light product widget' mod='netreviews'}</label><input type="checkbox" name="avisverifies_lightwidget" id="avisverifies_lightwidget" {$current_lightwidget_checked|escape:'html'} value="checked"/> 				
+				<div class="clear"></div>
+				<center><input type="submit"  name="submit_design" id="submit_design" value="{l s='Save' mod='netreviews'}" class="button"></center>				
 
-	<br>
+			</form>
+
+			<div id="debug-part">
+				<i>Debug</i>
+				<div id='hidden-part'>
+					<ul>
+						<li>Reviews : {$debug_nb_reviews|intval}</li>
+						<li>Average reviews : {$debug_nb_reviews_average|intval}</li>
+						<li>Orders pending : {$debug_nb_orders_not_flagged|intval}</li>
+						<li>Orders getted : {$debug_nb_orders_flagged|intval}</li>
+						<li>Orders all : {$debug_nb_orders_all|intval}</li>
+					</ul>		
+				</div>
+			</div>
+		
+		</div>
+			
+	</fieldset>
+
+
+	
+			
+
 
 </div>

@@ -5,11 +5,11 @@
  * @license   NetReviews 
  * @date 09/04/2014
  -->
-<div id="av_product_award">
+<div class="av_product_award">
 
 <div id="top">
 	<div class="ratingWrapper">
-    	<div class="ratingInner" style="width:{$av_rate_percent|intval}%;"></div>
+    	<div class="ratingInner percent{$av_rate_percent|intval}" ></div>
     </div>
 	<b>{$av_nb_reviews|intval} &nbsp;
 

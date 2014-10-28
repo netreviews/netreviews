@@ -5,6 +5,7 @@ $_MODULE = array();
 $_MODULE['<{netreviews}prestashop>ajax-load_ca65a68e10b3c65ac897ff8b89f9f728'] = 'Moderator';
 $_MODULE['<{netreviews}prestashop>netreviews_3e096ea1ecc737552ab65d2b7d4fd2e6'] = 'Echte Bewertungen';
 $_MODULE['<{netreviews}prestashop>netreviews_972085eec1bfa2ad27dd7af738d47e2e'] = 'Mit Echte Bewertungen können Sie verifizierte Kundenbewertungen einholen. Sammeln Sie Bewertungen zu Ihrem Shop und Ihren Produkten und zeigen Sie sie auf Ihrer Seite an, um Vertrauen bei zukünftige Kunden zu schaffen und Ihren Umsatz zu steigern.';
+$_MODULE['<{netreviews}prestashop>netreviews_c80cf41518e1a4c3a34ea7ffdc6bf09b'] = 'Installation error / Database configuration error';
 $_MODULE['<{netreviews}prestashop>netreviews_c255145286580041349251ddb8f44321'] = '%s Anfragen wurden versendet.';
 $_MODULE['<{netreviews}prestashop>netreviews_68eb9ebeb08c8697c4605fb7bdbb4684'] = 'Klicken Sie hier, um die Datei herunterzuladen';
 $_MODULE['<{netreviews}prestashop>netreviews_ffa1bc04f79a3f4508f3e95e8fe481bd'] = 'Die Exportdatei auf dem Server kann nicht bearbeitet werden. Bitte teilen Sie dem Ordner netreviews Schreibrechte zu.';
@@ -12,6 +13,7 @@ $_MODULE['<{netreviews}prestashop>netreviews_d299bf2210feaffdde60ac169de11a08'] 
 $_MODULE['<{netreviews}prestashop>netreviews_7fffd97212a04db84eda2d6762b90181'] = 'Sie haben die Option Multiboutique gewählt. Bitte wählen Sie einen Shop zur Konfiguration aus.';
 $_MODULE['<{netreviews}prestashop>netreviews_ca65a68e10b3c65ac897ff8b89f9f728'] = 'Moderator';
 $_MODULE['<{netreviews}prestashop>netreviews_6c876e9be9452391d474dec033c6e4a3'] = 'Die Tabelle konnte nicht gelöscht werden';
+$_MODULE['<{netreviews}prestashop>netreviews_ea45551379c29d373e6337331b725caa'] = 'SQL ERROR : %s | Query can\'t be executed. Maybe, check SQL user permissions.';
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_10d101a6ca6b4912246b2329448ffbe1'] = 'Die Exportdatei auf dem Server kann nicht bearbeitet werden. Bitte teilen Sie dem Ordner netreviews Schreibrechte zu.';
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_736dca8b248b9c036ed27ef8408496c8'] = 'Die Exportdatei kann nicht gelesen/bearbeitet werden';
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_9ab3e83b1071d09ca62e4cd258686f6b'] = 'Keine Bestellungen zu exportieren';
@@ -61,6 +63,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_e3b2a6d5fe4c268d7f994b
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_1f29747fc50e12818d9cdbda0eed61b4'] = 'Produktbewertungen einholen';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_93cba07454f06a4a960172bbd6e2a435'] = 'Ja';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_bafd7322c6e97d25b6299b5d6fe8920b'] = 'Nein';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_503ec005533d1519ed72ea8b9a90cdab'] = 'Bestellungen mit Status exportieren';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_0095a9fa74d1713e43e370a7d7846224'] = 'Exportieren';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_254f642527b45bc260048e30704edb39'] = 'Konfiguration';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_2439cf900755ecccfe9790003f100264'] = 'Gehen Sie zu Ihrem';
