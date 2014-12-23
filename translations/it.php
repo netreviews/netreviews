@@ -23,7 +23,7 @@ $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_4b429ac96c0312b11fe14690
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_b09576f93861b2504f3d304e7ea73f9e'] = 'Nascondi le conversazioni';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_ba21db5ce1d50cca913934d0b66e4f67'] = 'logo_full_it.png';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_14377ed8f26975db93c375ff0118de2a'] = 'Aumenta le tue vendite grazie alle recensioni dei tuoi clienti';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_d6b4ae129a507a4fc306c9e641817ed1'] = 'http://www.recensioni-verificate.com';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5b0e8a9a141f4de452ecfea868a18cc0'] = 'http://www.recensioni-verificate.com/tracker.php?tracker=Presta_module_IT&url=http://www.recensioni-verificate.com/index.php?page=mod_inscription';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_6433f0a69ae010c1676ccbd33fdcaef0'] = 'Comincia adesso';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_dc921c0c388763eb111ed53e749e289e'] = 'Recensioni Verificate è una soluzione innovante indipendente che permette di raccogliere, moderare e pubblicare le recensioni dei clienti. Guadagni così in credibilità e visibiltà agli occhi dei tuoi consumatori!';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_71c4cb8bb5bdd2c3d5a75df2884a1748'] = 'Proponiamo di raccogliere le recensioni sito e prodotti che compariranno  sul sito e su un certificato di fiducia per dare ancor più credibilità ai commenti pubblicati.';
