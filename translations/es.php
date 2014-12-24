@@ -23,7 +23,7 @@ $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_4b429ac96c0312b11fe14690
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_b09576f93861b2504f3d304e7ea73f9e'] = 'Ocultar las conversaciones';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_ba21db5ce1d50cca913934d0b66e4f67'] = 'logo_full_es.png';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_14377ed8f26975db93c375ff0118de2a'] = 'Aumenta tus ventas gracias a las opiniones de tus clientes';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_d6b4ae129a507a4fc306c9e641817ed1'] = 'http://www.opiniones-verificadas.com';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5b0e8a9a141f4de452ecfea868a18cc0'] = 'http://www.opiniones-verificadas.com/tracker.php?tracker=Presta_module_ES&url=http://www.opiniones-verificadas.com/index.php?page=mod_inscription';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_6433f0a69ae010c1676ccbd33fdcaef0'] = 'Prueba gratis';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_dc921c0c388763eb111ed53e749e289e'] = 'Opiniones Verificadas es una solución innovadora independiente que le permite recopilar, moderar y publicar los comentarios de tus clientes. Obtenga mayor visibilidad y credibilidad con los consumidores!';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_71c4cb8bb5bdd2c3d5a75df2884a1748'] = 'Ofrecemos recolectar las opiniones de la tienda y los productos, así como un certificado de confianza para dar mayor credibilidad a los comentarios publicados de tus clientes';

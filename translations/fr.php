@@ -23,7 +23,7 @@ $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_4b429ac96c0312b11fe14690
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_b09576f93861b2504f3d304e7ea73f9e'] = 'Masquer les échanges';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_ba21db5ce1d50cca913934d0b66e4f67'] = 'logo_full_fr.png';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_14377ed8f26975db93c375ff0118de2a'] = 'Boostez vos ventes grâce aux avis de vos clients';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_d6b4ae129a507a4fc306c9e641817ed1'] = 'http://www.avis-verifies.com';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5b0e8a9a141f4de452ecfea868a18cc0'] = 'http://www.avis-verifies.com/tracker.php?tracker=Presta_module_FR&url=http://www.avis-verifies.com/index.php?page=mod_inscription';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_6433f0a69ae010c1676ccbd33fdcaef0'] = 'Commencer maintenant';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_dc921c0c388763eb111ed53e749e289e'] = 'Avis Vérifiés est une solution innovante indépendante qui vous permet de collecter, modérer et publier les avis de vos clients. Gagnez ainsi en crédibilité et visibilité auprès des consommateurs !';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_71c4cb8bb5bdd2c3d5a75df2884a1748'] = 'Nous proposons de récolter des avis site et produits qui apparaîtront sur votre site ainsi que sur un certificat de confiance pour donner encore plus de crédibilité aux commentaires publiés.';
@@ -39,7 +39,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_8fccd094761897ea921122
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_c4c95c36570d5a8834be5e88e2f0f6b2'] = 'Informations';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5a6d3a1679178f7eec065e08fd3fb983'] = 'Le module AvisVerifies vous permet de mettre en place sur vos fiches produits les avis de vos clients, afficher les widgets Avis Verifies et d\'envoyer automatiquement les demandes d\'\'avis auprès de vos clients à chaque passage de commande.\'';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_9146113b9fe0afc3749a4e7c35214047'] = 'Attention : Vous devez avant toute chose vous inscrire sur';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_4c4e6ab5868a1a2ee9de986017686ec3'] = 'http://www.avis-verifies.com';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_4c4e6ab5868a1a2ee9de986017686ec3'] = 'www.avis-verifies.com';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_b2818eeb572b1493a59053917290496d'] = 'pour commencer une phase d\'essai gratuite et sans engagement';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_0d25cfb40a489b659898cafd304a2996'] = 'Exporter mes commandes';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3710a6f368e5dc15430139a07327f81d'] = 'Exporter les commandes déjà passées sur votre boutique pour récolter les avis de ces clients et obtenir rapidement votre certificat Avis Vérifiés.';
