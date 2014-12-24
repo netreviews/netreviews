@@ -202,7 +202,7 @@ span.asterisc{
 			  <tr>
 			    <th class="tg-031e"><img src="{$av_path|escape:'htmlall'}img/{l s='logo_full_en.png' mod='netreviews'}"/></th>
 			    <th class="tg-031e"><span id="av-title">{l s='Increase your sales through customer reviews' mod='netreviews'}</span></th>
-			    <th class="tg-031e"><a href="{l s='url_avisverifies' mod='netreviews'}" class="av-button-calltoaction" target="_blank">{l s='Start now' mod='netreviews'}</a></th>
+			    <th class="tg-031e"><a href="{l s='url_avisverifies_track' mod='netreviews'}" class="av-button-calltoaction" target="_blank">{l s='Start now' mod='netreviews'}</a></th>
 			  </tr>
 			</table>
 		</div>
@@ -230,7 +230,7 @@ span.asterisc{
 			    		<li>{l s='Enjoy our multiple tools' mod='netreviews'}</li>
 			    	</ul>
 			    	<br>
-			    	<center><a href="{l s='url_avisverifies' mod='netreviews'}" class="av-button-calltoaction"  target="_blank">{l s='Start now' mod='netreviews'}</a> <br><i>{l s='No commitment, free trial for 15 days' mod='netreviews'}</i></center>
+			    	<center><a href="{l s='url_avisverifies_track' mod='netreviews'}" class="av-button-calltoaction"  target="_blank">{l s='Start now' mod='netreviews'}</a> <br><i>{l s='No commitment, free trial for 15 days' mod='netreviews'}</i></center>
 
 			    </th>
 			  </tr>
@@ -246,7 +246,7 @@ span.asterisc{
 		<legend>{l s='Informations' mod='netreviews'}</legend>
 		<div class='informations'>
 			<p>{l s='The Module Verified Reviews allows you to show verified product reviews on your product urls, to show the Widget Verified Reviews and to collect automatically verified customer reviews via Email after each single order.' mod='netreviews'}</p>
-			<p>{l s='Attention : It is obligatory to register first on' mod='netreviews'} <a href="{l s='url_avisverifies' mod='netreviews'}" target="_blank">{l s='www.verified-reviews.com' mod='netreviews'}</a> {l s='to start your free trial period' mod='netreviews'}</p>		
+			<p>{l s='Attention : It is obligatory to register first on' mod='netreviews'} <a href="{l s='url_avisverifies_track' mod='netreviews'}" target="_blank">{l s='www.verified-reviews.com' mod='netreviews'}</a> {l s='to start your free trial period' mod='netreviews'}</p>		
 		
 		</div>
 			
@@ -324,7 +324,7 @@ span.asterisc{
 		<div class='config'>
 
 			
-			<p>{l s='Please check your' mod='netreviews'} <a href="{l s='url_avisverifies' mod='netreviews'}" target="_blank">{l s='customer area on verified-reviews.com' mod='netreviews'}</a> {l s='to see your login data' mod='netreviews'}</p>
+			<p>{l s='Please check your' mod='netreviews'} <a href="{l s='url_avisverifies_track' mod='netreviews'}" target="_blank">{l s='customer area on verified-reviews.com' mod='netreviews'}</a> {l s='to see your login data' mod='netreviews'}</p>
 			
 			<form method="post" action="{$url_back|unescape:'htmlall'}" enctype="multipart/form-data">
 				

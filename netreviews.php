@@ -53,7 +53,7 @@ class NetReviews extends Module
 			$this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
 		}
 
-		$this->version = '7.1.1';
+		$this->version = '7.1.2';
 		parent::__construct();
 		// Retrocompatibility
 		$this->initContext();

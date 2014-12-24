@@ -23,7 +23,7 @@ $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_4b429ac96c0312b11fe14690
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_b09576f93861b2504f3d304e7ea73f9e'] = 'Austausch verbergen';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_ba21db5ce1d50cca913934d0b66e4f67'] = 'logo_full_de.png';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_14377ed8f26975db93c375ff0118de2a'] = 'Steigern Sie Ihre Verkäufe durch Kundenbewertungen';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_d6b4ae129a507a4fc306c9e641817ed1'] = 'http://www.echte-bewertungen.com';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5b0e8a9a141f4de452ecfea868a18cc0'] = 'https://www.echte-bewertungen.com/tracker.php?tracker=Presta_module_DE&url=https://www.echte-bewertungen.com/index.php?page=mod_inscription';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_6433f0a69ae010c1676ccbd33fdcaef0'] = 'Starten Sie jetzt';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_dc921c0c388763eb111ed53e749e289e'] = 'Echte Bewertungen ist eine innovative, unabhängige Lösung, mit der Sie die Meinung Ihrer Kunden einholen, moderieren und veröffentlichen können. Erhöhen Sie so Ihre Glaubwürdigkeit und Sichtbarkeit bei den Konsumenten !';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_71c4cb8bb5bdd2c3d5a75df2884a1748'] = 'Wir ermöglichen es Ihnen, Seiten- und Produktbewertungen einzuholen, die sowohl auf Ihrer Website als auch auf einem Vertrauenszertifikat angezeigt werden, um den veröffentlichten Kommentaren noch mehr Glaubwürdigkeit zu verleihen.';
@@ -72,6 +72,8 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_a8bb570895287fec2bb25b
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5eb6bb157528b365f84c27bb4784031b'] = 'Secret Key';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_da53162e36f24caf03cf7a9d47748928'] = 'ID Website';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_c9cc8cce247e49bae79f15173ce97354'] = 'Speichern';
+$_MODULE['<{netreviews}prestashop>avisverifies-extraright-light_74dcb1cec50854d2f880279f3dd19da9'] = 'Produktbewertungen';
+$_MODULE['<{netreviews}prestashop>avisverifies-extraright-light_1c67665285fb6a7d761414e12578e574'] = 'Produktbewertung';
 $_MODULE['<{netreviews}prestashop>avisverifies-extraright_74dcb1cec50854d2f880279f3dd19da9'] = 'Bewertungen';
 $_MODULE['<{netreviews}prestashop>avisverifies-extraright_1c67665285fb6a7d761414e12578e574'] = 'Bewertung';
 $_MODULE['<{netreviews}prestashop>avisverifies-extraright_db2c7e1a1a790a59b6f2632f84fcb3e1'] = 'Bewertungen ansehen';
