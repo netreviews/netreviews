@@ -328,8 +328,8 @@ class NetReviewsModel extends ObjectModel
 		{
 			$o_product = new Product($product_id, false, (int)Configuration::get('PS_LANG_DEFAULT'));
 			$protocol_link = (Configuration::get('PS_SSL_ENABLED') || Tools::usingSecureMode()) ? 'https://' : 'http://';
-			$useSSL = (Configuration::get('PS_SSL_ENABLED') || Tools::usingSecureMode()) ? true : false;
-			$protocol_content = ($useSSL) ? 'https://' : 'http://';
+			$use_ssl = (Configuration::get('PS_SSL_ENABLED') || Tools::usingSecureMode()) ? true : false;
+			$protocol_content = ($use_ssl) ? 'https://' : 'http://';
 			$link = new Link($protocol_link, $protocol_content);
 			$id_cover_image = Image::getCover($product_id);
 			$image_path = $link->getImageLink($o_product->link_rewrite, $id_cover_image['id_image']);
