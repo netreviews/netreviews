@@ -26,7 +26,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_14377ed8f26975db93c375
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5b0e8a9a141f4de452ecfea868a18cc0'] = 'https://www.echte-bewertungen.com/tracker.php?tracker=Presta_module_DE&url=https://www.echte-bewertungen.com/index.php?page=mod_inscription';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_6433f0a69ae010c1676ccbd33fdcaef0'] = 'Starten Sie jetzt';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_dc921c0c388763eb111ed53e749e289e'] = 'Echte Bewertungen ist eine innovative, unabhängige Lösung, mit der Sie die Meinung Ihrer Kunden einholen, moderieren und veröffentlichen können. Erhöhen Sie so Ihre Glaubwürdigkeit und Sichtbarkeit bei den Konsumenten !';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_71c4cb8bb5bdd2c3d5a75df2884a1748'] = 'Wir ermöglichen es Ihnen, Seiten- und Produktbewertungen einzuholen, die sowohl auf Ihrer Website als auch auf einem Vertrauenszertifikat angezeigt werden, um den veröffentlichten Kommentaren noch mehr Glaubwürdigkeit zu verleihen.';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_71c4cb8bb5bdd2c3d5a75df2884a1748'] = 'Wir ermöglichen es Ihnen, Seiten- und Produktbewertungen einzuholen, die sowohl auf Ihrer Website als auch auf einem Vertrauens Bescheinigung angezeigt werden, um den veröffentlichten Kommentaren noch mehr Glaubwürdigkeit zu verleihen.';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_a478f4bdf7d36dc62257b7a308411c7e'] = 'Unser Service ist AFNOR-zertifiziert (Frankreich)';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_2b161efdfc32bee71a486a3a757a102d'] = 'Lassen Sie Ihre Kunden für Sie sprechen';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_e1b41e3ff1a719fec6664c113ad3a71e'] = 'Steigern Sie Ihre Verkäufe um bis zu 25%';
@@ -42,7 +42,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_9146113b9fe0afc3749a4e
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_4c4e6ab5868a1a2ee9de986017686ec3'] = 'www.echte-bewertungen.com';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_b2818eeb572b1493a59053917290496d'] = 'anmelden, um eine kostenlose und unverbindliche Testphase zu starten';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_0d25cfb40a489b659898cafd304a2996'] = 'Meine Bestellungen exportieren';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3710a6f368e5dc15430139a07327f81d'] = 'Exportieren Sie kürzlich eingegangene Bestellungen, um sofort erste Bewertungen zu sammeln und das Echte Bewertungen Zertifikat zu erhalten.';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3710a6f368e5dc15430139a07327f81d'] = 'Exportieren Sie kürzlich eingegangene Bestellungen, um sofort erste Bewertungen zu sammeln und das Echte Bewertungen Bescheinigung zu erhalten.';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_ccd3526ce326ed70d183c5ac3d8dd322'] = 'Ohne Produktbewertungen : Ihre Kunden werden hinsichtlich ihrer Zufriedenheit mit den Einkauf befragt (obligatorisch)';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_7bda28632a900b85e44844607ce4755e'] = 'Ihre Kunden werden hinsichtlich ihrer Zufriedenheit mit dem Einkauf (obligatorisch) und hinsichtlich ihrer Zufriedenheit mit den Produkten befragt';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_38c50b731f70abc42c8baa3e7399b413'] = 'Seit';
@@ -82,7 +82,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_56d4e9a4c8e9f47549e81
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_f5e686a39e3145171ae51953378ee1cb'] = 'Sceau_100_de.png';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_8f5a56d5830145c11301a269e9d79abc'] = 'Anzahl der Bewertungen';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_a586532c728620b9fed5f6baa415ee64'] = 'Durchschnittsnote';
-$_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b7ce38c0c5788b71851b3d9bd6e0f49f'] = 'Das Vertrauens-Zertifikat anzeigen';
+$_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b7ce38c0c5788b71851b3d9bd6e0f49f'] = 'Das Vertrauens-Bescheinigung anzeigen';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_8fc42c6ddf9966db3b09e84365034357'] = 'am';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b6641f306eff8e4dcc8a1232129a5b72'] = 'Kommentar von';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_4b429ac96c0312b11fe14690dd315384'] = 'Austausch anzeigen';

@@ -26,7 +26,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_14377ed8f26975db93c375
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5b0e8a9a141f4de452ecfea868a18cc0'] = 'http://www.opiniones-verificadas.com/tracker.php?tracker=Presta_module_ES&url=http://www.opiniones-verificadas.com/index.php?page=mod_inscription';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_6433f0a69ae010c1676ccbd33fdcaef0'] = 'Prueba gratis';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_dc921c0c388763eb111ed53e749e289e'] = 'Opiniones Verificadas es una solución innovadora independiente que le permite recopilar, moderar y publicar los comentarios de tus clientes. Obtenga mayor visibilidad y credibilidad con los consumidores!';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_71c4cb8bb5bdd2c3d5a75df2884a1748'] = 'Ofrecemos recolectar las opiniones de la tienda y los productos, así como un certificado de confianza para dar mayor credibilidad a los comentarios publicados de tus clientes';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_71c4cb8bb5bdd2c3d5a75df2884a1748'] = 'Ofrecemos recolectar las opiniones de la tienda y los productos, así como un atestación de confianza para dar mayor credibilidad a los comentarios publicados de tus clientes';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_a478f4bdf7d36dc62257b7a308411c7e'] = 'Nuestro servicio está avalado por la Certificación AFNOR (Francia)';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_2b161efdfc32bee71a486a3a757a102d'] = 'Dar voz a tus clientes';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_e1b41e3ff1a719fec6664c113ad3a71e'] = 'Aumenta tus ventas entre un 5% a un 20%';
@@ -42,7 +42,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_9146113b9fe0afc3749a4e
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_4c4e6ab5868a1a2ee9de986017686ec3'] = 'www.opiniones-verificadas.com';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_b2818eeb572b1493a59053917290496d'] = 'comienza de forma gratuita y sin compromiso';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_0d25cfb40a489b659898cafd304a2996'] = 'Exportar mis pedidos';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3710a6f368e5dc15430139a07327f81d'] = 'Exportar los pedidos registrados con anterioridad de tu tienda online, para solicitar la opinión a tus clientes y obtener tu certificado rápidamente.';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3710a6f368e5dc15430139a07327f81d'] = 'Exportar los pedidos registrados con anterioridad de tu tienda online, para solicitar la opinión a tus clientes y obtener tu atestación rápidamente.';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_ccd3526ce326ed70d183c5ac3d8dd322'] = 'Sin opiniones de los productos: consultaremos a tus clientes sobre su experiencia de compra en tu tienda online (obligatorio)';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_7bda28632a900b85e44844607ce4755e'] = 'Con opiniones de los productos: consultaremos a tus clientes sobre su experiencia de compra en tu tienda online (obligatorio) y su satisfacción con respecto a el/los producto(s) comprados';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_38c50b731f70abc42c8baa3e7399b413'] = 'Desde';
@@ -84,7 +84,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_56d4e9a4c8e9f47549e81
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_f5e686a39e3145171ae51953378ee1cb'] = 'Sceau_100_es.png';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_8f5a56d5830145c11301a269e9d79abc'] = 'Número opinion';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_a586532c728620b9fed5f6baa415ee64'] = 'Nota media';
-$_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b7ce38c0c5788b71851b3d9bd6e0f49f'] = 'Ver el certificado';
+$_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b7ce38c0c5788b71851b3d9bd6e0f49f'] = 'Ver el atestación';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_8fc42c6ddf9966db3b09e84365034357'] = 'el';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b6641f306eff8e4dcc8a1232129a5b72'] = 'Comentario de';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_4b429ac96c0312b11fe14690dd315384'] = 'ublicar las conversaciones';

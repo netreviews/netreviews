@@ -26,7 +26,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_14377ed8f26975db93c375
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5b0e8a9a141f4de452ecfea868a18cc0'] = 'http://www.avis-verifies.com/tracker.php?tracker=Presta_module_FR&url=http://www.avis-verifies.com/index.php?page=mod_inscription';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_6433f0a69ae010c1676ccbd33fdcaef0'] = 'Commencer maintenant';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_dc921c0c388763eb111ed53e749e289e'] = 'Avis Vérifiés est une solution innovante indépendante qui vous permet de collecter, modérer et publier les avis de vos clients. Gagnez ainsi en crédibilité et visibilité auprès des consommateurs !';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_71c4cb8bb5bdd2c3d5a75df2884a1748'] = 'Nous proposons de récolter des avis site et produits qui apparaîtront sur votre site ainsi que sur un certificat de confiance pour donner encore plus de crédibilité aux commentaires publiés.';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_71c4cb8bb5bdd2c3d5a75df2884a1748'] = 'Nous proposons de récolter des avis site et produits qui apparaîtront sur votre site ainsi que sur une attestation de confiance pour donner encore plus de crédibilité aux commentaires publiés.';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_a478f4bdf7d36dc62257b7a308411c7e'] = 'Nos services sont approuvés par AFNOR certification';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_2b161efdfc32bee71a486a3a757a102d'] = 'Donnez la parole à vos clients';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_e1b41e3ff1a719fec6664c113ad3a71e'] = 'Augmentez vos ventes de 5 à 25%';
@@ -42,7 +42,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_9146113b9fe0afc3749a4e
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_4c4e6ab5868a1a2ee9de986017686ec3'] = 'www.avis-verifies.com';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_b2818eeb572b1493a59053917290496d'] = 'pour commencer une phase d\'essai gratuite et sans engagement';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_0d25cfb40a489b659898cafd304a2996'] = 'Exporter mes commandes';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3710a6f368e5dc15430139a07327f81d'] = 'Exporter les commandes déjà passées sur votre boutique pour récolter les avis de ces clients et obtenir rapidement votre certificat Avis Vérifiés.';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3710a6f368e5dc15430139a07327f81d'] = 'Exporter les commandes déjà passées sur votre boutique pour récolter les avis de ces clients et obtenir rapidement votre attestation Avis Vérifiés.';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_ccd3526ce326ed70d183c5ac3d8dd322'] = 'Sans avis produits : vos clients seront interrogés sur leur satisfaction concernant la commande (obligatoire)';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_7bda28632a900b85e44844607ce4755e'] = 'Avec avis produits : vos clients seront interrogés sur leur satisfaction concernant la commande (obligatoire) et sur leur satisfaction concernant les produits commandés';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_38c50b731f70abc42c8baa3e7399b413'] = 'Depuis';
@@ -84,7 +84,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_56d4e9a4c8e9f47549e81
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_f5e686a39e3145171ae51953378ee1cb'] = 'Sceau_100_fr.png';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_8f5a56d5830145c11301a269e9d79abc'] = 'Nombre d\'avis';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_a586532c728620b9fed5f6baa415ee64'] = 'Note moyenne';
-$_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b7ce38c0c5788b71851b3d9bd6e0f49f'] = 'Afficher le certificat de confiance';
+$_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b7ce38c0c5788b71851b3d9bd6e0f49f'] = 'Afficher l\'attestation de confiance';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_8fc42c6ddf9966db3b09e84365034357'] = 'le';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b6641f306eff8e4dcc8a1232129a5b72'] = 'Commentaire de';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_4b429ac96c0312b11fe14690dd315384'] = 'Voir les échanges';
