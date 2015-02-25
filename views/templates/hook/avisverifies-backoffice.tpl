@@ -333,7 +333,7 @@
 			<form method="post" action="{$url_back|unescape:'htmlall'}" enctype="multipart/form-data">
 				<label>{l s='Use the light product widget' mod='netreviews'}</label><input type="checkbox" name="avisverifies_lightwidget" id="avisverifies_lightwidget" {$current_lightwidget_checked|escape:'html'} value="checked"/>
 				<div class="clear"></div>
-				<label>{l s='Use the multilingue configuration' mod='netreviews'}</label><input type="checkbox" name="avisverifies_multilingue" id="avisverifies_multilingue" {$current_multilingue_checked|escape:'html'} value="checked"/>
+				<label>{l s='Use the multilingual configuration' mod='netreviews'}</label><input type="checkbox" name="avisverifies_multilingue" id="avisverifies_multilingue" {$current_multilingue_checked|escape:'html'} value="checked"/>
 				<div class="clear"></div>
 				<hr class="orange" style="margin:25px auto;">
 				<center><input type="submit"  name="submit_advanced" id="submit_advanced" value="{l s='Save' mod='netreviews'}" class="button pointer"></center>
