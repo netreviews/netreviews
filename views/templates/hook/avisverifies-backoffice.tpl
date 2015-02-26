@@ -1,4 +1,3 @@
-
 <!--
  * @author    NetReviews (www.avis-verifies.com) - Contact: contact@avis-verifies.com
  * @category  traduction
@@ -9,12 +8,8 @@
  {literal}
  <style type="text/css">
 
-
 #avisverifies_module label{
-	
 	margin-right: 15px;
-	
-	
 }
 
 #avisverifies_module input[type=text] {
@@ -23,12 +18,9 @@
 	margin-bottom: 10px;
 }
 
-
-
 #avisverifies_module  .floatleft{
 	float: left;
 }
-
 
 #avisverifies_module  #export{
 	margin-left: 10px;
@@ -43,12 +35,10 @@
 
 #avisverifies_module  p.help.withfloat{
 	float:left;
-	
 }
 
 #avisverifies_module  p.help.inline{
 	display:inline;
-	
 }
 
 #avisverifies_module #order-statut-list{
@@ -57,7 +47,6 @@
 	margin-top:0;
 	padding: 0;
 }
-
 
 #avisverifies_module .field-line{
 	margin-bottom: 10px;
@@ -74,11 +63,11 @@
 	color:#F9791C;
 	font-weight: bold;
 }
+
 #avisverifies_module #av-header-intro{
 	border:1px solid #C4C4C4;
 	background-color: #F9F9F9;
 	margin-bottom:10px;
-	
 }
 
 #avisverifies_module #av-top{
@@ -94,7 +83,6 @@ hr.orange{
 	font-size:22px;
 	font-weight: bold;
 	color:#F9791C;
-
 }
 
 #avisverifies_module table{
@@ -109,7 +97,6 @@ hr.orange{
 #avisverifies_module .tg th{
 	font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;overflow:hidden;word-break:normal;width:30%
 }
-
 
 .av-button-calltoaction {
 	moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
@@ -140,11 +127,11 @@ hr.orange{
 	font-weight:bold;
 	font-style:normal;
 	height:20px;
-	line-height:20px;	
+	line-height:20px;
 	text-decoration:none;
 	text-align:center;
 	text-shadow:1px 1px 0px #cc9f52;
-	padding: 15px
+	padding: 15px;
 }
 .av-button-calltoaction:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e88e21), color-stop(1, #eb9c3b) );
@@ -164,7 +151,7 @@ hr.orange{
 	text-align: left;
 }
 
-#av-middle i{	
+#av-middle i{
 	font-size: 11px;
 }
 
@@ -200,16 +187,15 @@ span.asterisc{
 		<div id="av-top">
 			<table class="tg" cellspacing="0" cellpadding="0">
 			  <tr>
-			    <th class="tg-031e"><img src="{$av_path|escape:'htmlall'}img/{l s='logo_full_en.png' mod='netreviews'}"/></th>
-			    <th class="tg-031e"><span id="av-title">{l s='Increase your sales through customer reviews' mod='netreviews'}</span></th>
-			    <th class="tg-031e"><a href="{l s='url_avisverifies_track' mod='netreviews'}" class="av-button-calltoaction" target="_blank">{l s='Start now' mod='netreviews'}</a></th>
+				<th class="tg-031e"><img src="{$av_path|escape:'htmlall'}img/{l s='logo_full_en.png' mod='netreviews'}"/></th>
+				<th class="tg-031e"><span id="av-title">{l s='Increase your sales through customer reviews' mod='netreviews'}</span></th>
+				<th class="tg-031e"><a href="{l s='url_avisverifies_track' mod='netreviews'}" class="av-button-calltoaction" target="_blank">{l s='Start now' mod='netreviews'}</a></th>
 			  </tr>
 			</table>
 		</div>
 
 		<hr class="orange"/>
 		<div id="av-middle">
-		
 			<table class="tg">
 			  <tr>
 			    <th class="tg-031e"><p>{l s='Verified Reviews is an innovative and independent solution that enables you to collect, moderate and publish your customer reviews. You will increase your credibility and visibility on the web towards new customers!' mod='netreviews'}</p>
@@ -218,26 +204,24 @@ span.asterisc{
 					<p><center><img src="{$av_path|escape:'htmlall'}img/widget-screen-uk.png" ></center></p>
 					<p><img src="{$av_path|escape:'htmlall'}img/NFS_Avis-en-ligne.png" width="50"> {l s='Our services are approved by AFNOR certification (France)' mod='netreviews'}*</p>
 
-					
 				</th>
-			    <th class="tg-031e valigntop">
-			       	<ul class="av-list-star">
-			    		<li>{l s='Give your clients a voice' mod='netreviews'}</li>
-			    		<li>{l s='Increase your sales up to 25%' mod='netreviews'}</li>
-			    		<li>{l s='Improve your SEO with Rich Snippets' mod='netreviews'}</li>
-			    		<li>{l s='Boost your Adwords campaign by gaining star ratings from our partner' mod='netreviews'}* <img src="{$av_path|escape:'htmlall'}img/google-adwords.png" width="100"></li>
-			    		<li>{l s='Control your e-reputation' mod='netreviews'}</li>
-			    		<li>{l s='Enjoy our multiple tools' mod='netreviews'}</li>
-			    	</ul>
-			    	<br>
-			    	<center><a href="{l s='url_avisverifies_track' mod='netreviews'}" class="av-button-calltoaction"  target="_blank">{l s='Start now' mod='netreviews'}</a> <br><i>{l s='No commitment, free trial for 15 days' mod='netreviews'}</i></center>
+				<th class="tg-031e valigntop">
+					<ul class="av-list-star">
+						<li>{l s='Give your clients a voice' mod='netreviews'}</li>
+						<li>{l s='Increase your sales up to 25%' mod='netreviews'}</li>
+						<li>{l s='Improve your SEO with Rich Snippets' mod='netreviews'}</li>
+						<li>{l s='Boost your Adwords campaign by gaining star ratings from our partner' mod='netreviews'}* <img src="{$av_path|escape:'htmlall'}img/google-adwords.png" width="100"></li>
+						<li>{l s='Control your e-reputation' mod='netreviews'}</li>
+						<li>{l s='Enjoy our multiple tools' mod='netreviews'}</li>
+					</ul>
+					<br>
+					<center><a href="{l s='url_avisverifies_track' mod='netreviews'}" class="av-button-calltoaction"  target="_blank">{l s='Start now' mod='netreviews'}</a> <br><i>{l s='No commitment, free trial for 15 days' mod='netreviews'}</i></center>
 
-			    </th>
+				</th>
 			  </tr>
 			</table>
 			<p><center><img src="{$av_path|escape:'htmlall'}img/prestashop_partner_logo_shadow.png" width="250"></center></p>
 			<span class="asterisc">*{l s='Only available for some specific countries, please get in touch' mod='netreviews'}</span>
-
 
 		</div>
 	</div>
@@ -246,10 +230,8 @@ span.asterisc{
 		<legend>{l s='Informations' mod='netreviews'}</legend>
 		<div class='informations'>
 			<p>{l s='The Module Verified Reviews allows you to show verified product reviews on your product urls, to show the Widget Verified Reviews and to collect automatically verified customer reviews via Email after each single order.' mod='netreviews'}</p>
-			<p>{l s='Attention : It is obligatory to register first on' mod='netreviews'} <a href="{l s='url_avisverifies_track' mod='netreviews'}" target="_blank">{l s='www.verified-reviews.com' mod='netreviews'}</a> {l s='to start your free trial period' mod='netreviews'}</p>		
-		
+			<p>{l s='Attention : It is obligatory to register first on' mod='netreviews'} <a href="{l s='url_avisverifies_track' mod='netreviews'}" target="_blank">{l s='www.verified-reviews.com' mod='netreviews'}</a> {l s='to start your free trial period' mod='netreviews'}</p>
 		</div>
-			
 	</fieldset>
 	<br>
 
@@ -281,19 +263,13 @@ span.asterisc{
 					<option value="12m">{l s='12 months' mod='netreviews'}</option>
 				</select>
 
-				
-
 				<div class="clear"></div>
-
 				<label class="">{l s='Collect Product Reviews' mod='netreviews'}</label>
 
 				<select id="productreviews" name="productreviews" class="floatleft">
-
 					<option value="1">{l s='Yes' mod='netreviews'}</option>
 					<option value="0">{l s='No' mod='netreviews'}</option>
-
 				</select>
-			
 				<div class="clear"></div>
 
 				<label class="">{l s='Export orders with status' mod='netreviews'}</label>
@@ -304,77 +280,51 @@ span.asterisc{
 					{/foreach}
 				</div>
 
-			
 				<div class="clear"></div>
-				
 				<center><input type="submit"  name="submit_export" id="submit_export" value="{l s='Export' mod='netreviews'}" class="button"></center>
 
 				<i style="font-size:10px">Module Version {$version|escape:'html'}</i>
 
 			</form>
-					
-		
 		</div>
-			
 	</fieldset>
 
 	<br>
 	<fieldset>
 		<legend>{l s='Configuration' mod='netreviews'}</legend>
 		<div class='config'>
-
-			
 			<p>{l s='Please check your' mod='netreviews'} <a href="{l s='url_avisverifies_track' mod='netreviews'}" target="_blank">{l s='customer area on verified-reviews.com' mod='netreviews'}</a> {l s='to see your login data' mod='netreviews'}</p>
-			
 			<form method="post" action="{$url_back|unescape:'htmlall'}" enctype="multipart/form-data">
-				
-				 
 				<label>{l s='Secret Key' mod='netreviews'}</label><input type="text" name="avisverifies_clesecrete" id="avisverifies_clesecrete" value="{$current_avisverifies_clesecrete|escape:'html'}"/>
 				<div class="clear"></div>
-
 				<label>{l s='ID Website' mod='netreviews'}</label><input type="text" name="avisverifies_idwebsite" id="avisverifies_idwebsite" value="{$current_avisverifies_idwebsite|escape:'html'}"/>
-				<div class="clear"></div>			
-
-				<center><input type="submit"  name="submit_configuration" id="submit_configuration" value="{l s='Save' mod='netreviews'}" class="button"></center>				
-
-			</form>			
-		
+				<div class="clear"></div>
+				<center><input type="submit"  name="submit_configuration" id="submit_configuration" value="{l s='Save' mod='netreviews'}" class="button"></center>
+			</form>
 		</div>
-			
 	</fieldset>
 
 	<fieldset>
 		<legend>{l s='Advanced' mod='netreviews'}</legend>
-		<div class='config'>				
-			
+		<div class='config'>
 			<form method="post" action="{$url_back|unescape:'htmlall'}" enctype="multipart/form-data">
-				
-				<label>{l s='Use the light product widget' mod='netreviews'}</label><input type="checkbox" name="avisverifies_lightwidget" id="avisverifies_lightwidget" {$current_lightwidget_checked|escape:'html'} value="checked"/> 				
+				<label>{l s='Use the light product widget' mod='netreviews'}</label><input type="checkbox" name="avisverifies_lightwidget" id="avisverifies_lightwidget" {$current_lightwidget_checked|escape:'html'} value="checked"/>
 				<div class="clear"></div>
-				<center><input type="submit"  name="submit_design" id="submit_design" value="{l s='Save' mod='netreviews'}" class="button"></center>				
-
+				<center><input type="submit"  name="submit_design" id="submit_design" value="{l s='Save' mod='netreviews'}" class="button"></center>
 			</form>
 
 			<div id="debug-part">
-				<i>Debug</i>
+				<i>{l s='Debug' mod='netreviews'}</i>
 				<div id='hidden-part'>
 					<ul>
-						<li>Reviews : {$debug_nb_reviews|intval}</li>
-						<li>Average reviews : {$debug_nb_reviews_average|intval}</li>
-						<li>Orders pending : {$debug_nb_orders_not_flagged|intval}</li>
-						<li>Orders getted : {$debug_nb_orders_flagged|intval}</li>
-						<li>Orders all : {$debug_nb_orders_all|intval}</li>
-					</ul>		
+						<li>{l s='Reviews :' mod='netreviews'} {$debug_nb_reviews|intval}</li>
+						<li>{l s='Average reviews :' mod='netreviews'} {$debug_nb_reviews_average|intval}</li>
+						<li>{l s='Orders pending :' mod='netreviews'} {$debug_nb_orders_not_flagged|intval}</li>
+						<li>{l s='Orders getted :' mod='netreviews'} {$debug_nb_orders_flagged|intval}</li>
+						<li>{l s='Orders all :' mod='netreviews'} {$debug_nb_orders_all|intval}</li>
+					</ul>
 				</div>
 			</div>
-		
 		</div>
-			
 	</fieldset>
-
-
-	
-			
-
-
 </div>
