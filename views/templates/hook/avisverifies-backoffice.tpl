@@ -9,170 +9,6 @@
 *  International Registered Trademark & Property of NetReviews SAS
 -->
 
-{literal}
-	<style type="text/css">
-		#avisverifies_module label{
-			margin-right: 15px;
-		}
-		#avisverifies_module input[type=text] {
-			float:left;
-			margin-right: 20px;
-			margin-bottom: 10px;
-		}
-		#avisverifies_module  .floatleft{
-			float: left;
-		}
-		#avisverifies_module  #export{
-			margin-left: 10px;
-		}
-		#avisverifies_module  p.help{
-			font-style: italic;
-			color:#9E9E9E;
-			font-size: 11px;
-		}
-		#avisverifies_module  p.help.withfloat{
-			float:left;
-		}
-		#avisverifies_module  p.help.inline{
-			display:inline;
-		}
-		#avisverifies_module #order-statut-list{
-			list-style:none;
-			float:left;
-			margin-top:0;
-			padding: 0;
-		}
-		#avisverifies_module .field-line{
-			margin-bottom: 10px;
-			display: block;
-		}
-		#avisverifies_module label.label-pointer{
-			float: none;
-			text-align: right;
-			font-weight: normal;
-		}
-		#avisverifies_module a{
-			color:#F9791C;
-			font-weight: bold;
-		}
-		#avisverifies_module #av-header-intro{
-			border:1px solid #C4C4C4;
-			background-color: #F9F9F9;
-			margin-bottom:10px;
-		}
-		#avisverifies_module #av-top{
-			text-align: center;
-		}
-		hr.orange{
-			border-bottom:2px solid #FFA851;
-			width: 70%;
-		}
-		#avisverifies_module #av-header-intro #av-title {
-			font-size:22px;
-			font-weight: bold;
-			color:#F9791C;
-		}
-		#avisverifies_module table{
-			border:none;
-		}
-		#avisverifies_module .tg {
-			border-collapse:collapse;border-spacing:0;;width:100%
-		}
-		#avisverifies_module .tg td{
-			font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;overflow:hidden;word-break:normal;
-		}
-		#avisverifies_module .tg th{
-			font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;overflow:hidden;word-break:normal;width:30%
-		}
-		.av-button-calltoaction {
-			moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
-			-webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
-			box-shadow:inset 0px 1px 0px 0px #fce2c1;
-			background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #eb9c3b), color-stop(1, #e88e21) );
-			background:-moz-linear-gradient( center top, #eb9c3b 5%, #e88e21 100% );
-			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eb9c3b', endColorstr='#e88e21');
-			background-color:#eb9c3b;
-			-webkit-border-top-left-radius:7px;
-			-moz-border-radius-topleft:7px;
-			border-top-left-radius:7px;
-			-webkit-border-top-right-radius:7px;
-			-moz-border-radius-topright:7px;
-			border-top-right-radius:7px;
-			-webkit-border-bottom-right-radius:7px;
-			-moz-border-radius-bottomright:7px;
-			border-bottom-right-radius:7px;
-			-webkit-border-bottom-left-radius:7px;
-			-moz-border-radius-bottomleft:7px;
-			border-bottom-left-radius:7px;
-			text-indent:0;
-			border:1px solid #eeb44f;
-			display:inline-block;
-			color:#ffffff!important;
-			font-family:Arial;
-			font-size:15px;
-			font-weight:bold;
-			font-style:normal;
-			height:20px;
-			line-height:20px;
-			text-decoration:none;
-			text-align:center;
-			text-shadow:1px 1px 0px #cc9f52;
-			padding: 15px
-		}
-		.av-button-calltoaction:hover {
-			background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e88e21), color-stop(1, #eb9c3b) );
-			background:-moz-linear-gradient( center top, #e88e21 5%, #eb9c3b 100% );
-			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e88e21', endColorstr='#eb9c3b');
-			background-color:#e88e21;
-		}
-		.av-button-calltoaction:active {
-			position:relative;
-			top:1px;
-		}
-		.av-list-star li{
-			list-style-image : url(/modules/netreviews/views/img/single-star.png);
-			margin-left: 15px;
-			line-height: 25px;
-			text-align: left;
-		}
-		#av-middle i{
-			font-size: 11px;
-		}
-		#av-middle .mini-title{
-			font-size: 14px;
-			line-height: 30px;
-			font-weight: bold;
-		}
-		span.asterisc{
-			padding:10px;
-			font-size: 10px;
-		}
-		.tg-031e p{
-			text-align: left;
-		}
-		.tg-031e.valigntop{
-			vertical-align: top;
-		}
-		#debug-part{
-			font-style: italic;
-		}
-		.fieldsetav{
-			border: 1px solid rgb(196, 196, 196) !important;
-			background-color: rgb(249, 249, 249) !important;
-		}
-		.titlepart {
-			margin-bottom:20px;
-			text-align:left !important;
-			width: 100% !important;
-			font-size: 22px;
-			font-weight: bold !important;
-			color: rgb(249, 121, 28) !important;
-		}
-		button pointer{
-			cursor:pointer;
-		}
-	</style>
-{/literal}
 <div id="avisverifies_module">
 	<div id="av-header-intro">
 		<div id="av-top">
@@ -256,15 +92,15 @@
 				</select>
 				<div class="clear"></div>
 				<label class="">{l s='Export orders with status' mod='netreviews'}</label>
-				<div style="float:left">
+				<div class="floatleft">
 					{foreach from=$order_statut_list item=state}
 						<input type="checkbox" checked="checked" name="orderstates[]" value="{$state['id_order_state']|intval}"/> <span id="{$state['id_order_state']}">{$state['name']}</span><br>
 					{/foreach}
 				</div>
 				<div class="clear"></div>
-				<hr class="orange" style="margin:25px auto;">
+				<hr class="orange" >
 				<center><input type="submit"  name="submit_export" id="submit_export" value="{l s='Export' mod='netreviews'}" class="button pointer"></center>
-				<i style="font-size:10px">Module Version {$version|escape:'html'}</i>
+				<i id="VersionModule">Module Version {$version|escape:'html'}</i>
 			</form>
 		</div>
 	</fieldset>
@@ -276,13 +112,13 @@
 			<br />
 			<br />
 			<form method="post" action="{$url_back|unescape:'htmlall'}" enctype="multipart/form-data">
-				<div style="width: 70%;margin: 0px auto;">
+				<div id="blockConfiguration">
 					{if $current_multilingue_checked  != 'checked'}
 						{foreach from=$languages key=id item=lang}
 							<input type="hidden" name="avisverifies_clesecrete_{$lang.iso_code}" id="avisverifies_clesecrete" value="{$current_avisverifies_clesecrete[$lang.iso_code]|escape:'html'}"/>
 							<input type="hidden" name="avisverifies_idwebsite_{$lang.iso_code}" id="avisverifies_idwebsite" value="{$current_avisverifies_idwebsite[$lang.iso_code]|escape:'html'}"/>
 						{/foreach}
-						<div style="width: 100%;">
+						<div>
 							<label class="titlepart">{l s='General configuration' mod='netreviews'}</label>
 							<div class="clear"></div>
 							<label>{l s='Secret Key' mod='netreviews'}</label>
@@ -295,13 +131,13 @@
 					{else}
 						<input type="hidden" name="avisverifies_clesecrete" id="avisverifies_clesecrete" value="{$current_avisverifies_clesecrete[root]|escape:'html'}"/>
 						<input type="hidden" name="avisverifies_idwebsite" id="avisverifies_idwebsite" value="{$current_avisverifies_idwebsite[root]|escape:'html'}"/>
-						<div style="width: 100%;">
+						<div >
 							<label class="titlepart">{l s='Multilingual configuration' mod='netreviews'}</label>
 							<div class="clear"></div>
 							{foreach from=$languages key=id item=lang}
-								<div style="width: 49%;display:inline-block;margin-bottom:10px;">
-									<span style='vertical-align: bottom;'>
-									<img height="11" span="" src="/img/l/{$lang.id_lang}.jpg" width="16" /><label style="color:rgb(249, 121, 28);">{$lang.name|escape:'html'}</label></span><br />
+								<div class="languages">
+									<span >
+									<img height="11" src="/img/l/{$lang.id_lang}.jpg" width="16" /><label class="namelanguage">{$lang.name|escape:'html'}</label></span><br />
 									<div class="clear"></div>
 									<label>{l s='Secret Key' mod='netreviews'}</label><input type="text" name="avisverifies_clesecrete_{$lang.iso_code}" id="avisverifies_clesecrete" value="{$current_avisverifies_clesecrete[$lang.iso_code]|escape:'html'}"/>
 									<div class="clear"></div>
@@ -312,7 +148,7 @@
 						</div>
 					{/if}
 				</div>
-				<hr class="orange" style="margin:25px auto;">
+				<hr class="orange">
 				<center><input type="submit"  name="submit_configuration" id="submit_configuration" value="{l s='Save' mod='netreviews'}" class="button pointer"></center>
 			</form>
 		</div>
@@ -322,7 +158,7 @@
 		<legend>{l s='Advanced actions' mod='netreviews'}</legend>
 		<div class='config'>
 			<form method="post" action="{$url_back|unescape:'htmlall'}" enctype="multipart/form-data">
-				<label style='width: 300px;'>{l s='Purge all orders for this shop' mod='netreviews'}&nbsp;({$shop_name})</label>&nbsp;<input type="submit"  name="submit_purge" id="submit_purge" value="{l s='Purged' mod='netreviews'}" class="button pointer"></center>
+				<label>{l s='Purge all orders for this shop' mod='netreviews'}&nbsp;({$shop_name})</label>&nbsp;<input type="submit"  name="submit_purge" id="submit_purge" value="{l s='Purged' mod='netreviews'}" class="button pointer"></center>
 				<div class="clear"></div>
 			</form>
 		</div>
@@ -335,7 +171,7 @@
 				<div class="clear"></div>
 				<label>{l s='Use the multilingual configuration' mod='netreviews'}</label><input type="checkbox" name="avisverifies_multilingue" id="avisverifies_multilingue" {$current_multilingue_checked|escape:'html'} value="checked"/>
 				<div class="clear"></div>
-				<hr class="orange" style="margin:25px auto;">
+				<hr class="orange" >
 				<center><input type="submit"  name="submit_advanced" id="submit_advanced" value="{l s='Save' mod='netreviews'}" class="button pointer"></center>
 			</form>
 		</div>

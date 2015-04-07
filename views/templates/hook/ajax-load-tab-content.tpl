@@ -54,7 +54,7 @@
 		{/if}
 
 	</div>
-	{if $i == 2 && !$first}
+	{if $i == 20 && !$first}
 		</span>
 		{$i = 1}				
 	{else}

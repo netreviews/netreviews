@@ -80,7 +80,7 @@
 			{/if}
 
 			</div>
-			{if $i == 2 && !$first}
+			{if $i == 20 && !$first}
 				</span>
 				{$i = 1}				
 			{else}
@@ -95,7 +95,7 @@
 		
 	</div>
 	<img src="{if $is_https}{$base_dir_ssl|escape:'html'}{else}{$base_dir|escape:'html'}{/if}modules/netreviews/views/img/pagination-loader.gif" id="av_loader" style="display:none" />
-	{if $count_reviews > 10}
+	{if $count_reviews > 20}
 		<a href="#" id="av_load_comments" class="av-btn-morecomment" rel="2">{l s='More reviews...' mod='netreviews' }</a>
 	{/if}
 

@@ -131,8 +131,8 @@ function checkSecurityData(&$post_data)
 			WHERE value = '".$uns_msg['idWebsite']."'
 			AND name like 'AV_IDWEBSITE_%'
 			AND id_shop = ".$uns_msg['id_shop'];
-			if ($row = Db::getInstance()->getRow($sql))
-				$group_name = '_'.Tools::substr($row['name'], 13);
+			$row = Db::getInstance()->getRow($sql);
+			$group_name = '_'.Tools::substr($row['name'], 13);
 			$local_id_website = Configuration::get('AV_IDWEBSITE'.$group_name, null, null, $uns_msg['id_shop']);
 			$local_secure_key = Configuration::get('AV_CLESECRETE'.$group_name, null, null, $uns_msg['id_shop']);
 		}
@@ -142,12 +142,13 @@ function checkSecurityData(&$post_data)
 			$local_secure_key = Configuration::get('AV_CLESECRETE', null, null, $uns_msg['id_shop']);
 		}
 		/*Check if ID clustomer are set locally*/
+		$reponse['query'] = 'checkSecurityData';
 		if (!$local_id_website || !$local_secure_key)
 		{
 			$reponse['debug'] = 'Identifiants clients non renseignés sur le module';
 			$reponse['message'] = 'Identifiants clients non renseignés sur le module';
 			$reponse['return'] = 3;
-			$reponse['query'] = 'checkSecurityData';
+
 			/* Set query name because this query is called locally */
 			return $reponse;
 		}
@@ -157,7 +158,6 @@ function checkSecurityData(&$post_data)
 			$reponse['message'] = 'Clé Website incorrecte';
 			$reponse['debug'] = 'Clé Website incorrecte';
 			$reponse['return'] = 4;
-			$reponse['query'] = 'checkSecurityData';
 			return $reponse;
 		}
 		//Check if sent sign if the same as local
@@ -166,15 +166,16 @@ function checkSecurityData(&$post_data)
 			$reponse['message'] = 'La signature est incorrecte';
 			$reponse['debug'] = 'La signature est incorrecte';
 			$reponse['return'] = 5;
-			$reponse['query'] = 'checkSecurityData';
 			return $reponse;
 		}
-		$reponse['message'] = 'Identifiants Client Ok';
-		$reponse['debug'] = 'Identifiants Client Ok';
-		$reponse['return'] = 1;
-		$reponse['sign'] = SHA1($post_data['query'].$local_id_website.$local_secure_key);
-		$reponse['query'] = 'checkSecurityData';
-		return $reponse;
+		else
+		{
+			$reponse['message'] = 'Identifiants Client Ok';
+			$reponse['debug'] = 'Identifiants Client Ok';
+			$reponse['return'] = 1;
+			$reponse['sign'] = SHA1($post_data['query'].$local_id_website.$local_secure_key);
+			return $reponse;
+		}
 	}
 	else
 	{
@@ -266,8 +267,8 @@ function setModuleConfiguration(&$post_data)
 				WHERE value = '".$uns_msg['idWebsite']."'
 				AND name like 'AV_IDWEBSITE_%'
 				AND id_shop = ".$uns_msg['id_shop'];
-				if ($row = Db::getInstance()->getRow($sql))
-					$group_name = '_'.Tools::substr($row['name'], 13);
+				$row = Db::getInstance()->getRow($sql);
+				$group_name = '_'.Tools::substr($row['name'], 13);
 				Configuration::updateValue('AV_PROCESSINIT'.$group_name, $uns_msg['init_reviews_process'], false, null, $uns_msg['id_shop']);
 				// Implode if more than one element so is_array
 				$orderstatechoosen = (is_array($uns_msg['id_order_status_choosen'])) ?
@@ -287,12 +288,12 @@ function setModuleConfiguration(&$post_data)
 									$uns_msg['forbidden_mail_extension'];
 				Configuration::updateValue('AV_FORBIDDEN_EMAIL'.$group_name, $forbiddenemail, false, null, $uns_msg['id_shop']);
 				Configuration::updateValue('AV_SCRIPTFIXE'.$group_name,
-											str_replace(array("\r\n", "\n"), '', $uns_msg['script_fixe_widget']),
+											htmlentities(str_replace(array("\r\n", "\n"), '', $uns_msg['script_fixe_widget'])),
 											true,
 											null,
 											$uns_msg['id_shop']);
 				Configuration::updateValue('AV_SCRIPTFLOAT'.$group_name,
-											str_replace(array("\r\n", "\n"), '', $uns_msg['script_float_widget']),
+											htmlentities(str_replace(array("\r\n", "\n"), '', $uns_msg['script_float_widget'])),
 											true,
 											null,
 											$uns_msg['id_shop']);
@@ -323,12 +324,12 @@ function setModuleConfiguration(&$post_data)
 									$uns_msg['forbidden_mail_extension'];
 				Configuration::updateValue('AV_FORBIDDEN_EMAIL', $forbiddenemail, false, null, $uns_msg['id_shop']);
 				Configuration::updateValue('AV_SCRIPTFIXE',
-											str_replace(array("\r\n", "\n"), '', $uns_msg['script_fixe_widget']),
+											htmlentities(str_replace(array("\r\n", "\n"), '', $uns_msg['script_fixe_widget'])),
 											true,
 											null,
 											$uns_msg['id_shop']);
 				Configuration::updateValue('AV_SCRIPTFLOAT',
-											str_replace(array("\r\n", "\n"), '', $uns_msg['script_float_widget']),
+											htmlentities(str_replace(array("\r\n", "\n"), '', $uns_msg['script_float_widget'])),
 											true,
 											null,
 											$uns_msg['id_shop']);
@@ -368,8 +369,8 @@ function setModuleConfiguration(&$post_data)
 									implode(';', $uns_msg['forbidden_mail_extension']) :
 									$uns_msg['forbidden_mail_extension'];
 				Configuration::updateValue('AV_FORBIDDEN_EMAIL'.$group_name, $forbiddenemail);
-				Configuration::updateValue('AV_SCRIPTFIXE'.$group_name, str_replace(array("\r\n", "\n"), '', $uns_msg['script_fixe_widget']));
-				Configuration::updateValue('AV_SCRIPTFLOAT'.$group_name, str_replace(array("\r\n", "\n"), '', $uns_msg['script_float_widget']));
+				Configuration::updateValue('AV_SCRIPTFIXE'.$group_name, htmlentities(str_replace(array("\r\n", "\n"), '', $uns_msg['script_fixe_widget'])), true);
+				Configuration::updateValue('AV_SCRIPTFLOAT'.$group_name, htmlentities(str_replace(array("\r\n", "\n"), '', $uns_msg['script_float_widget'])), true);
 				Configuration::updateValue('AV_CODE_LANG'.$group_name, $uns_msg['code_lang']);
 				$reponse['sign'] = SHA1($post_data['query'].Configuration::get('AV_IDWEBSITE'.$group_name).Configuration::get('AV_CLESECRETE'.$group_name));
 				$reponse['message'] = getModuleAndSiteInfos($uns_msg['id_shop'], $group_name);
@@ -394,8 +395,8 @@ function setModuleConfiguration(&$post_data)
 									implode(';', $uns_msg['forbidden_mail_extension']) :
 									$uns_msg['forbidden_mail_extension'];
 				Configuration::updateValue('AV_FORBIDDEN_EMAIL', $forbiddenemail);
-				Configuration::updateValue('AV_SCRIPTFIXE', str_replace(array("\r\n", "\n"), '', $uns_msg['script_fixe_widget']));
-				Configuration::updateValue('AV_SCRIPTFLOAT', str_replace(array("\r\n", "\n"), '', $uns_msg['script_float_widget']));
+				Configuration::updateValue('AV_SCRIPTFIXE', htmlentities(str_replace(array("\r\n", "\n"), '', $uns_msg['script_fixe_widget'])), true);
+				Configuration::updateValue('AV_SCRIPTFLOAT', htmlentities(str_replace(array("\r\n", "\n"), '', $uns_msg['script_float_widget'])), true);
 				Configuration::updateValue('AV_CODE_LANG', $uns_msg['code_lang']);
 				$reponse['sign'] = SHA1($post_data['query'].Configuration::get('AV_IDWEBSITE').Configuration::get('AV_CLESECRETE'));
 				$reponse['message'] = getModuleAndSiteInfos($uns_msg['id_shop']);
@@ -420,16 +421,18 @@ function setModuleConfiguration(&$post_data)
 				WHERE value = '".$uns_msg['idWebsite']."'
 				AND name like 'AV_IDWEBSITE_%'
 				AND id_shop = ".$uns_msg['id_shop'];
-				if ($row = Db::getInstance()->getRow($sql))
-					$group_name = '_'.Tools::substr($row['name'], 13);
+				$row = Db::getInstance()->getRow($sql);
+				$group_name = '_'.Tools::substr($row['name'], 13);
 				$reponse['sign'] = SHA1($post_data['query'].
 				Configuration::get('AV_IDWEBSITE'.$group_name, null, null, $uns_msg['id_shop']).
 				Configuration::get('AV_CLESECRETE'.$group_name, null, null, $uns_msg['id_shop']));
 			}
 			else
+			{
 				$reponse['sign'] = SHA1($post_data['query'].
 				Configuration::get('AV_IDWEBSITE', null, null, $uns_msg['id_shop']).
 				Configuration::get('AV_CLESECRETE', null, null, $uns_msg['id_shop']));
+			}
 		}
 		else
 		{
@@ -471,8 +474,8 @@ function truncateTables(&$post_data)
 			WHERE value = '".$uns_msg['idWebsite']."'
 			AND name like 'AV_IDWEBSITE_%'
 			AND id_shop = ".$uns_msg['id_shop'];
-			if ($row = Db::getInstance()->getRow($sql))
-				$group_name = '_'.Tools::substr($row['name'], 13);
+			$row = Db::getInstance()->getRow($sql);
+			$group_name = '_'.Tools::substr($row['name'], 13);
 			$query[] = 'DELETE FROM '._DB_PREFIX_.'av_products_reviews
 			WHERE id_shop = '.$uns_msg['id_shop'].'
 			AND iso_lang in ("'.implode ( '","', unserialize(Configuration::get('AV_GROUP_CONF'.$group_name, null, null, $uns_msg['id_shop']))).'" );';
@@ -575,16 +578,18 @@ function isActiveModule(&$post_data)
 					WHERE value = '".$uns_msg['idWebsite']."'
 					AND name like 'AV_IDWEBSITE_%'
 					AND id_shop = ".$uns_msg['id_shop'];
-			if ($row = Db::getInstance()->getRow($sql))
-				$group_name = '_'.Tools::substr($row['name'], 13);
+			$row = Db::getInstance()->getRow($sql);
+			$group_name = '_'.Tools::substr($row['name'], 13);
 			$reponse['sign'] = SHA1($post_data['query'].
 			Configuration::get('AV_IDWEBSITE'.$group_name, null, null, $uns_msg['id_shop']).
 			Configuration::get('AV_CLESECRETE'.$group_name, null, null, $uns_msg['id_shop']));
 		}
 		else
+		{
 			$reponse['sign'] = SHA1($post_data['query'].
 			Configuration::get('AV_IDWEBSITE', null, null, $uns_msg['id_shop']).
 			Configuration::get('AV_CLESECRETE', null, null, $uns_msg['id_shop']));
+		}
 
 	}
 	else
@@ -626,8 +631,8 @@ function getModuleAndSiteConfiguration(&$post_data)
 					WHERE value = '".$uns_msg['idWebsite']."'
 					AND name like 'AV_IDWEBSITE_%'
 					AND id_shop = ".$uns_msg['id_shop'];
-			if ($row = Db::getInstance()->getRow($sql))
-				$group_name = '_'.Tools::substr($row['name'], 13);
+			$row = Db::getInstance()->getRow($sql);
+			$group_name = '_'.Tools::substr($row['name'], 13);
 			$reponse['message'] = getModuleAndSiteInfos($uns_msg['id_shop'], $group_name);
 			$reponse['sign'] = SHA1($post_data['query'].
 								Configuration::get('AV_IDWEBSITE'.$group_name, null, null, $uns_msg['id_shop']).
@@ -948,7 +953,7 @@ function setProductsReviews(&$post_data)
 	{
 		if (Configuration::get('AV_MULTILINGUE') == 'checked')
 		{
-			$id_shop = 'null';
+			$id_shop = 0;
 			$sql = 'SELECT name
 					FROM '._DB_PREFIX_."configuration
 					where value = '".$message['idWebsite']."'

@@ -32,8 +32,9 @@ require_once _PS_MODULE_DIR_.'netreviews/models/NetReviewsModel.php';
 
 class NetReviews extends Module
 {
-	public $id_lang;
-	public $iso_lang;
+	public $iso_lang = null;
+	public $id_lang = null;
+	public $group_name = null;
 	public $stats_product;
 
 	public function __construct()
@@ -43,22 +44,16 @@ class NetReviews extends Module
 		$this->version = '7.1.3';
 		$this->author = 'NetReviews';
 		$this->need_instance = 0;
-
 		parent::__construct();
-
 		$this->displayName = $this->l('Verified Reviews');
 		$this->description = $this->l('Collect service and product reviews with Verified Reviews. Display reviews on your shop and win the trust of your visitors, to increase your revenue.');
-
 		$this->module_key = 'a65tt6ygert4azer34ru523re4rryuvt';
-
 		if (self::isInstalled($this->name))
 		{
 			$this->id_lang = (int)Configuration::get('PS_LANG_DEFAULT');
 			$this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
 		}
-
 		$this->confirmUninstall = sprintf($this->l('Are you sure you want to uninstall %s module?'), $this->displayName);
-
 		$this->initContext();
 	}
 
@@ -86,10 +81,8 @@ class NetReviews extends Module
 		Configuration::updateValue('AV_URLCERTIFICAT', '');
 		Configuration::updateValue('AV_FORBIDDEN_EMAIL', '');
 		Configuration::updateValue('AV_CODE_LANG', '');
-
 		if (!($query = include dirname(__FILE__).'/sql/install.php'))
 			$this->context->controller->errors[] = sprintf($this->l('SQL ERROR : %s | Query can\'t be executed. Maybe, check SQL user permissions.'), $query);
-
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
 			return parent::install()
 				&& $this->registerHook('productTabContent')
@@ -121,11 +114,9 @@ class NetReviews extends Module
 		if ($results = Db::getInstance()->ExecuteS($sql))
 			foreach ($results as $row)
 				Configuration::deleteByName($row['name']);
-
 		//Uninstall NetReviews Database
 		if (!($query = include dirname(__FILE__).'/sql/uninstall.php'));
 			$this->context->controller->errors[] = sprintf($this->l('SQL ERROR : %s | Query can\'t be executed. Maybe, check SQL user permissions.'), $query);
-
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
 			return parent::uninstall()
 				&& $this->unregisterHook('productTabContent')
@@ -156,6 +147,10 @@ class NetReviews extends Module
 	public function getContent()
 	{
 		global $currentIndex;
+		if (version_compare(_PS_VERSION_, '1.5', '<'))
+			Tools::addCSS(($this->_path).'views/css/avisverifies-style-back.css', 'all');
+		else
+			$this->context->controller->addCSS(($this->_path).'views/css/avisverifies-style-back.css', 'all');
 		if (!empty($_POST))
 			$this->postProcess();
 		// There are 3 kinds of shop context : shop, group shop and general
@@ -163,8 +158,11 @@ class NetReviews extends Module
 		//CONTEXT_GROUP = 2;
 		//CONTEXT_ALL = 4;
 		if (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1 &&
-			(Shop::getContext() == Shop::CONTEXT_ALL || Shop::getContext() == Shop::CONTEXT_GROUP))
-				$this->_html .= $this->displayError($this->l('Multistore feature is enabled. Please choose above the store to configure.'));
+		(Shop::getContext() == Shop::CONTEXT_ALL || Shop::getContext() == Shop::CONTEXT_GROUP))
+		{
+			$this->_html .= $this->displayError($this->l('Multistore feature is enabled. Please choose above the store to configure.'));
+			return $this->_html;
+		}
 		$o_av = new NetReviewsModel();
 		$nb_reviews = $o_av->getTotalReviews();
 		$nb_reviews_average = $o_av->getTotalReviewsAverage();
@@ -177,15 +175,15 @@ class NetReviews extends Module
 		$languages = Language::getLanguages(true);
 		foreach ($languages as $lang)
 		{
-			$group_name = $this->getIdConfigurationGroup($lang['iso_code']);
-			if (!empty($group_name))
+			$this->group_name = $this->getIdConfigurationGroup($lang['iso_code']);
+			if (!empty($this->group_name))
 			{
-				if (!Configuration::get('AV_IDWEBSITE'.$group_name))
-					Configuration::updateValue('AV_IDWEBSITE'.$group_name, '');
-				if (!Configuration::get('AV_CLESECRETE'.$group_name))
-					Configuration::updateValue('AV_CLESECRETE'.$group_name, '');
-				$current_avisverifies_idwebsite[$lang['iso_code']] = Configuration::get('AV_IDWEBSITE'.$group_name);
-				$current_avisverifies_clesecrete[$lang['iso_code']] = Configuration::get('AV_CLESECRETE'.$group_name);
+				if (!Configuration::get('AV_IDWEBSITE'.$this->group_name))
+					Configuration::updateValue('AV_IDWEBSITE'.$this->group_name, '');
+				if (!Configuration::get('AV_CLESECRETE'.$this->group_name))
+					Configuration::updateValue('AV_CLESECRETE'.$this->group_name, '');
+				$current_avisverifies_idwebsite[$lang['iso_code']] = Configuration::get('AV_IDWEBSITE'.$this->group_name);
+				$current_avisverifies_clesecrete[$lang['iso_code']] = Configuration::get('AV_CLESECRETE'.$this->group_name);
 			}
 			else
 			{
@@ -211,7 +209,7 @@ class NetReviews extends Module
 				'shop_name' => $this->context->shop->name,
 				'url_back' => Tools::safeOutput($currentIndex.'&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules'))
 		));
-		$this->_html .= $this->display(__FILE__, 'views/templates/hook/avisverifies-backoffice.tpl');
+		$this->_html .= $this->display(__FILE__, '/views/templates/hook/avisverifies-backoffice.tpl');
 		return $this->_html;
 	}
 
@@ -227,13 +225,13 @@ class NetReviews extends Module
 				if (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1)
 				{
 					//Do not use simple quote for \r\n
-					$header_colums = 'id_order;montantCommande;email;lastname;firstname;date_order;delay;id_product;category;description;product_url;image_product_url;id_order_state;iso_lang;id_shop'."\r\n";
+					$header_colums = 'id_order;order_amount;email;lastname;firstname;date_order;delay;id_product;category;description;product_url;image_product_url;id_order_state;iso_lang;id_shop'."\r\n";
 					$return_export = $o_av->export($this->context->shop->getContextShopID(), $header_colums);
 				}
 				else
 				{
 					//Do not use simple quote for \r\n
-					$header_colums = 'id_order;montantCommande;email;lastname;firstname;date_order;delay;id_product;category;description;product_url;image_product_url;id_order_state;iso_lang'."\r\n";
+					$header_colums = 'id_order;order_amount;email;lastname;firstname;date_order;delay;id_product;category;description;product_url;image_product_url;id_order_state;iso_lang'."\r\n";
 					$return_export = $o_av->export(null, $header_colums);
 				}
 				if (file_exists($return_export[2]))
@@ -286,10 +284,10 @@ class NetReviews extends Module
 					Db::getInstance()->Execute('UPDATE '._DB_PREFIX_.'av_orders
 												SET horodate_get = "'.time().'", flag_get = 1
 												WHERE id_order = '.(int)$order['id_order']);
-				$this->_html .= $this->displayConfirmation(sprintf($this->l('The orders has been purged from %s'), $this->context->shop->name));
+				$this->_html .= $this->displayConfirmation(sprintf($this->l('The orders has been purged for %s'), $this->context->shop->name));
 			}
 			else
-				$this->_html .= $this->displayError(sprintf($this->l('No orders to purged from %s'), $this->context->shop->name));
+				$this->_html .= $this->displayError(sprintf($this->l('No orders to purged for %s'), $this->context->shop->name));
 		}
 	}
 
@@ -304,14 +302,11 @@ class NetReviews extends Module
 	public function hookHeader()
 	{
 		$widget_flottant_code = '';
-		$iso_lang = null;
-		$id_lang = null;
-		$group_name = null;
 		if (Configuration::get('AV_MULTILINGUE') == 'checked')
 		{
-			$id_lang = $this->context->language->id;
-			$iso_lang = pSQL(Language::getIsoById($id_lang));
-			$group_name = $this->getIdConfigurationGroup($iso_lang);
+			$this->id_lang = $this->context->language->id;
+			$this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
+			$this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
 		}
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
 		{
@@ -321,10 +316,10 @@ class NetReviews extends Module
 			if (file_exists('./'.($this->_path).'views/css/avisverifies-style-front-specifique.css'))
 				Tools::addCSS(($this->_path).'views/css/avisverifies-style-front-specifique.css', 'all');
 			Tools::addJS(($this->_path).'views/js/avisverifies.js', 'all');
-			if (Configuration::get('AV_SCRIPTFLOAT_ALLOWED'.$group_name) != 'yes')
+			if (Configuration::get('AV_SCRIPTFLOAT_ALLOWED'.$this->group_name) != 'yes')
 				return '';
-			if (Configuration::get('AV_SCRIPTFLOAT'.$group_name))
-				$widget_flottant_code .= "\n".Tools::stripslashes(html_entity_decode(Configuration::get('AV_SCRIPTFLOAT'.$group_name)));
+			if (Configuration::get('AV_SCRIPTFLOAT'.$this->group_name))
+				$widget_flottant_code .= "\n".Tools::stripslashes(html_entity_decode(Configuration::get('AV_SCRIPTFLOAT'.$this->group_name)));
 		}
 		else
 		{
@@ -335,10 +330,10 @@ class NetReviews extends Module
 				$this->context->controller->addCSS(($this->_path).'views/css/avisverifies-style-front-specifique.css', 'all');
 
 			$this->context->controller->addJS(($this->_path).'views/js/avisverifies.js', 'all');
-			if (Configuration::get('AV_SCRIPTFLOAT_ALLOWED'.$group_name, null, null, $this->context->shop->getContextShopID()) != 'yes')
+			if (Configuration::get('AV_SCRIPTFLOAT_ALLOWED'.$this->group_name, null, null, $this->context->shop->getContextShopID()) != 'yes')
 				return '';
-			if (Configuration::get('AV_SCRIPTFLOAT'.$group_name))
-				$widget_flottant_code .= "\n".Tools::stripslashes(html_entity_decode(Configuration::get('AV_SCRIPTFLOAT'.$group_name)));
+			if (Configuration::get('AV_SCRIPTFLOAT'.$this->group_name))
+				$widget_flottant_code .= "\n".Tools::stripslashes(html_entity_decode(Configuration::get('AV_SCRIPTFLOAT'.$this->group_name)));
 		}
 		return $widget_flottant_code;
 	}
@@ -353,29 +348,59 @@ class NetReviews extends Module
 	 */
 	public function hookFooter()
 	{
-		if (file_exists('./'.($this->_path).'hookFooter.php'))
-			include './'.($this->_path).'hookFooter.php';
+		global $smarty, $cookie;
+		if (Configuration::get('AV_MULTILINGUE') == 'checked')
+		{
+			$this->id_lang = $this->context->language->id;
+			$this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
+			$this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
+		}
+		$id_product = (int)Tools::getValue('id_product');
+		if (empty($id_product))
+			return '';
+		$o_av = new NetReviewsModel();
+		$stats_product = (!isset($this->stats_product) || empty($this->stats_product)) ?
+							$o_av->getStatsProduct($id_product, $this->group_name, $this->context->shop->getContextShopID()) :
+							$this->stats_product;
+		if ($stats_product['nb_reviews'] == 0)
+			return '';
+		$lang_id = (int)$this->context->language->id;
+		if (empty($lang_id))
+			$lang_id = 1;
+		$product = new Product((int)$id_product);
+		$link = new LinkCore();
+		$a_image = Image::getCover($id_product);
+		$smarty->assign(array(
+			'count_reviews' => $stats_product['nb_reviews'],
+			'average_rate' => round($stats_product['rate'], 1),
+			'average_rate_percent' => $stats_product['rate'] * 20,
+			'product_name' => $this->getProductName($id_product, $lang_id),
+			'product_description' => $product->description_short[$lang_id],
+			'product_price' => $product->getPrice(true, null, 2),
+			'product_quantity' => $product->quantity,
+			'url_image' =>  !empty($a_image)? $link->getImageLink($product->link_rewrite, $id_product.'-'.$a_image['id_image']): '',
+		));
+		if ((version_compare(_PS_VERSION_, '1.5', '>') && $return = $this->display(__FILE__, '/views/templates/hook/footer_av.tpl'))
+			|| (version_compare(_PS_VERSION_, '1.5', '<') && $return = $this->display(__FILE__, 'footer_av.tpl')))
+			return $return;
 		else
 			return '';
 	}
 
 	public function hookProductTab()
 	{
-		$iso_lang = null;
-		$id_lang = null;
-		$group_name = null;
 		if (Configuration::get('AV_MULTILINGUE') == 'checked')
 		{
-			$id_lang = $this->context->language->id;
-			$iso_lang = pSQL(Language::getIsoById($id_lang));
-			$group_name = $this->getIdConfigurationGroup($iso_lang);
+			$this->id_lang = $this->context->language->id;
+			$this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
+			$this->this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
 		}
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
-			$display_prod_reviews = Configuration::get('AV_DISPLAYPRODREVIEWS'.$group_name);
+			$display_prod_reviews = Configuration::get('AV_DISPLAYPRODREVIEWS'.$this->group_name);
 		else
-			$display_prod_reviews = Configuration::get('AV_DISPLAYPRODREVIEWS'.$group_name, null, null, $this->context->shop->getContextShopID());
+			$display_prod_reviews = Configuration::get('AV_DISPLAYPRODREVIEWS'.$this->group_name, null, null, $this->context->shop->getContextShopID());
 		$o_av = new NetReviewsModel();
-		$this->stats_product = $o_av->getStatsProduct((int)Tools::getValue('id_product'), $group_name, $this->context->shop->getContextShopID());
+		$this->stats_product = $o_av->getStatsProduct((int)Tools::getValue('id_product'), $this->group_name, $this->context->shop->getContextShopID());
 		if ($this->stats_product['nb_reviews'] < 1 || $display_prod_reviews != 'yes') return ''; //Si Aucun avis, on retourne vide
 		$this->context->smarty->assign(array('count_reviews' => $this->stats_product['nb_reviews']));
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
@@ -387,33 +412,30 @@ class NetReviews extends Module
 	/* WARNING : Modifications below need to be copy in ajax-load.php*/
 	public function hookProductTabContent()
 	{
-		$iso_lang = null;
-		$id_lang = null;
-		$group_name = null;
 		if (Configuration::get('AV_MULTILINGUE') == 'checked')
 		{
-			$id_lang = $this->context->language->id;
-			$iso_lang = pSQL(Language::getIsoById($id_lang));
-			$group_name = $this->getIdConfigurationGroup($iso_lang);
+			$this->id_lang = $this->context->language->id;
+			$this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
+			$this->this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
 		}
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
 		{
-			$display_prod_reviews = Configuration::get('AV_DISPLAYPRODREVIEWS'.$group_name);
-			$url_certificat = Configuration::get('AV_URLCERTIFICAT'.$group_name);
+			$display_prod_reviews = Configuration::get('AV_DISPLAYPRODREVIEWS'.$this->group_name);
+			$url_certificat = Configuration::get('AV_URLCERTIFICAT'.$this->group_name);
 		}
 		else
 		{
-			$display_prod_reviews = configuration::get('AV_DISPLAYPRODREVIEWS'.$group_name, null, null, $this->context->shop->getContextShopID());
-			$url_certificat = Configuration::get('AV_URLCERTIFICAT'.$group_name, null, null, $this->context->shop->getContextShopID());
+			$display_prod_reviews = configuration::get('AV_DISPLAYPRODREVIEWS'.$this->group_name, null, null, $this->context->shop->getContextShopID());
+			$url_certificat = Configuration::get('AV_URLCERTIFICAT'.$this->group_name, null, null, $this->context->shop->getContextShopID());
 		}
 		$shop_name = Configuration::get('PS_SHOP_NAME');
 		$id_product = (int)Tools::getValue('id_product');
 		$o_av = new NetReviewsModel();
 		$stats_product = (!isset($this->stats_product) || empty($this->stats_product)) ?
-							$o_av->getStatsProduct($id_product, $group_name, $this->context->shop->getContextShopID())
+							$o_av->getStatsProduct($id_product, $this->group_name, $this->context->shop->getContextShopID())
 							: $this->stats_product;
 		if ($stats_product['nb_reviews'] < 1 || $display_prod_reviews != 'yes') return ''; /* if no reviews, return empty */
-		$reviews = $o_av->getProductReviews($id_product, $group_name, $this->context->shop->getContextShopID(), false, 0);
+		$reviews = $o_av->getProductReviews($id_product, $this->group_name, $this->context->shop->getContextShopID(), false, 0);
 		$reviews_list = array(); //Create array with all reviews data
 		$my_review = array(); //Create array with each reviews data
 		foreach ($reviews as $review)
@@ -452,7 +474,7 @@ class NetReviews extends Module
 		$this->context->smarty->assign(array(
 			'current_url' =>  $_SERVER['REQUEST_URI'],
 			'id_shop' => $this->context->shop->getContextShopID(),
-			'nom_group' => (!empty($group_name))?"'".$group_name."'":null,
+			'nom_group' => (!empty($this->group_name))?"'".$this->group_name."'":null,
 			'reviews' => $reviews_list,
 			'count_reviews' => $stats_product['nb_reviews'],
 			'average_rate' => round($stats_product['rate'], 1),
@@ -468,28 +490,25 @@ class NetReviews extends Module
 
 	public function hookActionValidateOrder($params)
 	{
-		$iso_lang = null;
-		$id_lang = null;
-		$group_name = null;
 		if (Configuration::get('AV_MULTILINGUE') == 'checked')
 		{
-			$id_lang = $this->context->language->id;
-			$iso_lang = pSQL(Language::getIsoById($id_lang));
-			$group_name = $this->getIdConfigurationGroup($iso_lang);
+			$this->id_lang = $this->context->language->id;
+			$this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
+			$this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
 		}
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
 		{
-			//$process_init = Configuration::get('AV_PROCESSINIT'.$group_name);
-			$id_website = configuration::get('AV_IDWEBSITE'.$group_name);
-			$secret_key = configuration::get('AV_CLESECRETE'.$group_name);
-			$code_lang = configuration::get('AV_CODE_LANG'.$group_name);
+			//$process_init = Configuration::get('AV_PROCESSINIT'.$this->group_name);
+			$id_website = configuration::get('AV_IDWEBSITE'.$this->group_name);
+			$secret_key = configuration::get('AV_CLESECRETE'.$this->group_name);
+			$code_lang = configuration::get('AV_CODE_LANG'.$this->group_name);
 		}
 		else
 		{
-			//$process_init = Configuration::get('AV_PROCESSINIT'.$group_name);
-			$id_website = configuration::get('AV_IDWEBSITE'.$group_name, null, null, $this->context->shop->getContextShopID());
-			$secret_key = configuration::get('AV_CLESECRETE'.$group_name, null, null, $this->context->shop->getContextShopID());
-			$code_lang = configuration::get('AV_CODE_LANG'.$group_name, null, null, $this->context->shop->getContextShopID());
+			//$process_init = Configuration::get('AV_PROCESSINIT'.$this->group_name);
+			$id_website = configuration::get('AV_IDWEBSITE'.$this->group_name, null, null, $this->context->shop->getContextShopID());
+			$secret_key = configuration::get('AV_CLESECRETE'.$this->group_name, null, null, $this->context->shop->getContextShopID());
+			$code_lang = configuration::get('AV_CODE_LANG'.$this->group_name, null, null, $this->context->shop->getContextShopID());
 		}
 		if (empty($id_website) || empty($secret_key))
 			return;
@@ -512,26 +531,23 @@ class NetReviews extends Module
 
 	public function hookRightColumn()
 	{
-		$iso_lang = null;
-		$id_lang = null;
-		$group_name = null;
 		if (Configuration::get('AV_MULTILINGUE') == 'checked')
 		{
-			$id_lang = $this->context->language->id;
-			$iso_lang = pSQL(Language::getIsoById($id_lang));
-			$group_name = $this->getIdConfigurationGroup($iso_lang);
+			$this->id_lang = $this->context->language->id;
+			$this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
+			$this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
 		}
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
 		{
-			$av_scriptfixe_allowed = Configuration::get('AV_SCRIPTFIXE_ALLOWED'.$group_name);
-			$av_scriptfixe_position = Configuration::get('AV_SCRIPTFIXE_POSITION'.$group_name);
-			$av_scriptfixe = Configuration::get('AV_SCRIPTFIXE'.$group_name);
+			$av_scriptfixe_allowed = Configuration::get('AV_SCRIPTFIXE_ALLOWED'.$this->group_name);
+			$av_scriptfixe_position = Configuration::get('AV_SCRIPTFIXE_POSITION'.$this->group_name);
+			$av_scriptfixe = Configuration::get('AV_SCRIPTFIXE'.$this->group_name);
 		}
 		else
 		{
-			$av_scriptfixe_allowed = Configuration::get('AV_SCRIPTFIXE_ALLOWED'.$group_name, null, null, $this->context->shop->getContextShopID());
-			$av_scriptfixe_position = Configuration::get('AV_SCRIPTFIXE_POSITION'.$group_name, null, null, $this->context->shop->getContextShopID());
-			$av_scriptfixe = Configuration::get('AV_SCRIPTFIXE'.$group_name, null, null, $this->context->shop->getContextShopID());
+			$av_scriptfixe_allowed = Configuration::get('AV_SCRIPTFIXE_ALLOWED'.$this->group_name, null, null, $this->context->shop->getContextShopID());
+			$av_scriptfixe_position = Configuration::get('AV_SCRIPTFIXE_POSITION'.$this->group_name, null, null, $this->context->shop->getContextShopID());
+			$av_scriptfixe = Configuration::get('AV_SCRIPTFIXE'.$this->group_name, null, null, $this->context->shop->getContextShopID());
 		}
 		if ($av_scriptfixe_allowed != 'yes' || $av_scriptfixe_position != 'right')
 			return;
@@ -541,26 +557,23 @@ class NetReviews extends Module
 
 	public function hookLeftColumn()
 	{
-		$iso_lang = null;
-		$id_lang = null;
-		$group_name = null;
 		if (Configuration::get('AV_MULTILINGUE') == 'checked')
 		{
-			$id_lang = $this->context->language->id;
-			$iso_lang = pSQL(Language::getIsoById($id_lang));
-			$group_name = $this->getIdConfigurationGroup($iso_lang);
+			$this->id_lang = $this->context->language->id;
+			$this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
+			$this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
 		}
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
 		{
-			$av_scriptfixe_allowed = Configuration::get('AV_SCRIPTFIXE_ALLOWED'.$group_name);
-			$av_scriptfixe_position = Configuration::get('AV_SCRIPTFIXE_POSITION'.$group_name);
-			$av_scriptfixe = Configuration::get('AV_SCRIPTFIXE'.$group_name);
+			$av_scriptfixe_allowed = Configuration::get('AV_SCRIPTFIXE_ALLOWED'.$this->group_name);
+			$av_scriptfixe_position = Configuration::get('AV_SCRIPTFIXE_POSITION'.$this->group_name);
+			$av_scriptfixe = Configuration::get('AV_SCRIPTFIXE'.$this->group_name);
 		}
 		else
 		{
-			$av_scriptfixe_allowed = Configuration::get('AV_SCRIPTFIXE_ALLOWED'.$group_name, null, null, $this->context->shop->getContextShopID());
-			$av_scriptfixe_position = Configuration::get('AV_SCRIPTFIXE_POSITION'.$group_name, null, null, $this->context->shop->getContextShopID());
-			$av_scriptfixe = Configuration::get('AV_SCRIPTFIXE'.$group_name, null, null, $this->context->shop->getContextShopID());
+			$av_scriptfixe_allowed = Configuration::get('AV_SCRIPTFIXE_ALLOWED'.$this->group_name, null, null, $this->context->shop->getContextShopID());
+			$av_scriptfixe_position = Configuration::get('AV_SCRIPTFIXE_POSITION'.$this->group_name, null, null, $this->context->shop->getContextShopID());
+			$av_scriptfixe = Configuration::get('AV_SCRIPTFIXE'.$this->group_name, null, null, $this->context->shop->getContextShopID());
 		}
 		if ($av_scriptfixe_allowed != 'yes' || $av_scriptfixe_position != 'left')
 			return;
@@ -570,22 +583,19 @@ class NetReviews extends Module
 
 	public function hookExtraRight()
 	{
-		$iso_lang = null;
-		$id_lang = null;
-		$group_name = null;
 		if (Configuration::get('AV_MULTILINGUE') == 'checked')
 		{
-			$id_lang = $this->context->language->id;
-			$iso_lang = pSQL(Language::getIsoById($id_lang));
-			$group_name = $this->getIdConfigurationGroup($iso_lang);
+			$this->id_lang = $this->context->language->id;
+			$this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
+			$this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
 		}
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
-			$display_prod_reviews = configuration::get('AV_DISPLAYPRODREVIEWS'.$group_name);
+			$display_prod_reviews = configuration::get('AV_DISPLAYPRODREVIEWS'.$this->group_name);
 		else
-			$display_prod_reviews = configuration::get('AV_DISPLAYPRODREVIEWS'.$group_name, null, null, $this->context->shop->getContextShopID());
+			$display_prod_reviews = configuration::get('AV_DISPLAYPRODREVIEWS'.$this->group_name, null, null, $this->context->shop->getContextShopID());
 		$id_product = (int)Tools::getValue('id_product');
 		$o = new NetReviewsModel();
-		$reviews = $o->getStatsProduct($id_product, $group_name, $this->context->shop->getContextShopID());
+		$reviews = $o->getStatsProduct($id_product, $this->group_name, $this->context->shop->getContextShopID());
 		if ($reviews['nb_reviews'] < 1 || $display_prod_reviews != 'yes') return ''; //Si Aucun avis, on retourne vide
 		$percent = round($reviews['rate']) * 20;
 		$this->context->smarty->assign(array(
@@ -598,7 +608,7 @@ class NetReviews extends Module
 		else
 			$tpl = 'avisverifies-extraright.tpl';
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
-			return $this->display(__FILE__, "views/templates/hook/$tpl");
+			return $this->display(__FILE__, "/views/templates/hook/$tpl");
 		else
 			return $this->display(__FILE__, $tpl);
 	}
@@ -637,7 +647,7 @@ class NetReviews extends Module
 			foreach ($results as $row)
 			{
 				$vconf = unserialize(Configuration::get($row['name']));
-				if (in_array($lang_iso, $vconf))
+				if ($vconf && in_array($lang_iso, $vconf))
 					return '_'.Tools::substr($row['name'], 14);
 			}
 		}
@@ -661,7 +671,7 @@ class NetReviews extends Module
 		{
 			$sql = 'SELECT name
 			FROM '._DB_PREFIX_."configuration
-			WHERE value = '".$id_website_current."'
+			WHERE value = '".pSql($id_website_current)."'
 			AND name like 'AV_IDWEBSITE_%'";
 			if ($row = Db::getInstance()->getRow($sql))
 				if (Configuration::get('AV_CLESECRETE_'.Tools::substr($row['name'], 13)) != $cle_secrete_current)

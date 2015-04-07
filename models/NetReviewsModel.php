@@ -38,9 +38,9 @@ class NetReviewsModel extends ObjectModel
 	public $iso_lang = null;
 	public function __construct()
 	{
-		$this->reviews_by_page = 6;
+		$this->reviews_by_page = 100;
 		//Be carefule, the frontcontroller pagination used in the main file in ProductTabContent
-		//impose a number of 10 for pagination (according to the product numbers on page)
+		//impose a number of 100 for pagination (according to the product numbers on page)
 		//Changing this number will break the paginationn
 	}
 	public function getProductReviews($id_product, $group_name = null, $id_shop = null, $count_reviews = false, $p = 1)
@@ -48,14 +48,14 @@ class NetReviewsModel extends ObjectModel
 		$p = (int)$p;
 		$n = $this->reviews_by_page;
 		if ($p <= 1) $p = 1;
-		if ($n != null && $n <= 0) $n = 6;
+		if ($n != null && $n <= 0) $n = 100;
 		if ($count_reviews)
 			$sql = 'SELECT COUNT(ref_product) as nbreviews FROM '._DB_PREFIX_.'av_products_reviews WHERE ref_product = '.(int)$id_product;
 		else
 			$sql = 'SELECT * FROM '._DB_PREFIX_.'av_products_reviews WHERE ref_product = '.(int)$id_product;
 		if (!empty($group_name))
 		{
-			if (!empty($id_shop))
+			if (!empty($id_shop) && Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1)
 				$av_group_conf = unserialize(Configuration::get('AV_GROUP_CONF'.$group_name, null, null, $id_shop));
 			else
 				$av_group_conf = unserialize(Configuration::get('AV_GROUP_CONF'.$group_name));
@@ -63,7 +63,7 @@ class NetReviewsModel extends ObjectModel
 		}
 		else
 			$sql .= " and iso_lang = '0'";
-		if (!empty($id_shop))
+		if (!empty($id_shop) && Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1)
 			$sql .= ' and (id_shop = '.$id_shop.')';
 		else
 			$sql .= ' and id_shop = 0';
@@ -80,7 +80,7 @@ class NetReviewsModel extends ObjectModel
 		$sql = 'SELECT * FROM '._DB_PREFIX_.'av_products_average WHERE ref_product = '.(int)$id_product;
 		if (!empty($group_name))
 		{
-			if (!empty($id_shop))
+			if (!empty($id_shop) && Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1)
 				$av_group_conf = unserialize(Configuration::get('AV_GROUP_CONF'.$group_name, null, null, $id_shop));
 			else
 				$av_group_conf = unserialize(Configuration::get('AV_GROUP_CONF'.$group_name));
@@ -88,7 +88,7 @@ class NetReviewsModel extends ObjectModel
 		}
 		else
 			$sql .= " and iso_lang = '0'";
-		if (!empty($id_shop))
+		if (!empty($id_shop) && Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1)
 			$sql .= ' and id_shop = '.$id_shop;
 		else
 			$sql .= ' and id_shop = 0';
