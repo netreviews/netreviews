@@ -55,7 +55,7 @@ class NetReviewsModel extends ObjectModel
 			$sql = 'SELECT * FROM '._DB_PREFIX_.'av_products_reviews WHERE ref_product = '.(int)$id_product;
 		if (!empty($group_name))
 		{
-			if (!empty($id_shop) && Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1)
+			if (!empty($id_shop) && Shop::isFeatureActive())
 				$av_group_conf = unserialize(Configuration::get('AV_GROUP_CONF'.$group_name, null, null, $id_shop));
 			else
 				$av_group_conf = unserialize(Configuration::get('AV_GROUP_CONF'.$group_name));
@@ -63,7 +63,7 @@ class NetReviewsModel extends ObjectModel
 		}
 		else
 			$sql .= " and iso_lang = '0'";
-		if (!empty($id_shop) && Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1)
+		if (!empty($id_shop) && Shop::isFeatureActive())
 			$sql .= ' and (id_shop = '.$id_shop.')';
 		else
 			$sql .= ' and id_shop = 0';
@@ -80,7 +80,7 @@ class NetReviewsModel extends ObjectModel
 		$sql = 'SELECT * FROM '._DB_PREFIX_.'av_products_average WHERE ref_product = '.(int)$id_product;
 		if (!empty($group_name))
 		{
-			if (!empty($id_shop) && Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1)
+			if (!empty($id_shop) && Shop::isFeatureActive())
 				$av_group_conf = unserialize(Configuration::get('AV_GROUP_CONF'.$group_name, null, null, $id_shop));
 			else
 				$av_group_conf = unserialize(Configuration::get('AV_GROUP_CONF'.$group_name));
@@ -88,7 +88,7 @@ class NetReviewsModel extends ObjectModel
 		}
 		else
 			$sql .= " and iso_lang = '0'";
-		if (!empty($id_shop) && Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1)
+		if (!empty($id_shop) && Shop::isFeatureActive())
 			$sql .= ' and id_shop = '.$id_shop;
 		else
 			$sql .= ' and id_shop = 0';
