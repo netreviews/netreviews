@@ -128,9 +128,9 @@ function checkSecurityData(&$post_data)
 		{
 			$sql = 'SELECT name
 			FROM '._DB_PREFIX_."configuration
-			WHERE value = '".$uns_msg['idWebsite']."'
+			WHERE value = '".pSQL($uns_msg['idWebsite'])."'
 			AND name like 'AV_IDWEBSITE_%'
-			AND id_shop = ".$uns_msg['id_shop'];
+			AND id_shop = ".(int)$uns_msg['id_shop'];
 			$row = Db::getInstance()->getRow($sql);
 			$group_name = '_'.Tools::substr($row['name'], 13);
 			$local_id_website = Configuration::get('AV_IDWEBSITE'.$group_name, null, null, $uns_msg['id_shop']);
@@ -183,7 +183,7 @@ function checkSecurityData(&$post_data)
 		{
 			$sql = 'SELECT name
 			FROM '._DB_PREFIX_."configuration
-			WHERE value = '".$uns_msg['idWebsite']."'
+			WHERE value = '".pSQL($uns_msg['idWebsite'])."'
 			AND name like 'AV_IDWEBSITE_%'
 			AND id_shop is null";
 			if ($row = Db::getInstance()->getRow($sql))
@@ -264,9 +264,9 @@ function setModuleConfiguration(&$post_data)
 			{
 				$sql = 'SELECT name
 				FROM '._DB_PREFIX_."configuration
-				WHERE value = '".$uns_msg['idWebsite']."'
+				WHERE value = '".pSQL($uns_msg['idWebsite'])."'
 				AND name like 'AV_IDWEBSITE_%'
-				AND id_shop = ".$uns_msg['id_shop'];
+				AND id_shop = ".(int)$uns_msg['id_shop'];
 				$row = Db::getInstance()->getRow($sql);
 				$group_name = '_'.Tools::substr($row['name'], 13);
 				Configuration::updateValue('AV_PROCESSINIT'.$group_name, $uns_msg['init_reviews_process'], false, null, $uns_msg['id_shop']);
@@ -346,7 +346,7 @@ function setModuleConfiguration(&$post_data)
 			{
 				$sql = 'SELECT name
 				FROM '._DB_PREFIX_."configuration
-				WHERE value = '".$uns_msg['idWebsite']."'
+				WHERE value = '".pSQL($uns_msg['idWebsite'])."'
 				AND name like 'AV_IDWEBSITE_%'
 				AND id_shop is null";
 				if ($row = Db::getInstance()->getRow($sql))
@@ -418,9 +418,9 @@ function setModuleConfiguration(&$post_data)
 			{
 				$sql = 'SELECT name
 				FROM '._DB_PREFIX_."configuration
-				WHERE value = '".$uns_msg['idWebsite']."'
+				WHERE value = '".pSQL($uns_msg['idWebsite'])."'
 				AND name like 'AV_IDWEBSITE_%'
-				AND id_shop = ".$uns_msg['id_shop'];
+				AND id_shop = ".(int)$uns_msg['id_shop'];
 				$row = Db::getInstance()->getRow($sql);
 				$group_name = '_'.Tools::substr($row['name'], 13);
 				$reponse['sign'] = SHA1($post_data['query'].
@@ -440,7 +440,7 @@ function setModuleConfiguration(&$post_data)
 			{
 				$sql = 'SELECT name
 				FROM '._DB_PREFIX_."configuration
-				WHERE value = '".$uns_msg['idWebsite']."'
+				WHERE value = '".pSQL($uns_msg['idWebsite'])."'
 				AND name like 'AV_IDWEBSITE_%'
 				AND id_shop is null";
 				if ($row = Db::getInstance()->getRow($sql))
@@ -471,16 +471,16 @@ function truncateTables(&$post_data)
 		{
 			$sql = 'SELECT name
 			FROM '._DB_PREFIX_."configuration
-			WHERE value = '".$uns_msg['idWebsite']."'
+			WHERE value = '".pSQL($uns_msg['idWebsite'])."'
 			AND name like 'AV_IDWEBSITE_%'
-			AND id_shop = ".$uns_msg['id_shop'];
+			AND id_shop = ".(int)$uns_msg['id_shop'];
 			$row = Db::getInstance()->getRow($sql);
 			$group_name = '_'.Tools::substr($row['name'], 13);
 			$query[] = 'DELETE FROM '._DB_PREFIX_.'av_products_reviews
-			WHERE id_shop = '.$uns_msg['id_shop'].'
+			WHERE id_shop = '.(int)$uns_msg['id_shop'].'
 			AND iso_lang in ("'.implode ( '","', unserialize(Configuration::get('AV_GROUP_CONF'.$group_name, null, null, $uns_msg['id_shop']))).'" );';
 			$query[] = 'DELETE FROM '._DB_PREFIX_.'av_products_average
-			WHERE id_shop = '.$uns_msg['id_shop'].'
+			WHERE id_shop = '.(int)$uns_msg['id_shop'].'
 			AND iso_lang in ("'.implode ( '","', unserialize(Configuration::get('AV_GROUP_CONF'.$group_name, null, null, $uns_msg['id_shop']))).'" );';
 			$reponse['sign'] = SHA1($post_data['query'].
 			Configuration::get('AV_IDWEBSITE'.$group_name, null, null, $uns_msg['id_shop']).
@@ -488,8 +488,8 @@ function truncateTables(&$post_data)
 		}
 		else
 		{
-			$query[] = 'DELETE FROM '._DB_PREFIX_.'av_products_reviews WHERE id_shop = '.$uns_msg['id_shop'].';';
-			$query[] = 'DELETE FROM '._DB_PREFIX_.'av_products_average WHERE id_shop = '.$uns_msg['id_shop'].';';
+			$query[] = 'DELETE FROM '._DB_PREFIX_.'av_products_reviews WHERE id_shop = '.(int)$uns_msg['id_shop'].';';
+			$query[] = 'DELETE FROM '._DB_PREFIX_.'av_products_average WHERE id_shop = '.(int)$uns_msg['id_shop'].';';
 			$reponse['sign'] = SHA1($post_data['query'].
 			Configuration::get('AV_IDWEBSITE', null, null, $uns_msg['id_shop']).
 			Configuration::get('AV_CLESECRETE', null, null, $uns_msg['id_shop']));
@@ -501,7 +501,7 @@ function truncateTables(&$post_data)
 		{
 			$sql = 'SELECT name
 			FROM '._DB_PREFIX_."configuration
-			WHERE value = '".$uns_msg['idWebsite']."'
+			WHERE value = '".pSQL($uns_msg['idWebsite'])."'
 			AND name like 'AV_IDWEBSITE_%'
 			AND id_shop is null";
 			if ($row = Db::getInstance()->getRow($sql))
@@ -575,9 +575,9 @@ function isActiveModule(&$post_data)
 		{
 			$sql = 'SELECT name
 					FROM '._DB_PREFIX_."configuration
-					WHERE value = '".$uns_msg['idWebsite']."'
+					WHERE value = '".pSQL($uns_msg['idWebsite'])."'
 					AND name like 'AV_IDWEBSITE_%'
-					AND id_shop = ".$uns_msg['id_shop'];
+					AND id_shop = ".(int)$uns_msg['id_shop'];
 			$row = Db::getInstance()->getRow($sql);
 			$group_name = '_'.Tools::substr($row['name'], 13);
 			$reponse['sign'] = SHA1($post_data['query'].
@@ -597,7 +597,7 @@ function isActiveModule(&$post_data)
 		if (Configuration::get('AV_MULTILINGUE') == 'checked')
 		{
 			$sql = 'SELECT name FROM '._DB_PREFIX_."configuration
-					WHERE value = '".$uns_msg['idWebsite']."'
+					WHERE value = '".pSQL($uns_msg['idWebsite'])."'
 					AND name like 'AV_IDWEBSITE_%'
 					AND id_shop is null ";
 			if ($row = Db::getInstance()->getRow($sql))
@@ -628,9 +628,9 @@ function getModuleAndSiteConfiguration(&$post_data)
 		if (Configuration::get('AV_MULTILINGUE', null, null, $uns_msg['id_shop']) == 'checked')
 		{
 			$sql = 'SELECT name FROM '._DB_PREFIX_."configuration
-					WHERE value = '".$uns_msg['idWebsite']."'
+					WHERE value = '".pSQL($uns_msg['idWebsite'])."'
 					AND name like 'AV_IDWEBSITE_%'
-					AND id_shop = ".$uns_msg['id_shop'];
+					AND id_shop = ".(int)$uns_msg['id_shop'];
 			$row = Db::getInstance()->getRow($sql);
 			$group_name = '_'.Tools::substr($row['name'], 13);
 			$reponse['message'] = getModuleAndSiteInfos($uns_msg['id_shop'], $group_name);
@@ -652,7 +652,7 @@ function getModuleAndSiteConfiguration(&$post_data)
 		{
 			$sql = 'SELECT name
 					FROM '._DB_PREFIX_."configuration
-					WHERE value = '".$uns_msg['idWebsite']."'
+					WHERE value = '".pSQL($uns_msg['idWebsite'])."'
 					AND name like 'AV_IDWEBSITE_%'
 					AND id_shop is null ";
 			if ($row = Db::getInstance()->getRow($sql))
@@ -688,9 +688,9 @@ function getOrders(&$post_data)
 		if (Configuration::get('AV_MULTILINGUE', null, null, $post_message['id_shop']) == 'checked')
 		{
 			$sql = 'SELECT name FROM '._DB_PREFIX_."configuration
-					WHERE value = '".$post_message['idWebsite']."'
+					WHERE value = '".pSQL($post_message['idWebsite'])."'
 					AND name like 'AV_IDWEBSITE_%'
-					AND id_shop = ".$post_message['id_shop'];
+					AND id_shop = ".(int)$post_message['id_shop'];
 			if ($row = Db::getInstance()->getRow($sql))
 				$group_name = '_'.Tools::substr($row['name'], 13);
 			$allowed_products = Configuration::get('AV_GETPRODREVIEWS'.$group_name, null, null, $post_message['id_shop']);
@@ -712,7 +712,7 @@ function getOrders(&$post_data)
 		{
 			$sql = 'SELECT name
 					FROM '._DB_PREFIX_."configuration
-					WHERE value = '".$post_message['idWebsite']."'
+					WHERE value = '".pSQL($post_message['idWebsite'])."'
 					AND name like 'AV_IDWEBSITE_%'
 					AND id_shop is null";
 			if ($row = Db::getInstance()->getRow($sql))
@@ -748,9 +748,9 @@ function getOrders(&$post_data)
 	{
 		$sql = 'SELECT name
 				FROM '._DB_PREFIX_."configuration
-				WHERE value = '".$post_message['idWebsite']."'
+				WHERE value = '".pSQL($post_message['idWebsite'])."'
 				AND name like 'AV_IDWEBSITE_%'
-				AND id_shop = ".$post_message['id_shop'];
+				AND id_shop = ".(int)$post_message['id_shop'];
 		if ($row = Db::getInstance()->getRow($sql))
 			$group_name = '_'.Tools::substr($row['name'], 13);
 		$sql2 = 'SELECT value FROM '._DB_PREFIX_."configuration
@@ -766,13 +766,13 @@ function getOrders(&$post_data)
 			$ids_lang .= (int)$id_lang.',';
 		}
 		$ids_lang = Tools::substr($ids_lang, 0, -1).')';
-		$query_iso_lang .= ' AND o.id_lang in '.$ids_lang;
+		$query_iso_lang .= ' AND o.id_lang in '.pSQL($ids_lang);
 	}
 	else if (Configuration::get('AV_MULTILINGUE') == 'checked')
 	{
 		$sql = 'SELECT name
 				FROM '._DB_PREFIX_."configuration
-				WHERE value = '".$post_message['idWebsite']."'
+				WHERE value = '".pSQL($post_message['idWebsite'])."'
 				AND name like 'AV_IDWEBSITE_%'
 				AND id_shop is null ";
 		if ($row = Db::getInstance()->getRow($sql))
@@ -788,7 +788,7 @@ function getOrders(&$post_data)
 			$ids_lang .= (int)$id_lang.',';
 		}
 		$ids_lang = Tools::substr($ids_lang, 0, -1).')';
-		$query_iso_lang .= ' AND o.id_lang in '.$ids_lang;
+		$query_iso_lang .= ' AND o.id_lang in '.pSQL($ids_lang);
 	}
 	if (!empty($post_message['id_shop']))
 		$query_id_shop = ' AND oav.id_shop = '.(int)$post_message['id_shop'];
@@ -874,9 +874,9 @@ function getOrders(&$post_data)
 		{
 			$sql = 'SELECT name
 					FROM '._DB_PREFIX_."configuration
-					where value = '".$post_message['idWebsite']."'
+					where value = '".pSQL($post_message['idWebsite'])."'
 					and name like 'AV_IDWEBSITE_%'
-					and id_shop = ".$post_message['id_shop'];
+					and id_shop = ".(int)$post_message['id_shop'];
 			if ($row = Db::getInstance()->getRow($sql))
 				$group_name = '_'.Tools::substr($row['name'], 13);
 			$reponse['message']['delay'] = Configuration::get('AV_DELAY'.$group_name, null, null, $post_message['id_shop']);
@@ -898,7 +898,7 @@ function getOrders(&$post_data)
 		{
 			$sql = 'SELECT name
 					FROM '._DB_PREFIX_."configuration
-					where value = '".$post_message['idWebsite']."'
+					where value = '".pSQL($post_message['idWebsite'])."'
 					and name like 'AV_IDWEBSITE_%'
 					and id_shop is null ";
 			if ($row = Db::getInstance()->getRow($sql))
@@ -933,15 +933,15 @@ function setProductsReviews(&$post_data)
 			$id_shop = (int)$message['id_shop'];
 			$sql = 'SELECT name
 					FROM '._DB_PREFIX_."configuration
-					where value = '".$message['idWebsite']."'
+					where value = '".pSQL($message['idWebsite'])."'
 					and name like 'AV_IDWEBSITE_%'
-					and id_shop = ".$id_shop;
+					and id_shop = ".(int)$id_shop;
 			if ($row = Db::getInstance()->getRow($sql))
 				$group_name = '_'.Tools::substr($row['name'], 13);
-			$sql2 = 'SELECT value FROM '._DB_PREFIX_."configuration where name = 'AV_GROUP_CONF".$group_name."' and id_shop = ".$id_shop;
+			$sql2 = 'SELECT value FROM '._DB_PREFIX_."configuration where name = 'AV_GROUP_CONF".$group_name."' and id_shop = ".(int)$id_shop;
 			if ($row = Db::getInstance()->getRow($sql2))
 				$list_iso_lang_multilingue = unserialize($row['value']);
-			$iso_lang = '"'.$list_iso_lang_multilingue[0].'"';
+			$iso_lang = '"'.pSQL($list_iso_lang_multilingue[0]).'"';
 		}
 		else
 		{
@@ -956,7 +956,7 @@ function setProductsReviews(&$post_data)
 			$id_shop = 0;
 			$sql = 'SELECT name
 					FROM '._DB_PREFIX_."configuration
-					where value = '".$message['idWebsite']."'
+					where value = '".pSQL($message['idWebsite'])."'
 					and name like 'AV_IDWEBSITE_%'
 					and id_shop is null";
 			if ($row = Db::getInstance()->getRow($sql))
@@ -964,7 +964,7 @@ function setProductsReviews(&$post_data)
 			$sql2 = 'SELECT value FROM '._DB_PREFIX_."configuration where name = 'AV_GROUP_CONF".$group_name."' and id_shop is null";
 			if ($row = Db::getInstance()->getRow($sql2))
 				$list_iso_lang_multilingue = unserialize($row['value']);
-			$iso_lang = '"'.$list_iso_lang_multilingue[0].'"';
+			$iso_lang = '"'.pSQL($list_iso_lang_multilingue[0]).'"';
 		}
 		else
 		{
@@ -1008,7 +1008,7 @@ function setProductsReviews(&$post_data)
 														\''.pSQL(Tools::ucfirst($arra_column[8][0]).'. '.Tools::ucfirst($arra_column[9])).'\',
 														\''.NetReviewsModel::acEncodeBase64(Tools::jsonEncode($arra_column['discussion'])).'\',
 														'.$iso_lang.',
-														'.$id_shop.'
+														'.(int)$id_shop.'
 													)');
 						$count_update_new++;
 					}
@@ -1033,7 +1033,7 @@ function setProductsReviews(&$post_data)
 														\''.urlencode(Tools::ucfirst($arra_column[8][0]).'. '.Tools::ucfirst($arra_column[9])).'\',
 														null,
 														'.$iso_lang.',
-														'.$id_shop.'
+														'.(int)$id_shop.'
 													)');
 						$count_update_new++;
 					}
@@ -1053,12 +1053,12 @@ function setProductsReviews(&$post_data)
 													WHERE id_product_av = \''.pSQL($arra_column[2]).'\'
 													AND ref_product = \''.(int)$arra_column[4].'\'
 													AND iso_lang = '.$iso_lang.'
-													AND id_shop = '.$id_shop);
+													AND id_shop = '.(int)$id_shop);
 					else
 						Db::getInstance()->Execute('DELETE FROM '._DB_PREFIX_.'av_products_reviews
 													WHERE id_product_av = \''.pSQL($arra_column[2]).'\'
 													AND ref_product = \''.(int)$arra_column[4].'\'
-													AND id_shop = '.$id_shop);
+													AND id_shop = '.(int)$id_shop);
 				else
 					if (Configuration::get('AV_MULTILINGUE') == 'checked')
 						Db::getInstance()->Execute('DELETE FROM '._DB_PREFIX_.'av_products_reviews
@@ -1075,13 +1075,13 @@ function setProductsReviews(&$post_data)
 			{
 				Db::getInstance()->Execute('REPLACE INTO '._DB_PREFIX_.'av_products_average
 											(id_product_av, ref_product, rate, nb_reviews, horodate_update,iso_lang,id_shop)
-											VALUES (\''.$arra_column[1].'\',
-													\''.$arra_column[2].'\',
-													\''.$arra_column[3].'\',
-													\''.$arra_column[4].'\',
+											VALUES (\''.pSQL($arra_column[1]).'\',
+													\''.pSQL($arra_column[2]).'\',
+													\''.(int)$arra_column[3].'\',
+													\''.(int)$arra_column[4].'\',
 													\''.time().'\',
 													'.$iso_lang.',
-													'.$id_shop.'
+													'.(int)$id_shop.'
 												)
 											');
 				$count_update_new++;
@@ -1100,9 +1100,9 @@ function setProductsReviews(&$post_data)
 		if (Configuration::get('AV_MULTILINGUE', null, null, $message['id_shop']) == 'checked')
 		{
 			$sql = 'SELECT name FROM '._DB_PREFIX_."configuration
-					where value = '".$message['idWebsite']."'
+					where value = '".pSQL($message['idWebsite'])."'
 					and name like 'AV_IDWEBSITE_%'
-					and id_shop = ".$message['id_shop'];
+					and id_shop = ".(int)$message['id_shop'];
 			if ($row = Db::getInstance()->getRow($sql))
 				$group_name = '_'.Tools::substr($row['name'], 13);
 			$reponse['sign'] = SHA1($post_data['query'].
@@ -1119,7 +1119,7 @@ function setProductsReviews(&$post_data)
 		if (Configuration::get('AV_MULTILINGUE'))
 		{
 			$sql = 'SELECT name FROM '._DB_PREFIX_."configuration
-					where value = '".$message['idWebsite']."'
+					where value = '".pSQL($message['idWebsite'])."'
 					and name like 'AV_IDWEBSITE_%'
 					and id_shop is null";
 			if ($row = Db::getInstance()->getRow($sql))
@@ -1355,8 +1355,8 @@ function getOrderHistoryOn(&$post_data)
 		$sql = 'SELECT oh.id_order, oh.id_order_state, os.name, oh.date_add
 				FROM  '._DB_PREFIX_."order_history oh
 				LEFT JOIN ps_order_state_lang os ON os.id_order_state = oh.id_order_state
-				WHERE  `id_order` = $ref_vente
-				AND id_lang = $id_lang
+				WHERE  `id_order` = ".(int)$ref_vente."
+				AND id_lang = ".(int)$id_lang."
 				ORDER BY  `date_add` DESC";
 		if (!$array_history = Db::getInstance()->ExecuteS($sql))
 			$reponse['return'] = 2;
@@ -1371,9 +1371,9 @@ function getOrderHistoryOn(&$post_data)
 		if (Configuration::get('AV_MULTILINGUE', null, null, $post_message['id_shop']) == 'checked')
 		{
 			$sql = 'SELECT name FROM '._DB_PREFIX_."configuration
-					where value = '".$post_message['idWebsite']."'
+					where value = '".pSQL($post_message['idWebsite'])."'
 					and name like 'AV_IDWEBSITE_%'
-					and id_shop = ".$post_message['id_shop'];
+					and id_shop = ".(int)$post_message['id_shop'];
 			if ($row = Db::getInstance()->getRow($sql))
 				$group_name = '_'.Tools::substr($row['name'], 13);
 			$reponse['sign'] = SHA1($post_data['query'].
@@ -1390,7 +1390,7 @@ function getOrderHistoryOn(&$post_data)
 		if (Configuration::get('AV_MULTILINGUE'))
 		{
 			$sql = 'SELECT name FROM '._DB_PREFIX_."configuration
-					where value = '".$post_message['idWebsite']."'
+					where value = '".pSQL($post_message['idWebsite'])."'
 					and name like 'AV_IDWEBSITE_%'
 					and id_shop is null";
 			if ($row = Db::getInstance()->getRow($sql))
@@ -1419,12 +1419,12 @@ function getCountOrder(&$post_data)
 	{
 		if (Configuration::get('AV_MULTILINGUE', null, null, $post_message['id_shop']) == 'checked')
 		{
-			$sql_id_shop .= ' and id_shop = '.$post_message['id_shop'];
+			$sql_id_shop .= ' and id_shop = '.(int)$post_message['id_shop'];
 			$sql = 'SELECT name
 					FROM '._DB_PREFIX_."configuration
-					where value = '".$post_message['idWebsite']."'
+					where value = '".pSQL($post_message['idWebsite'])."'
 					and name like 'AV_IDWEBSITE_%'
-					and id_shop = ".$post_message['id_shop'];
+					and id_shop = ".(int)$post_message['id_shop'];
 			if ($row = Db::getInstance()->getRow($sql))
 				$group_name = '_'.Tools::substr($row['name'], 13);
 			$av_group_conf = unserialize(Configuration::get('AV_GROUP_CONF'.$group_name, null, null, $post_message['id_shop']));
@@ -1435,7 +1435,7 @@ function getCountOrder(&$post_data)
 			$sql_iso_lang .= ' and id_lang in ("'.implode('","', $ids_lang).'")';
 		}
 		else
-			$sql_id_shop .= ' and id_shop = '.$post_message['id_shop'];
+			$sql_id_shop .= ' and id_shop = '.(int)$post_message['id_shop'];
 	}
 	else
 	{
@@ -1443,7 +1443,7 @@ function getCountOrder(&$post_data)
 		{
 			$sql = 'SELECT name
 					FROM '._DB_PREFIX_."configuration
-					where value = '".$post_message['idWebsite']."'
+					where value = '".pSQL($post_message['idWebsite'])."'
 					and name like 'AV_IDWEBSITE_%'
 					and id_shop is null ";
 			if ($row = Db::getInstance()->getRow($sql))
@@ -1475,9 +1475,9 @@ function getCountOrder(&$post_data)
 		{
 			$sql = 'SELECT name
 					FROM '._DB_PREFIX_."configuration
-					where value = '".$post_message['idWebsite']."'
+					where value = '".pSQL($post_message['idWebsite'])."'
 					and name like 'AV_IDWEBSITE_%'
-					and id_shop = ".$post_message['id_shop'];
+					and id_shop = ".(int)$post_message['id_shop'];
 			if ($row = Db::getInstance()->getRow($sql))
 				$group_name = '_'.Tools::substr($row['name'], 13);
 			$reponse['sign'] = SHA1($post_message['query'].
@@ -1497,7 +1497,7 @@ function getCountOrder(&$post_data)
 		{
 			$sql = 'SELECT name
 					FROM '._DB_PREFIX_."configuration
-					where value = '".$post_message['idWebsite']."'
+					where value = '".pSQL($post_message['idWebsite'])."'
 					and name like 'AV_IDWEBSITE_%'
 					and id_shop is null ";
 			if ($row = Db::getInstance()->getRow($sql))
