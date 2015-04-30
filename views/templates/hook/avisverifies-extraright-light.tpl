@@ -1,3 +1,14 @@
+<!--
+* 2012-2015 NetReviews
+*
+*  @author    NetReviews SAS <contact@avis-verifies.com>
+*  @copyright 2015 NetReviews SAS
+*  @version   Release: $Revision: 7.1.3
+*  @license   NetReviews
+*  @date      13/02/2015
+*  International Registered Trademark & Property of NetReviews SAS
+-->
+ 
 <div class="av_product_award light">
 	<div id="top">
 		<div class="ratingWrapper">
