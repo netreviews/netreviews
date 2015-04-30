@@ -2,11 +2,11 @@
 /**
  * Product.php file used to override Product class and display stars on product_list
  *
- * @author    NetReviews (www.avis-verifies.com) - Contact: contact@avis-verifies.com
- * @category  override
- * @copyright NetReviews
- * @license   NetReviews 
- * @date 09/04/2014
+ *  @author    NetReviews (www.avis-verifies.com) - Contact: contact@avis-verifies.com
+ *  @category  override
+ *  @copyright NetReviews
+ *  @license   NetReviews
+ *  @date      09/04/2014
  */
 
 class Product extends ProductCore {
