@@ -19,7 +19,7 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.3
+*  @version   Release: $Revision: 7.1.31
 *  @license   NetReviews
 *  @date      13/02/2015
 *  International Registered Trademark & Property of NetReviews SAS
@@ -41,7 +41,7 @@ class NetReviews extends Module
 	{
 		$this->name = 'netreviews';
 		$this->tab = 'advertising_marketing';
-		$this->version = '7.1.3';
+		$this->version = '7.1.31';
 		$this->author = 'NetReviews';
 		$this->need_instance = 0;
 		parent::__construct();
@@ -378,7 +378,7 @@ class NetReviews extends Module
 			'product_description' => $product->description_short[$lang_id],
 			'product_price' => $product->getPrice(true, null, 2),
 			'product_quantity' => $product->quantity,
-			'url_image' =>  !empty($a_image)? $link->getImageLink($product->link_rewrite, $id_product.'-'.$a_image['id_image']): '',
+			'url_image' =>  !empty($a_image)? $link->getImageLink($product->link_rewrite[(int)Configuration::get('PS_LANG_DEFAULT')], $id_product.'-'.$a_image['id_image']): '',
 		));
 		if ((version_compare(_PS_VERSION_, '1.5', '>') && $return = $this->display(__FILE__, '/views/templates/hook/footer_av.tpl'))
 			|| (version_compare(_PS_VERSION_, '1.5', '<') && $return = $this->display(__FILE__, 'footer_av.tpl')))
