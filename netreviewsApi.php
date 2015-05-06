@@ -1354,7 +1354,7 @@ function getOrderHistoryOn(&$post_data)
         $id_lang = $o_lang->getIdByIso(Tools::strtolower('fr'));
         $sql = 'SELECT oh.id_order, oh.id_order_state, os.name, oh.date_add
                 FROM  '._DB_PREFIX_."order_history oh
-                LEFT JOIN ps_order_state_lang os ON os.id_order_state = oh.id_order_state
+                LEFT JOIN "._DB_PREFIX_."order_state_lang os ON os.id_order_state = oh.id_order_state
                 WHERE  `id_order` = ".(int)$ref_vente."
                 AND id_lang = ".(int)$id_lang."
                 ORDER BY  `date_add` DESC";
