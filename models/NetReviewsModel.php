@@ -21,7 +21,7 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.3
+*  @version   Release: $Revision: 7.1.31
 *  @license   NetReviews
 *  @date      13/02/2015
 *  @category  classes
@@ -332,7 +332,7 @@ class NetReviewsModel extends ObjectModel
 			$protocol_content = ($use_ssl) ? 'https://' : 'http://';
 			$link = new Link($protocol_link, $protocol_content);
 			$id_cover_image = Image::getCover($product_id);
-			$image_path = $link->getImageLink($o_product->link_rewrite, $id_cover_image['id_image']);
+			$image_path = $link->getImageLink($o_product->link_rewrite[(int)Configuration::get('PS_LANG_DEFAULT')], $id_cover_image['id_image']);
 			$url_product = $link->getProductLink($product_id);
 			return array('url_product' => $url_product,'url_image_product' => $image_path);
 		}

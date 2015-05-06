@@ -19,7 +19,7 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.3
+*  @version   Release: $Revision: 7.1.31
 *  @license   NetReviews
 *  @date      13/02/2015
 *  International Registered Trademark & Property of NetReviews SAS
@@ -29,18 +29,18 @@ if (!defined('_PS_VERSION_'))
 	exit;
 
 /**
- * Function used to update your module from previous versions to the version 7.1.3,
+ * Function used to update your module from previous versions to the version 7.1.31,
  * Don't forget to create one file per version.
  */
-function upgrade_module_7_1_3($module)
+function upgrade_module_7_1_31($module)
 {
-	return upgradePsConfiguration($module) //Upgrade PS configuration from previous versions to the version 7.1.3
-	&& upgradeHook($module) //Upgrade hook from previous versions to the version 7.1.3
-	&& upgradeDatabase($module); //Upgrade database from previous versions to the version 7.1.3
+	return upgradePsConfiguration($module) //Upgrade PS configuration from previous versions to the version 7.1.31
+	&& upgradeHook($module) //Upgrade hook from previous versions to the version 7.1.31
+	&& upgradeDatabase($module); //Upgrade database from previous versions to the version 7.1.31
 }
 
 /**
- * Function used to update your PS configuration from previous versions to the version 7.1.3,
+ * Function used to update your PS configuration from previous versions to the version 7.1.31,
  */
 function upgradePsConfiguration()
 {
@@ -117,7 +117,7 @@ function upgradePsConfiguration()
 }
 
 /**
- * Function used to update your hook from previous versions to the version 7.1.3,
+ * Function used to update your hook from previous versions to the version 7.1.31,
  */
 function upgradeHook($module)
 {
@@ -132,40 +132,48 @@ function upgradeHook($module)
 }
 
 /**
- * Function used to update your database from previous versions to the version 7.1.3,
+ * Function used to update your database from previous versions to the version 7.1.31,
  */
 function upgradeDatabase($module)
 {
 	$query = array();
 
 	// av_products_reviews
-	$query[] = 'ALTER TABLE ps_av_products_reviews
-				CHANGE `lang` `iso_lang` VARCHAR( 5 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;';
-	$query[] = 'ALTER TABLE ps_av_products_reviews
-				ADD `id_shop` INT( 2 ) NULL;';
-	$query[] = 'ALTER TABLE ps_av_products_reviews
+	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_products_reviews
+				CHANGE `lang` `iso_lang` VARCHAR( 5 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT "0";';
+	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_products_reviews
+				ADD `id_shop` INT( 2 ) NULL DEFAULT 0;';
+
+	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_products_reviews
 				DROP PRIMARY KEY ,
 				ADD PRIMARY KEY ( `id_product_av` , `iso_lang` , `id_shop` );';
+				
+	$query[] = 'UPDATE '._DB_PREFIX_.'av_products_reviews SET `iso_lang` = "0" WHERE `iso_lang` = "" ;';
 
 	// av_products_average
-	$query[] = 'ALTER TABLE ps_av_products_average
-				CHANGE `id_lang` `iso_lang` VARCHAR( 5 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;';
-	$query[] = 'ALTER TABLE ps_av_products_average ADD `id_shop` INT( 2 ) NULL;';
-	$query[] = 'ALTER TABLE ps_av_products_average DROP PRIMARY KEY ,
+	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_products_average
+				CHANGE `id_lang` `iso_lang` VARCHAR( 5 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT "0";';
+	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_products_average ADD `id_shop` INT( 2 ) NULL DEFAULT 0;';
+	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_products_average DROP PRIMARY KEY ,
 				ADD PRIMARY KEY ( `ref_product`,`iso_lang`,`id_shop` );';
+	$query[] = 'UPDATE '._DB_PREFIX_.'av_products_average SET `iso_lang` = "0" WHERE `iso_lang` = "" ;';
 
-				// av_orders
-	$query[] = 'ALTER TABLE ps_av_orders
-				CHANGE `id_lang_order` `iso_lang` VARCHAR( 5 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;';
-	$query[] = 'ALTER TABLE ps_av_orders DROP PRIMARY KEY ,
+
+	// av_orders
+	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_orders
+				CHANGE `id_lang_order` `iso_lang` VARCHAR( 5 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT "0";';
+	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_orders `id_shop` INT( 2 ) NULL DEFAULT 0;';
+	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_orders DROP PRIMARY KEY ,
 				ADD PRIMARY KEY (`id_order`,`iso_lang`,`id_shop`);';
+	$query[] = 'UPDATE '._DB_PREFIX_.'av_orders SET `iso_lang` = "0" WHERE `iso_lang` = "" ;';
+
 
 	foreach ($query as $sql)
 	{
 		$error = false;
 		if (!Db::getInstance()->Execute($sql))
 		{
-			$module->context->controller->errors[] = sprintf($module->l('SQL ERROR : %s | Query can\'t be executed. Maybe, check SQL user permissions.'), $sql);
+			Context::getContext()->controller->errors[] = sprintf($module->l('SQL ERROR : %s | Query can\'t be executed. Maybe, check SQL user permissions.'), $sql);
 			$error = true;
 		}
 	}
