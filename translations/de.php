@@ -19,7 +19,7 @@ $_MODULE['<{netreviews}prestashop>netreviews_0531ff7e475145bab21e82cee3a61cd6'] 
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_10d101a6ca6b4912246b2329448ffbe1'] = 'Die Exportdatei auf dem Server kann nicht bearbeitet werden. Bitte teilen Sie dem Ordner netreviews Schreibrechte zu.';
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_736dca8b248b9c036ed27ef8408496c8'] = 'Die Exportdatei kann nicht gelesen/bearbeitet werden';
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_9ab3e83b1071d09ca62e4cd258686f6b'] = 'Keine Bestellungen zu exportieren';
-$_MODULE['<{netreviews}prestashop>upgrade-7.1.3_ea45551379c29d373e6337331b725caa'] = 'SQL ERROR: %s  Anfrage kann nicht ausgeführt werden. Bitte überprüfen Sie die SQL Zugriffsrechte ';
+$_MODULE['<{netreviews}prestashop>upgrade-7.1.31_ea45551379c29d373e6337331b725caa'] = 'SQL ERROR: %s  Anfrage kann nicht ausgeführt werden. Bitte überprüfen Sie die SQL Zugriffsrechte ';
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_8fc42c6ddf9966db3b09e84365034357'] = 'am';
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_b6641f306eff8e4dcc8a1232129a5b72'] = 'Kommentar von';
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_4b429ac96c0312b11fe14690dd315384'] = 'Austausch anzeigen';
