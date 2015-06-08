@@ -373,7 +373,7 @@ function setModuleConfiguration(&$post_data)
                 Configuration::updateValue('AV_SCRIPTFLOAT'.$group_name, htmlentities(str_replace(array("\r\n", "\n"), '', $uns_msg['script_float_widget'])), true);
                 Configuration::updateValue('AV_CODE_LANG'.$group_name, $uns_msg['code_lang']);
                 $reponse['sign'] = SHA1($post_data['query'].Configuration::get('AV_IDWEBSITE'.$group_name).Configuration::get('AV_CLESECRETE'.$group_name));
-                $reponse['message'] = getModuleAndSiteInfos($uns_msg['id_shop'], $group_name);
+                $reponse['message'] = getModuleAndSiteInfos(null, $group_name);
             }
             else
             {
@@ -399,7 +399,7 @@ function setModuleConfiguration(&$post_data)
                 Configuration::updateValue('AV_SCRIPTFLOAT', htmlentities(str_replace(array("\r\n", "\n"), '', $uns_msg['script_float_widget'])), true);
                 Configuration::updateValue('AV_CODE_LANG', $uns_msg['code_lang']);
                 $reponse['sign'] = SHA1($post_data['query'].Configuration::get('AV_IDWEBSITE').Configuration::get('AV_CLESECRETE'));
-                $reponse['message'] = getModuleAndSiteInfos($uns_msg['id_shop']);
+                $reponse['message'] = getModuleAndSiteInfos();
             }
         }
         $reponse['debug'] = 'La configuration du site a été mise à jour';

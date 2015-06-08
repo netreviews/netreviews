@@ -162,7 +162,6 @@ function upgradeDatabase($module)
 	// av_orders
 	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_orders
 				CHANGE `id_lang_order` `iso_lang` VARCHAR( 5 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT "0";';
-	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_orders `id_shop` INT( 2 ) NULL DEFAULT 0;';
 	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_orders DROP PRIMARY KEY ,
 				ADD PRIMARY KEY (`id_order`,`iso_lang`,`id_shop`);';
 	$query[] = 'UPDATE '._DB_PREFIX_.'av_orders SET `iso_lang` = "0" WHERE `iso_lang` = "" ;';

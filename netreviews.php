@@ -32,6 +32,7 @@ require_once _PS_MODULE_DIR_.'netreviews/models/NetReviewsModel.php';
 
 class NetReviews extends Module
 {
+	public $_html = null;
 	public $iso_lang = null;
 	public $id_lang = null;
 	public $group_name = null;
@@ -310,12 +311,19 @@ class NetReviews extends Module
 		}
 		if (version_compare(_PS_VERSION_, '1.5', '<'))
 		{
+		
 			Tools::addCSS(($this->_path).'views/css/avisverifies-style-front.css', 'all');
 			// If there is a specific css file for the client then load
 			// (to avoid the specific problems of loss contained to update the module)
 			if (file_exists('./'.($this->_path).'views/css/avisverifies-style-front-specifique.css'))
 				Tools::addCSS(($this->_path).'views/css/avisverifies-style-front-specifique.css', 'all');
+			
 			Tools::addJS(($this->_path).'views/js/avisverifies.js', 'all');
+			// If there is a specific js file for the client then load
+			// (to avoid the specific problems of loss contained to update the module
+			if (file_exists('./'.($this->_path).'views/js/avisverifies-specifique.js'))
+				Tools::addJS(($this->_path).'views/js/avisverifies-specifique.js', 'all');
+				
 			if (Configuration::get('AV_SCRIPTFLOAT_ALLOWED'.$this->group_name) != 'yes')
 				return '';
 			if (Configuration::get('AV_SCRIPTFLOAT'.$this->group_name))
@@ -323,13 +331,19 @@ class NetReviews extends Module
 		}
 		else
 		{
+
 			$this->context->controller->addCSS(($this->_path).'views/css/avisverifies-style-front.css', 'all');
 			// If there is a specific css file for the client then load
 			// (to avoid the specific problems of loss contained to update the module)
 			if (file_exists('./'.($this->_path).'views/css/avisverifies-style-front-specifique.css'))
 				$this->context->controller->addCSS(($this->_path).'views/css/avisverifies-style-front-specifique.css', 'all');
-
+			
 			$this->context->controller->addJS(($this->_path).'views/js/avisverifies.js', 'all');
+			// If there is a specific js file for the client then load
+			// (to avoid the specific problems of loss contained to update the module
+			if (file_exists('./'.($this->_path).'views/js/avisverifies-specifique.js'))
+				$this->context->controller->addJS(($this->_path).'views/js/avisverifies-specifique.js', 'all');
+
 			if (Configuration::get('AV_SCRIPTFLOAT_ALLOWED'.$this->group_name, null, null, $this->context->shop->getContextShopID()) != 'yes')
 				return '';
 			if (Configuration::get('AV_SCRIPTFLOAT'.$this->group_name))
@@ -380,9 +394,10 @@ class NetReviews extends Module
 			'product_quantity' => $product->quantity,
 			'url_image' =>  !empty($a_image)? $link->getImageLink($product->link_rewrite[(int)Configuration::get('PS_LANG_DEFAULT')], $id_product.'-'.$a_image['id_image']): '',
 		));
-		if ((version_compare(_PS_VERSION_, '1.5', '>') && $return = $this->display(__FILE__, '/views/templates/hook/footer_av.tpl'))
-			|| (version_compare(_PS_VERSION_, '1.5', '<') && $return = $this->display(__FILE__, 'footer_av.tpl')))
-			return $return;
+		if (version_compare(_PS_VERSION_, '1.5', '>') && file_exists(__FILE__.'/views/templates/hook/footer_av.tpl'))
+			return  ($this->display(__FILE__, '/views/templates/hook/footer_av.tpl'));
+		elseif (version_compare(_PS_VERSION_, '1.5', '<') && file_exists(__FILE__.'footer_av.tpl'))
+			return ($this->display(__FILE__, 'footer_av.tpl'));
 		else
 			return '';
 	}
@@ -403,10 +418,18 @@ class NetReviews extends Module
 		$this->stats_product = $o_av->getStatsProduct((int)Tools::getValue('id_product'), $this->group_name, $this->context->shop->getContextShopID());
 		if ($this->stats_product['nb_reviews'] < 1 || $display_prod_reviews != 'yes') return ''; //Si Aucun avis, on retourne vide
 		$this->context->smarty->assign(array('count_reviews' => $this->stats_product['nb_reviews']));
-		if (version_compare(_PS_VERSION_, '1.5', '<'))
-			return ($this->display(__FILE__, '/views/templates/hook/avisverifies-tab.tpl'));
-		else
-			return ($this->display(__FILE__, 'avisverifies-tab.tpl'));
+		
+		
+		if (version_compare(_PS_VERSION_, '1.5', '>'))
+			if (file_exists(__FILE__.'/views/templates/hook/avisverifies-tab-specifique.tpl'))
+				return  ($this->display(__FILE__, '/views/templates/hook/avisverifies-tab-specifique.tpl'));
+			else
+				return  ($this->display(__FILE__, '/views/templates/hook/avisverifies-tab.tpl'));
+		elseif (version_compare(_PS_VERSION_, '1.5', '<'))
+			if (file_exists(__FILE__.'avisverifies-tab-specifique.tpl'))
+				return ($this->display(__FILE__, 'avisverifies-tab-specifique.tpl'));
+			else
+				return ($this->display(__FILE__, 'avisverifies-tab.tpl'));
 	}
 
 	/* WARNING : Modifications below need to be copy in ajax-load.php*/
@@ -444,7 +467,7 @@ class NetReviews extends Module
 			$my_review['ref_produit'] = $review['ref_product'];
 			$my_review['id_product_av'] = $review['id_product_av'];
 			$my_review['rate'] = $review['rate'];
-			$my_review['avis'] = urldecode($review['review']);
+			$my_review['avis'] = html_entity_decode( urldecode($review['review']));
 			$my_review['horodate'] = date('d/m/Y', $review['horodate']);
 			$my_review['customer_name'] = urldecode($review['customer_name']);
 			$my_review['discussion'] = '';
@@ -482,10 +505,18 @@ class NetReviews extends Module
 			'is_https' => (array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on' ? 1 : 0),
 			'url_certificat' => $url_certificat
 		));
-		if (version_compare(_PS_VERSION_, '1.5', '<'))
-			return ($this->display(__FILE__, '/views/templates/hook/avisverifies-tab-content.tpl'));
-		else
-			return ($this->display(__FILE__, 'avisverifies-tab-content.tpl'));
+					
+		if (version_compare(_PS_VERSION_, '1.5', '>'))
+			if (file_exists(__FILE__.'/views/templates/hook/avisverifies-tab-content-specifique.tpl'))
+				return  ($this->display(__FILE__, '/views/templates/hook/avisverifies-tab-content-specifique.tpl'));
+			else
+				return  ($this->display(__FILE__, '/views/templates/hook/avisverifies-tab-content.tpl'));
+		elseif (version_compare(_PS_VERSION_, '1.5', '<'))
+			if (file_exists(__FILE__.'avisverifies-tab-content-specifique.tpl'))
+				return ($this->display(__FILE__, 'avisverifies-tab-content-specifique.tpl'));
+			else
+				return ($this->display(__FILE__, 'avisverifies-tab-content.tpl'));
+		
 	}
 
 	public function hookActionValidateOrder($params)
@@ -604,13 +635,22 @@ class NetReviews extends Module
 						'av_rate_percent' =>  ($percent) ? $percent : 100,
 					));
 		if (Configuration::get('AV_LIGHTWIDGET') == 'checked')
-			$tpl = 'avisverifies-extraright-light.tpl';
+			$tpl = 'avisverifies-extraright-light';
 		else
-			$tpl = 'avisverifies-extraright.tpl';
-		if (version_compare(_PS_VERSION_, '1.5', '<'))
-			return $this->display(__FILE__, "/views/templates/hook/$tpl");
-		else
-			return $this->display(__FILE__, $tpl);
+			$tpl = 'avisverifies-extraright';
+	
+			
+		if (version_compare(_PS_VERSION_, '1.5', '>'))
+			if (file_exists(__FILE__."/views/templates/hook/$tpl-specifique.tpl"))
+				return  ($this->display(__FILE__, "/views/templates/hook/$tpl-specifique.tpl"));
+			else
+				return  ($this->display(__FILE__, "/views/templates/hook/$tpl.tpl"));
+		elseif (version_compare(_PS_VERSION_, '1.5', '<'))
+			if (file_exists(__FILE__."$tpl-specifique.tpl"))
+				return ($this->display(__FILE__, "$tpl-specifique.tpl"));
+			else
+				return ($this->display(__FILE__, "$tpl.tpl"));	
+			
 	}
 
 	/**
