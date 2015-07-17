@@ -178,13 +178,22 @@ class NetReviews extends Module
 		{
 			$this->group_name = $this->getIdConfigurationGroup($lang['iso_code']);
 			if (!empty($this->group_name))
-			{
-				if (!Configuration::get('AV_IDWEBSITE'.$this->group_name))
-					Configuration::updateValue('AV_IDWEBSITE'.$this->group_name, '');
-				if (!Configuration::get('AV_CLESECRETE'.$this->group_name))
-					Configuration::updateValue('AV_CLESECRETE'.$this->group_name, '');
-				$current_avisverifies_idwebsite[$lang['iso_code']] = Configuration::get('AV_IDWEBSITE'.$this->group_name);
-				$current_avisverifies_clesecrete[$lang['iso_code']] = Configuration::get('AV_CLESECRETE'.$this->group_name);
+			{  
+				if (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1 ){	
+					if (!Configuration::get('AV_IDWEBSITE'.$this->group_name, null, null, $this->context->shop->getContextShopID()))
+						Configuration::updateValue('AV_IDWEBSITE'.$this->group_name, '', false, null, $this->context->shop->getContextShopID());
+					if (!Configuration::get('AV_CLESECRETE'.$this->group_name, null, null, $this->context->shop->getContextShopID()))
+						Configuration::updateValue('AV_CLESECRETE'.$this->group_name, '', false, null, $this->context->shop->getContextShopID());
+					$current_avisverifies_idwebsite[$lang['iso_code']] = Configuration::get('AV_IDWEBSITE'.$this->group_name, null, null, $this->context->shop->getContextShopID());
+					$current_avisverifies_clesecrete[$lang['iso_code']] = Configuration::get('AV_CLESECRETE'.$this->group_name, null, null, $this->context->shop->getContextShopID());
+				}else{
+					if (!Configuration::get('AV_IDWEBSITE'.$this->group_name))
+						Configuration::updateValue('AV_IDWEBSITE'.$this->group_name, '');
+					if (!Configuration::get('AV_CLESECRETE'.$this->group_name))
+						Configuration::updateValue('AV_CLESECRETE'.$this->group_name, '');
+					$current_avisverifies_idwebsite[$lang['iso_code']] = Configuration::get('AV_IDWEBSITE'.$this->group_name);
+					$current_avisverifies_clesecrete[$lang['iso_code']] = Configuration::get('AV_CLESECRETE'.$this->group_name);
+				}
 			}
 			else
 			{
@@ -246,14 +255,35 @@ class NetReviews extends Module
 		}
 		if (Tools::isSubmit('submit_configuration'))
 		{
-			Configuration::updateValue('AV_IDWEBSITE', Tools::getValue('avisverifies_idwebsite'));
-			Configuration::updateValue('AV_CLESECRETE', Tools::getValue('avisverifies_clesecrete'));
-			$sql = '
+			if (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1 ){	
+				if (Configuration::get('AV_MULTILINGUE', null, null, $this->context->shop->getContextShopID()) != 'checked'){
+					
+					Configuration::updateValue('AV_IDWEBSITE', Tools::getValue('avisverifies_idwebsite'), false, null, $this->context->shop->getContextShopID());
+					Configuration::updateValue('AV_CLESECRETE', Tools::getValue('avisverifies_clesecrete'), false, null, $this->context->shop->getContextShopID());
+					
+				}
+				$sql = '
+				SELECT name FROM '._DB_PREFIX_."configuration
+				where (name like 'AV_GROUP_CONF_%'
+				OR name like 'AV_IDWEBSITE_%'
+				OR name like 'AV_CLESECRETE_%')
+				AND id_shop = ".$this->context->shop->getContextShopID()."
+				";
+			}else{
+				if (Configuration::get('AV_MULTILINGUE') != 'checked'){
+					
+					Configuration::updateValue('AV_IDWEBSITE', Tools::getValue('avisverifies_idwebsite'));
+					Configuration::updateValue('AV_CLESECRETE', Tools::getValue('avisverifies_clesecrete'));
+					
+				}
+				$sql = '
 				SELECT name FROM '._DB_PREFIX_."configuration
 				where name like 'AV_GROUP_CONF_%'
 				OR name like 'AV_IDWEBSITE_%'
 				OR name like 'AV_CLESECRETE_%'
 				";
+			}
+			
 			if ($results = Db::getInstance()->ExecuteS($sql))
 				foreach ($results as $row)
 					Configuration::deleteByName($row['name']);
@@ -263,13 +293,24 @@ class NetReviews extends Module
 		}
 		if (Tools::isSubmit('submit_advanced'))
 		{
-			Configuration::updateValue('AV_LIGHTWIDGET', Tools::getValue('avisverifies_lightwidget'));
-			Configuration::updateValue('AV_MULTILINGUE', Tools::getValue('avisverifies_multilingue'));
+			if (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1 ){	
+
+				Configuration::updateValue('AV_LIGHTWIDGET', Tools::getValue('avisverifies_lightwidget'), false, null, $this->context->shop->getContextShopID());
+				Configuration::updateValue('AV_MULTILINGUE', Tools::getValue('avisverifies_multilingue'), false, null, $this->context->shop->getContextShopID());
+					
+			}else{
+				Configuration::updateValue('AV_LIGHTWIDGET', Tools::getValue('avisverifies_lightwidget'));
+				Configuration::updateValue('AV_MULTILINGUE', Tools::getValue('avisverifies_multilingue'));
+					
+			}
 			$this->_html .= $this->displayConfirmation($this->l('The informations have been registered'));
 		}
 		if (Tools::isSubmit('submit_purge'))
 		{
-			$query_id_shop = ' AND oav.id_shop = '.(int)$this->context->shop->getContextShopID();
+			$query_id_shop = "";
+			if (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1 )
+				$query_id_shop = ' AND oav.id_shop = '.(int)$this->context->shop->getContextShopID();
+
 			$query = ' 	SELECT oav.id_order, o.date_add as date_order,o.id_customer
 						FROM '._DB_PREFIX_.'av_orders oav
 						LEFT JOIN '._DB_PREFIX_.'orders o
@@ -278,6 +319,7 @@ class NetReviews extends Module
 						ON oh.id_order = o.id_order
 						WHERE (oav.flag_get IS NULL OR oav.flag_get = 0)'
 						.$query_id_shop;
+
 			$orders_list = Db::getInstance()->ExecuteS($query);
 			if (!empty($orders_list))
 			{
@@ -293,64 +335,54 @@ class NetReviews extends Module
 	}
 
 	/**
-	 * Return the widget flottant code to the hook header in front office if configurated
-	 *
-	 * Case 1: Return widget flottant code if configurated
-	 * Case 2: Return '' if not configurated
-	 *
-	 * @return javascript string in hook header
-	 */
+ * Return the widget flottant code to the hook header in front office if configurated
+ *
+ * Case 1: Return widget flottant code if configurated
+ * Case 2: Return '' if not configurated
+ *
+ * @return javascript string in hook header
+ */
 	public function hookHeader()
 	{
-		$widget_flottant_code = '';
-		if (Configuration::get('AV_MULTILINGUE') == 'checked')
-		{
-			$this->id_lang = $this->context->language->id;
-			$this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
-			$this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
-		}
-		if (version_compare(_PS_VERSION_, '1.5', '<'))
-		{
-		
-			Tools::addCSS(($this->_path).'views/css/avisverifies-style-front.css', 'all');
-			// If there is a specific css file for the client then load
-			// (to avoid the specific problems of loss contained to update the module)
-			if (file_exists('./'.($this->_path).'views/css/avisverifies-style-front-specifique.css'))
-				Tools::addCSS(($this->_path).'views/css/avisverifies-style-front-specifique.css', 'all');
-			
-			Tools::addJS(($this->_path).'views/js/avisverifies.js', 'all');
-			// If there is a specific js file for the client then load
-			// (to avoid the specific problems of loss contained to update the module
-			if (file_exists('./'.($this->_path).'views/js/avisverifies-specifique.js'))
-				Tools::addJS(($this->_path).'views/js/avisverifies-specifique.js', 'all');
-				
-			if (Configuration::get('AV_SCRIPTFLOAT_ALLOWED'.$this->group_name) != 'yes')
-				return '';
-			if (Configuration::get('AV_SCRIPTFLOAT'.$this->group_name))
-				$widget_flottant_code .= "\n".Tools::stripslashes(html_entity_decode(Configuration::get('AV_SCRIPTFLOAT'.$this->group_name)));
-		}
-		else
-		{
 
-			$this->context->controller->addCSS(($this->_path).'views/css/avisverifies-style-front.css', 'all');
-			// If there is a specific css file for the client then load
-			// (to avoid the specific problems of loss contained to update the module)
-			if (file_exists('./'.($this->_path).'views/css/avisverifies-style-front-specifique.css'))
-				$this->context->controller->addCSS(($this->_path).'views/css/avisverifies-style-front-specifique.css', 'all');
-			
-			$this->context->controller->addJS(($this->_path).'views/js/avisverifies.js', 'all');
-			// If there is a specific js file for the client then load
-			// (to avoid the specific problems of loss contained to update the module
-			if (file_exists('./'.($this->_path).'views/js/avisverifies-specifique.js'))
-				$this->context->controller->addJS(($this->_path).'views/js/avisverifies-specifique.js', 'all');
+	    $widget_flottant_code = '';
+	    if (Configuration::get('AV_MULTILINGUE') == 'checked')
+	    {
+	            $this->id_lang = $this->context->language->id;
+	            $this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
+	            $this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
+	    }
 
-			if (Configuration::get('AV_SCRIPTFLOAT_ALLOWED'.$this->group_name, null, null, $this->context->shop->getContextShopID()) != 'yes')
-				return '';
-			if (Configuration::get('AV_SCRIPTFLOAT'.$this->group_name))
-				$widget_flottant_code .= "\n".Tools::stripslashes(html_entity_decode(Configuration::get('AV_SCRIPTFLOAT'.$this->group_name)));
-		}
-		return $widget_flottant_code;
-	}
+	    if (version_compare(_PS_VERSION_, '1.5', '<'))
+	    {
+	            Tools::addCSS(($this->_path).'views/css/avisverifies-style-front.css', 'all');
+	            // If there is a specific css file for the client then load
+	            // (to avoid the specific problems of loss contained to update the module)
+	            if (file_exists('./'.($this->_path).'views/css/avisverifies-style-front-specifique.css'))
+	                    Tools::addCSS(($this->_path).'views/css/avisverifies-style-front-specifique.css', 'all');
+	            Tools::addJS(($this->_path).'views/js/avisverifies.js', 'all');
+	            if (Configuration::get('AV_SCRIPTFLOAT_ALLOWED'.$this->group_name) != 'yes')
+	                    return '';
+	            if (Configuration::get('AV_SCRIPTFLOAT'.$this->group_name))
+	                    $widget_flottant_code .= "\n".Tools::stripslashes(html_entity_decode(Configuration::get('AV_SCRIPTFLOAT'.$this->group_name)));
+	    }
+	    else
+	    {
+	            $this->context->controller->addCSS(($this->_path).'views/css/avisverifies-style-front.css', 'all');
+	            // If there is a specific css file for the client then load
+	            // (to avoid the specific problems of loss contained to update the module)
+	            if (file_exists('./'.($this->_path).'views/css/avisverifies-style-front-specifique.css'))
+	                    $this->context->controller->addCSS(($this->_path).'views/css/avisverifies-style-front-specifique.css', 'all');
+
+	            $this->context->controller->addJS(($this->_path).'views/js/avisverifies.js', 'all');
+	            if (Configuration::get('AV_SCRIPTFLOAT_ALLOWED'.$this->group_name, null, null, $this->context->shop->getContextShopID()) != 'yes')
+	                    return '';
+	            if (Configuration::get('AV_SCRIPTFLOAT'.$this->group_name, null, null, $this->context->shop->getContextShopID()))
+	                    $widget_flottant_code .= "\n".Tools::stripslashes(html_entity_decode(Configuration::get('AV_SCRIPTFLOAT'.$this->group_name, null, null, $this->context->shop->getContextShopID())));
+	    }
+	    return $widget_flottant_code;
+	    
+    }
 
 	/**
 	 * Return the rich snippet code to the hook footer in front office if configurated
@@ -681,12 +713,19 @@ class NetReviews extends Module
 
 	private function getIdConfigurationGroup($lang_iso)
 	{
-		$sql = 'SELECT name FROM '._DB_PREFIX_."configuration where name like 'AV_GROUP_CONF_%'";
+		if (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1 )
+			$sql = 'SELECT name FROM '._DB_PREFIX_."configuration where name like 'AV_GROUP_CONF_%' And id_shop = '".$this->context->shop->getContextShopID()."'";
+		else
+			$sql = 'SELECT name FROM '._DB_PREFIX_."configuration where name like 'AV_GROUP_CONF_%'";
 		if ($results = Db::getInstance()->ExecuteS($sql))
 		{
 			foreach ($results as $row)
 			{
-				$vconf = unserialize(Configuration::get($row['name']));
+				if (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1 )
+					$vconf = unserialize(Configuration::get($row['name'], null, null,$this->context->shop->getContextShopID()));
+				else
+					$vconf = unserialize(Configuration::get($row['name']));
+
 				if ($vconf && in_array($lang_iso, $vconf))
 					return '_'.Tools::substr($row['name'], 14);
 			}
@@ -709,17 +748,35 @@ class NetReviews extends Module
 		}
 		else
 		{
-			$sql = 'SELECT name
-			FROM '._DB_PREFIX_."configuration
-			WHERE value = '".pSql($id_website_current)."'
-			AND name like 'AV_IDWEBSITE_%'";
-			if ($row = Db::getInstance()->getRow($sql))
-				if (Configuration::get('AV_CLESECRETE_'.Tools::substr($row['name'], 13)) != $cle_secrete_current)
-				{
-					$this->context->controller->errors[] = sprintf($this->l('PARAM ERROR: please check your multilingual configuration for the id_website "%s" at language "%s"'), $id_website_current, $lang['name']);
-					unset($languages[$id_langue_curent]);
-					return $this->setIdConfigurationGroup($languages, $i);
-				}
+			if (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1 ){	
+
+				$sql = 'SELECT name
+				FROM '._DB_PREFIX_."configuration
+				WHERE value = '".pSql($id_website_current)."'
+				AND name like 'AV_IDWEBSITE_%' And id_shop = '".$this->context->shop->getContextShopID()."'";
+				if ($row = Db::getInstance()->getRow($sql))
+					if (Configuration::get('AV_CLESECRETE_'.Tools::substr($row['name'], 13), null, null, $this->context->shop->getContextShopID()) != $cle_secrete_current)
+					{
+						$this->context->controller->errors[] = sprintf($this->l('PARAM ERROR: please check your multilingual configuration for the id_website "%s" at language "%s"'), $id_website_current, $lang['name']);
+						unset($languages[$id_langue_curent]);
+						return $this->setIdConfigurationGroup($languages, $i);
+					}
+			}else{
+
+				$sql = 'SELECT name
+				FROM '._DB_PREFIX_."configuration
+				WHERE value = '".pSql($id_website_current)."'
+				AND name like 'AV_IDWEBSITE_%'";
+
+				if ($row = Db::getInstance()->getRow($sql))
+					if (Configuration::get('AV_CLESECRETE_'.Tools::substr($row['name'], 13)) != $cle_secrete_current)
+					{
+						$this->context->controller->errors[] = sprintf($this->l('PARAM ERROR: please check your multilingual configuration for the id_website "%s" at language "%s"'), $id_website_current, $lang['name']);
+						unset($languages[$id_langue_curent]);
+						return $this->setIdConfigurationGroup($languages, $i);
+					}
+			}
+
 			$group = array();
 			array_push($group, $lang['iso_code']);
 			unset($languages[$id_langue_curent]);
@@ -733,39 +790,111 @@ class NetReviews extends Module
 				}
 			}
 			// Create PS configuration variable
-			if (!Configuration::get('AV_IDWEBSITE_'.$i))
-				Configuration::updateValue('AV_IDWEBSITE_'.$i, Tools::getValue('avisverifies_idwebsite_'.$lang['iso_code']));
-			if (!Configuration::get('AV_CLESECRETE_'.$i))
-				Configuration::updateValue('AV_CLESECRETE_'.$i, Tools::getValue('avisverifies_clesecrete_'.$lang['iso_code']));
-			if (!Configuration::get('AV_GROUP_CONF_'.$i))
-				Configuration::updateValue('AV_GROUP_CONF_'.$i, serialize($group));
-			if (!Configuration::get('AV_LIGHTWIDGET_'.$i))
-				Configuration::updateValue('AV_LIGHTWIDGET_'.$i, '0');
-			if (!Configuration::get('AV_PROCESSINIT_'.$i))
-				Configuration::updateValue('AV_PROCESSINIT_'.$i, '');
-			if (!Configuration::get('AV_ORDERSTATESCHOOSEN_'.$i))
-				Configuration::updateValue('AV_ORDERSTATESCHOOSEN_'.$i, '');
-			if (!Configuration::get('AV_DELAY_'.$i))
-				Configuration::updateValue('AV_DELAY_'.$i, '');
-			if (!Configuration::get('AV_GETPRODREVIEWS_'.$i))
-				Configuration::updateValue('AV_GETPRODREVIEWS_'.$i, '');
-			if (!Configuration::get('AV_DISPLAYPRODREVIEWS_'.$i))
-				Configuration::updateValue('AV_DISPLAYPRODREVIEWS_'.$i, '');
-			if (!Configuration::get('AV_SCRIPTFLOAT_'.$i))
-				Configuration::updateValue('AV_SCRIPTFLOAT_'.$i, '');
-			if (!Configuration::get('AV_SCRIPTFLOAT_ALLOWED_'.$i))
-				Configuration::updateValue('AV_SCRIPTFLOAT_ALLOWED_'.$i, '');
-			if (!Configuration::get('AV_SCRIPTFIXE_'.$i))
-				Configuration::updateValue('AV_SCRIPTFIXE_'.$i, '');
-			if (!Configuration::get('AV_SCRIPTFIXE_ALLOWED_'.$i))
-				Configuration::updateValue('AV_SCRIPTFIXE_ALLOWED_'.$i, '');
-			if (!Configuration::get('AV_URLCERTIFICAT_'.$i))
-				Configuration::updateValue('AV_URLCERTIFICAT_'.$i, '');
-			if (!Configuration::get('AV_FORBIDDEN_EMAIL_'.$i))
-				Configuration::updateValue('AV_FORBIDDEN_EMAIL_'.$i, '');
-			if (!Configuration::get('AV_CODE_LANG_'.$i))
-				Configuration::updateValue('AV_CODE_LANG_'.$i, '');
+            
+
+			if (Configuration::get('PS_MULTISHOP_FEATURE_ACTIVE') == 1 ){	
+
+				if (!Configuration::get('AV_IDWEBSITE_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_IDWEBSITE_'.$i, Tools::getValue('avisverifies_idwebsite_'.$lang['iso_code']), false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_CLESECRETE_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_CLESECRETE_'.$i, Tools::getValue('avisverifies_clesecrete_'.$lang['iso_code']), false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_GROUP_CONF_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_GROUP_CONF_'.$i, serialize($group), false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_LIGHTWIDGET_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_LIGHTWIDGET_'.$i, '0', false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_PROCESSINIT_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_PROCESSINIT_'.$i, '', false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_ORDERSTATESCHOOSEN_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_ORDERSTATESCHOOSEN_'.$i, '', false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_DELAY_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_DELAY_'.$i, '', false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_GETPRODREVIEWS_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_GETPRODREVIEWS_'.$i, '', false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_DISPLAYPRODREVIEWS_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_DISPLAYPRODREVIEWS_'.$i, '', false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_SCRIPTFLOAT_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_SCRIPTFLOAT_'.$i, '', false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_SCRIPTFLOAT_ALLOWED_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_SCRIPTFLOAT_ALLOWED_'.$i, '', false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_SCRIPTFIXE_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_SCRIPTFIXE_'.$i, '', false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_SCRIPTFIXE_ALLOWED_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_SCRIPTFIXE_ALLOWED_'.$i, '', false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_URLCERTIFICAT_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_URLCERTIFICAT_'.$i, '', false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_FORBIDDEN_EMAIL_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_FORBIDDEN_EMAIL_'.$i, '', false, null, $this->context->shop->getContextShopID());
+
+				if (!Configuration::get('AV_CODE_LANG_'.$i, null, null, $this->context->shop->getContextShopID()))
+					Configuration::updateValue('AV_CODE_LANG_'.$i, '', false, null, $this->context->shop->getContextShopID()); 
+			
+			}else{
+
+				if (!Configuration::get('AV_IDWEBSITE_'.$i))
+					Configuration::updateValue('AV_IDWEBSITE_'.$i, Tools::getValue('avisverifies_idwebsite_'.$lang['iso_code']));
+
+				if (!Configuration::get('AV_CLESECRETE_'.$i))
+					Configuration::updateValue('AV_CLESECRETE_'.$i, Tools::getValue('avisverifies_clesecrete_'.$lang['iso_code']));
+
+				if (!Configuration::get('AV_GROUP_CONF_'.$i))
+					Configuration::updateValue('AV_GROUP_CONF_'.$i, serialize($group));
+
+				if (!Configuration::get('AV_LIGHTWIDGET_'.$i))
+					Configuration::updateValue('AV_LIGHTWIDGET_'.$i, '0');
+
+				if (!Configuration::get('AV_PROCESSINIT_'.$i))
+					Configuration::updateValue('AV_PROCESSINIT_'.$i, '');
+
+				if (!Configuration::get('AV_ORDERSTATESCHOOSEN_'.$i))
+					Configuration::updateValue('AV_ORDERSTATESCHOOSEN_'.$i, '');
+
+				if (!Configuration::get('AV_DELAY_'.$i))
+					Configuration::updateValue('AV_DELAY_'.$i, '');
+
+				if (!Configuration::get('AV_GETPRODREVIEWS_'.$i))
+					Configuration::updateValue('AV_GETPRODREVIEWS_'.$i, '');
+
+				if (!Configuration::get('AV_DISPLAYPRODREVIEWS_'.$i))
+					Configuration::updateValue('AV_DISPLAYPRODREVIEWS_'.$i, '');
+
+				if (!Configuration::get('AV_SCRIPTFLOAT_'.$i))
+					Configuration::updateValue('AV_SCRIPTFLOAT_'.$i, '');
+
+				if (!Configuration::get('AV_SCRIPTFLOAT_ALLOWED_'.$i))
+					Configuration::updateValue('AV_SCRIPTFLOAT_ALLOWED_'.$i, '');
+
+				if (!Configuration::get('AV_SCRIPTFIXE_'.$i))
+					Configuration::updateValue('AV_SCRIPTFIXE_'.$i, '');
+
+				if (!Configuration::get('AV_SCRIPTFIXE_ALLOWED_'.$i))
+					Configuration::updateValue('AV_SCRIPTFIXE_ALLOWED_'.$i, '');
+
+				if (!Configuration::get('AV_URLCERTIFICAT_'.$i))
+					Configuration::updateValue('AV_URLCERTIFICAT_'.$i, '');
+
+				if (!Configuration::get('AV_FORBIDDEN_EMAIL_'.$i))
+					Configuration::updateValue('AV_FORBIDDEN_EMAIL_'.$i, '');
+
+				if (!Configuration::get('AV_CODE_LANG_'.$i))
+					Configuration::updateValue('AV_CODE_LANG_'.$i, ''); 
+			}
+
 			$i++;
+
 			return $this->setIdConfigurationGroup($languages, $i);
 		}
 	}
