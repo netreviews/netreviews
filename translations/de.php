@@ -19,7 +19,6 @@ $_MODULE['<{netreviews}prestashop>netreviews_0531ff7e475145bab21e82cee3a61cd6'] 
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_10d101a6ca6b4912246b2329448ffbe1'] = 'Die Exportdatei auf dem Server kann nicht bearbeitet werden. Bitte teilen Sie dem Ordner netreviews Schreibrechte zu.';
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_736dca8b248b9c036ed27ef8408496c8'] = 'Die Exportdatei kann nicht gelesen/bearbeitet werden';
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_9ab3e83b1071d09ca62e4cd258686f6b'] = 'Keine Bestellungen zu exportieren';
-$_MODULE['<{netreviews}prestashop>upgrade-7.1.31_ea45551379c29d373e6337331b725caa'] = 'SQL ERROR: %s  Anfrage kann nicht ausgeführt werden. Bitte überprüfen Sie die SQL Zugriffsrechte ';
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_8fc42c6ddf9966db3b09e84365034357'] = 'am';
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_b6641f306eff8e4dcc8a1232129a5b72'] = 'Kommentar von';
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_4b429ac96c0312b11fe14690dd315384'] = 'Austausch anzeigen';
@@ -83,6 +82,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3204cde6933be298a4a47d
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_ea470f37d7c86badea409748257f8be8'] = 'Fortgeschrittene Einstellungen';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_29a643370f1bbfe18b466a928ec2874a'] = 'Das \"light\" Produktwidget benutzen';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_930a81a525be3439c47c4850a39d0c15'] = 'Multi Sprachen Einstellungen benutzen';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_9532c2e2b3fb738258d7898600c546bb'] = 'Aktivieren Sie die Google Rich Snippets auf Ihrer Produktseite';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_a603905470e2a5b8c13e96b579ef0dba'] = 'Debug';
 $_MODULE['<{netreviews}prestashop>avisverifies-extraright-light_74dcb1cec50854d2f880279f3dd19da9'] = 'Produktbewertungen';
 $_MODULE['<{netreviews}prestashop>avisverifies-extraright-light_1c67665285fb6a7d761414e12578e574'] = 'Produktbewertung';
@@ -102,3 +102,9 @@ $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b09576f93861b2504f3d3
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_28249d01b3a7e45d52dcb8ab6a2f2017'] = 'Weitere Kommentare...';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab_34e80a799d144cfe4af46815e103f017'] = 'Bewertungen';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab_457dd55184faedb7885afd4009d70163'] = 'Bewertung';
+$_MODULE['<{netreviews}prestashop>footer_av_f5e686a39e3145171ae51953378ee1cb'] = 'Sceau_100_de.png';
+$_MODULE['<{netreviews}prestashop>footer_av_deb10517653c255364175796ace3553f'] = 'Produkt';
+$_MODULE['<{netreviews}prestashop>footer_av_3601146c4e948c32b6424d2c0a7f0118'] = 'Preis';
+$_MODULE['<{netreviews}prestashop>footer_av_644672987386569bd1bbd95daacd0562'] = 'Warenwert des';
+$_MODULE['<{netreviews}prestashop>footer_av_663fc7093256cda156e571631ddb295e'] = 'von';
+$_MODULE['<{netreviews}prestashop>footer_av_74dcb1cec50854d2f880279f3dd19da9'] = 'Bewertungen';

@@ -19,7 +19,6 @@ $_MODULE['<{netreviews}prestashop>netreviews_0531ff7e475145bab21e82cee3a61cd6'] 
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_10d101a6ca6b4912246b2329448ffbe1'] = 'Escribir en el servidor no está permitido. Por favor, asigne permisos de escritura a la carpeta netreviews';
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_736dca8b248b9c036ed27ef8408496c8'] = 'No se puede leer/escribir el archivo exportado';
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_9ab3e83b1071d09ca62e4cd258686f6b'] = 'No hay pedido para exportar';
-$_MODULE['<{netreviews}prestashop>upgrade-7.1.31_ea45551379c29d373e6337331b725caa'] = 'SQL ERROR : %s | Consulta no posible de ejecutar. Tal vez, compruebe los permisos de usuario de SQL.';
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_8fc42c6ddf9966db3b09e84365034357'] = 'el';
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_b6641f306eff8e4dcc8a1232129a5b72'] = 'Comentario de';
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_4b429ac96c0312b11fe14690dd315384'] = 'Publicar las conversaciones';
@@ -83,6 +82,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3204cde6933be298a4a47d
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_ea470f37d7c86badea409748257f8be8'] = 'Configuraciones avanzadas';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_29a643370f1bbfe18b466a928ec2874a'] = 'Use the light product widget';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_930a81a525be3439c47c4850a39d0c15'] = 'Utilice la configuración multi-idioma';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_9532c2e2b3fb738258d7898600c546bb'] = 'Activar los Rich snippets de Google en tus páginas de productos';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_a603905470e2a5b8c13e96b579ef0dba'] = 'Depurar';
 $_MODULE['<{netreviews}prestashop>avisverifies-extraright-light_74dcb1cec50854d2f880279f3dd19da9'] = 'opiniones';
 $_MODULE['<{netreviews}prestashop>avisverifies-extraright-light_1c67665285fb6a7d761414e12578e574'] = 'opinión';
@@ -102,3 +102,9 @@ $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b09576f93861b2504f3d3
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_28249d01b3a7e45d52dcb8ab6a2f2017'] = 'Más comentarios...';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab_34e80a799d144cfe4af46815e103f017'] = 'Opiniones';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab_457dd55184faedb7885afd4009d70163'] = 'Opinión';
+$_MODULE['<{netreviews}prestashop>footer_av_f5e686a39e3145171ae51953378ee1cb'] = 'Sceau_100_es.png';
+$_MODULE['<{netreviews}prestashop>footer_av_deb10517653c255364175796ace3553f'] = 'Producto';
+$_MODULE['<{netreviews}prestashop>footer_av_3601146c4e948c32b6424d2c0a7f0118'] = 'Precio';
+$_MODULE['<{netreviews}prestashop>footer_av_644672987386569bd1bbd95daacd0562'] = 'Valoración de  ';
+$_MODULE['<{netreviews}prestashop>footer_av_663fc7093256cda156e571631ddb295e'] = 'sobre';
+$_MODULE['<{netreviews}prestashop>footer_av_74dcb1cec50854d2f880279f3dd19da9'] = 'opiniónes';
