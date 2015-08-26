@@ -819,7 +819,7 @@ function getOrders(&$post_data)
                 'id_lang' => $order['id_lang'],
                 'iso_lang' => pSQL(Language::getIsoById($order['id_lang'])),
                 'id_shop' => $order['id_shop'],
-                'total_paid' => $order['total_paid'],
+                'amount_order' => $order['total_paid'],
                 'id_customer' => $order['id_customer'],
                 'date_order' => strtotime($order['date_order']), // date timestamp in orders table
                 'date_order_formatted' => $order['date_order'], // date in orders table formatted

@@ -34,15 +34,15 @@ if (!defined('_PS_VERSION_'))
  */
 function upgrade_module_7_1_3($module)
 {
-	return upgradePsConfiguration($module) //Upgrade PS configuration from previous versions to the version 7.1.3
-	&& upgradeHook($module) //Upgrade hook from previous versions to the version 7.1.3
-	&& upgradeDatabase($module); //Upgrade database from previous versions to the version 7.1.3
+	return upgradePsConfiguration_7_1_3($module) //Upgrade PS configuration from previous versions to the version 7.1.3
+	&& upgradeHook_7_1_3($module) //Upgrade hook from previous versions to the version 7.1.3
+	&& upgradeDatabase_7_1_3($module); //Upgrade database from previous versions to the version 7.1.3
 }
 
 /**
  * Function used to update your PS configuration from previous versions to the version 7.1.3,
  */
-function upgradePsConfiguration()
+function upgradePsConfiguration_7_1_3()
 {
 	return ((Configuration::get('AVISVERIFIES_IDWEBSITE', '')) ?
 	Configuration::updateValue('AV_IDWEBSITE', Configuration::get('AVISVERIFIES_IDWEBSITE', '')) :
@@ -119,7 +119,7 @@ function upgradePsConfiguration()
 /**
  * Function used to update your hook from previous versions to the version 7.1.3,
  */
-function upgradeHook($module)
+function upgradeHook_7_1_3($module)
 {
 	if (version_compare(_PS_VERSION_, '1.5', '<')) //PS < 1.5 Hooks
 		return $module->unregisterHook('orderConfirmation')
@@ -134,7 +134,7 @@ function upgradeHook($module)
 /**
  * Function used to update your database from previous versions to the version 7.1.3,
  */
-function upgradeDatabase($module)
+function upgradeDatabase_7_1_3($module)
 {
 	$query = array();
 

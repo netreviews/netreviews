@@ -34,15 +34,15 @@ if (!defined('_PS_VERSION_'))
  */
 function upgrade_module_7_1_31($module)
 {
-	return upgradePsConfiguration($module) //Upgrade PS configuration from previous versions to the version 7.1.31
-	&& upgradeHook($module) //Upgrade hook from previous versions to the version 7.1.31
-	&& upgradeDatabase($module); //Upgrade database from previous versions to the version 7.1.31
+	return upgradePsConfiguration_7_1_31($module) //Upgrade PS configuration from previous versions to the version 7.1.31
+	&& upgradeHook_7_1_31($module) //Upgrade hook from previous versions to the version 7.1.31
+	&& upgradeDatabase_7_1_31($module); //Upgrade database from previous versions to the version 7.1.31
 }
 
 /**
  * Function used to update your PS configuration from previous versions to the version 7.1.31,
  */
-function upgradePsConfiguration()
+function upgradePsConfiguration_7_1_31()
 {
 	return true;
 }
@@ -50,7 +50,7 @@ function upgradePsConfiguration()
 /**
  * Function used to update your hook from previous versions to the version 7.1.31,
  */
-function upgradeHook($module)
+function upgradeHook_7_1_31($module)
 {
 	return true;
 }
@@ -58,7 +58,7 @@ function upgradeHook($module)
 /**
  * Function used to update your database from previous versions to the version 7.1.31,
  */
-function upgradeDatabase($module)
+function upgradeDatabase_7_1_31($module)
 {
 	return true;
 }
