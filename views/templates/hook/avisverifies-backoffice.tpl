@@ -171,7 +171,7 @@
 				<div class="clear"></div>
 				<label>{l s='Use the multilingual configuration' mod='netreviews'}</label><input type="checkbox" name="avisverifies_multilingue" id="avisverifies_multilingue" {$current_multilingue_checked|escape:'html'} value="checked"/>
 				<div class="clear"></div>
-				<label>{l s='Activate the google risch snippets in your product page' mod='netreviews'}</label><input type="checkbox" name="avisverifies_displaygooglesnippet" id="avisverifies_displaygooglesnippet" {$current_displaygooglesnippet_checked|escape:'html'} value="checked"/>
+				<label>{l s='Activate the google rich snippets on your product page' mod='netreviews'}</label><input type="checkbox" name="avisverifies_displaygooglesnippet" id="avisverifies_displaygooglesnippet" {$current_displaygooglesnippet_checked|escape:'html'} value="checked"/>
 				<div class="clear"></div>
 				<hr class="orange" >
 				<center><input type="submit"  name="submit_advanced" id="submit_advanced" value="{l s='Save' mod='netreviews'}" class="button pointer"></center>
