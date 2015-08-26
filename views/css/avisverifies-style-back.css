@@ -1,0 +1,256 @@
+/**
+* 2012-2015 NetReviews
+*
+*  @author    NetReviews SAS <contact@avis-verifies.com>
+*  @copyright 2015 NetReviews SAS
+*  @version   Release: $Revision: 7.1.4
+*  @license   NetReviews
+*  @date      25/08/2015
+*  International Registered Trademark & Property of NetReviews SAS
+*/
+
+#avisverifies_module label{
+	
+	margin-right: 15px;
+	
+	
+}
+
+#avisverifies_module input[type=text] {
+	float:left;
+	margin-right: 20px;
+	margin-bottom: 10px;
+}
+
+
+
+#avisverifies_module  .floatleft{
+	float: left;
+}
+
+
+#avisverifies_module  #export{
+	margin-left: 10px;
+}
+
+#avisverifies_module  p.help{
+	
+	font-style: italic;
+	color:#9E9E9E;
+	font-size: 11px;
+}
+
+#avisverifies_module  p.help.withfloat{
+	float:left;
+	
+}
+
+#avisverifies_module  p.help.inline{
+	display:inline;
+	
+}
+
+#avisverifies_module #order-statut-list{
+	list-style:none;
+	float:left;
+	margin-top:0;
+	padding: 0;
+}
+
+
+#avisverifies_module .field-line{
+	margin-bottom: 10px;
+	display: block;
+}
+
+#avisverifies_module label.label-pointer{
+	float: none;
+	text-align: right;
+	font-weight: normal;
+}
+
+fieldset .fieldsetav{
+	border: 1px solid rgb(196, 196, 196);background-color: rgb(249, 249, 249);
+}
+label .titlepart {
+	margin-bottom:20px;text-align:left;width: 100%;font-size: 22px;font-weight: bold;color: rgb(249, 121, 28);
+}
+#avisverifies_module label{
+	margin-right: 15px;
+}
+#avisverifies_module input[type=text] {
+	float:left;
+	margin-right: 20px;
+	margin-bottom: 10px;
+}
+#avisverifies_module  .floatleft{
+	float: left;
+}
+#avisverifies_module  #export{
+	margin-left: 10px;
+}
+#avisverifies_module  p.help{
+	font-style: italic;
+	color:#9E9E9E;
+	font-size: 11px;
+}
+#avisverifies_module  p.help.withfloat{
+	float:left;
+}
+#avisverifies_module  p.help.inline{
+	display:inline;
+}
+#avisverifies_module #order-statut-list{
+	list-style:none;
+	float:left;
+	margin-top:0;
+	padding: 0;
+}
+#avisverifies_module .field-line{
+	margin-bottom: 10px;
+	display: block;
+}
+#avisverifies_module label.label-pointer{
+	float: none;
+	text-align: right;
+	font-weight: normal;
+}
+#avisverifies_module a{
+	color:#F9791C;
+	font-weight: bold;
+}
+#avisverifies_module #av-header-intro{
+	border:1px solid #C4C4C4;
+	background-color: #F9F9F9;
+	margin-bottom:10px;
+}
+#avisverifies_module #av-top{
+	text-align: center;
+}
+hr.orange{
+	border-bottom:2px solid #FFA851;
+	width: 70%;
+	margin:25px auto;
+}
+#avisverifies_module #av-header-intro #av-title {
+	font-size:22px;
+	font-weight: bold;
+	color:#F9791C;
+}
+#avisverifies_module table{
+	border:none;
+}
+#avisverifies_module .tg {
+	border-collapse:collapse;border-spacing:0;;width:100%
+}
+#avisverifies_module .tg td{
+	font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;overflow:hidden;word-break:normal;
+}
+#avisverifies_module .tg th{
+	font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;overflow:hidden;word-break:normal;width:30%
+}
+.av-button-calltoaction {
+	moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #eb9c3b), color-stop(1, #e88e21) );
+	background:-moz-linear-gradient( center top, #eb9c3b 5%, #e88e21 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eb9c3b', endColorstr='#e88e21');
+	background-color:#eb9c3b;
+	-webkit-border-top-left-radius:7px;
+	-moz-border-radius-topleft:7px;
+	border-top-left-radius:7px;
+	-webkit-border-top-right-radius:7px;
+	-moz-border-radius-topright:7px;
+	border-top-right-radius:7px;
+	-webkit-border-bottom-right-radius:7px;
+	-moz-border-radius-bottomright:7px;
+	border-bottom-right-radius:7px;
+	-webkit-border-bottom-left-radius:7px;
+	-moz-border-radius-bottomleft:7px;
+	border-bottom-left-radius:7px;
+	text-indent:0;
+	border:1px solid #eeb44f;
+	display:inline-block;
+	color:#ffffff!important;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:20px;
+	line-height:20px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #cc9f52;
+	padding: 15px
+}
+.av-button-calltoaction:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e88e21), color-stop(1, #eb9c3b) );
+	background:-moz-linear-gradient( center top, #e88e21 5%, #eb9c3b 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e88e21', endColorstr='#eb9c3b');
+	background-color:#e88e21;
+}
+.av-button-calltoaction:active {
+	position:relative;
+	top:1px;
+}
+.av-list-star li{
+	list-style-image : url(/modules/netreviews/views/img/single-star.png);
+	margin-left: 15px;
+	line-height: 25px;
+	text-align: left;
+}
+#av-middle i{
+	font-size: 11px;
+}
+#av-middle .mini-title{
+	font-size: 14px;
+	line-height: 30px;
+	font-weight: bold;
+}
+span.asterisc{
+	padding:10px;
+	font-size: 10px;
+}
+.tg-031e p{
+	text-align: left;
+}
+.tg-031e.valigntop{
+	vertical-align: top;
+}
+#debug-part{
+	font-style: italic;
+}
+.fieldsetav{
+	border: 1px solid rgb(196, 196, 196) !important;
+	background-color: rgb(249, 249, 249) !important;
+}
+.titlepart {
+	margin-bottom:20px;
+	text-align:left !important;
+	width: 100% !important;
+	font-size: 22px;
+	font-weight: bold !important;
+	color: rgb(249, 121, 28) !important;
+}
+button pointer{
+	cursor:pointer;
+}
+div.languages{
+	width: 49%;
+	display:inline-block;
+	margin-bottom:10px;
+}
+div.languages>span{
+	vertical-align: bottom;
+}
+#VersionModule{
+	font-size:10px;
+}
+.namelanguage{
+	color:rgb(249, 121, 28);
+}
+#blockConfiguration{
+	width: 70%;
+	margin: 0px auto;
+}

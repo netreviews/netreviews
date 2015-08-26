@@ -1,6 +1,6 @@
 <?php
 /**
-* 2007-2013 PrestaShop
+* 2012-2015 NetReviews
 *
 * NOTICE OF LICENSE
 *
@@ -13,15 +13,16 @@
 * to license@prestashop.com so we can send you a copy immediately.
 *
 * DISCLAIMER
-*
 * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
 * versions in the future. If you wish to customize PrestaShop for your
 * needs please refer to http://www.prestashop.com for more information.
 *
-*  @author    PrestaShop SA <contact@prestashop.com>
-*  @copyright 2007-2013 PrestaShop SA
-*  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
+*  @author    NetReviews SAS <contact@avis-verifies.com>
+*  @copyright 2015 NetReviews SAS
+*  @version   Release: $Revision: 7.1.4
+*  @license   NetReviews
+*  @date      25/08/2015
+*  International Registered Trademark & Property of NetReviews SAS
 */
 
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');

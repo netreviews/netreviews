@@ -1,10 +1,14 @@
 <!--
- * @author    NetReviews (www.avis-verifies.com) - Contact: contact@avis-verifies.com
- * @category  traduction
- * @copyright NetReviews
- * @license   NetReviews 
- * @date 09/04/2014
- -->
+* 2012-2015 NetReviews
+*
+*  @author    NetReviews SAS <contact@avis-verifies.com>
+*  @copyright 2015 NetReviews SAS
+*  @version   Release: $Revision: 7.1.4
+*  @license   NetReviews
+*  @date      25/08/2015
+*  International Registered Trademark & Property of NetReviews SAS
+-->
+
 <li>
 	<a href="#idTabavisverifies" class="avisverifies_tab" id="tab_avisverifies">
 		{$count_reviews|intval}

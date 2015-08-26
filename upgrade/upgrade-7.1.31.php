@@ -25,12 +25,40 @@
 *  International Registered Trademark & Property of NetReviews SAS
 */
 
-header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+if (!defined('_PS_VERSION_'))
+	exit;
 
-header('Cache-Control: no-store, no-cache, must-revalidate');
-header('Cache-Control: post-check=0, pre-check=0', false);
-header('Pragma: no-cache');
+/**
+ * Function used to update your module from previous versions to the version 7.1.31,
+ * Don't forget to create one file per version.
+ */
+function upgrade_module_7_1_31($module)
+{
+	return upgradePsConfiguration($module) //Upgrade PS configuration from previous versions to the version 7.1.31
+	&& upgradeHook($module) //Upgrade hook from previous versions to the version 7.1.31
+	&& upgradeDatabase($module); //Upgrade database from previous versions to the version 7.1.31
+}
 
-header('Location: ../');
-exit;
+/**
+ * Function used to update your PS configuration from previous versions to the version 7.1.31,
+ */
+function upgradePsConfiguration()
+{
+	return true;
+}
+
+/**
+ * Function used to update your hook from previous versions to the version 7.1.31,
+ */
+function upgradeHook($module)
+{
+	return true;
+}
+
+/**
+ * Function used to update your database from previous versions to the version 7.1.31,
+ */
+function upgradeDatabase($module)
+{
+	return true;
+}
