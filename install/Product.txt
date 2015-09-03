@@ -10,7 +10,6 @@
  */
 
 class Product extends ProductCore {
-
 	public static function getProductProperties($id_lang, $row, Context $context = null)
 	{
 		// Avis vérifiés
@@ -20,7 +19,9 @@ class Product extends ProductCore {
 		if (!class_exists('NetReviewsModel') && file_exists($av_model))
 			require_once($av_model);
 
-		$p['av_stats'] = NetReviewsModel::getStatsProduct($p['id_product']);
+		$NetReviewsModel = new NetReviewsModel;
+
+		$p['av_stats'] = $NetReviewsModel->getStatsProduct($p['id_product']);
 
 		if (!empty($p['av_stats']['rate']))
 			$p['av_rate'] = round($p['av_stats']['rate']);

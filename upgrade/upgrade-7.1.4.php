@@ -44,7 +44,7 @@ function upgrade_module_7_1_4($module)
  */
 function upgradePsConfiguration_7_1_4()
 {
-	return Configuration::updateValue('AV_MULTILINGUE', '0');
+	return Configuration::updateValue('AV_DISPLAYGOOGLESNIPPET', '0');
 }
 
 /**
