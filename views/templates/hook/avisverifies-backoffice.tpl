@@ -164,7 +164,7 @@
 		</div>
 	</fieldset>
 	<br /><fieldset class="fieldsetav">
-		<legend>{l s='Advanced configurations' mod='netreviews'}</legend>
+		<legend>{l s='Advanced configuration' mod='netreviews'}</legend>
 		<div class='config'>
 			<form method="post" action="{$url_back|unescape:'htmlall'}" enctype="multipart/form-data">
 				<label>{l s='Use the light product widget' mod='netreviews'}</label><input type="checkbox" name="avisverifies_lightwidget" id="avisverifies_lightwidget" {$current_lightwidget_checked|escape:'html'} value="checked"/>
