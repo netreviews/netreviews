@@ -25,8 +25,9 @@
 *  International Registered Trademark & Property of NetReviews SAS
 */
 
-if (!defined('_PS_VERSION_'))
-	exit;
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 
 /**
  * Function used to update your module from previous versions to the version 7.1.4,
@@ -34,9 +35,9 @@ if (!defined('_PS_VERSION_'))
  */
 function upgrade_module_7_1_4($module)
 {
-	return upgradePsConfiguration_7_1_4($module) //Upgrade PS configuration from previous versions to the version 7.1.4
-	&& upgradeHook_7_1_4($module) //Upgrade hook from previous versions to the version 7.1.4
-	&& upgradeDatabase_7_1_4($module); //Upgrade database from previous versions to the version 7.1.4
+    return upgradePsConfiguration_7_1_4($module) //Upgrade PS configuration from previous versions to the version 7.1.4
+    && upgradeHook_7_1_4($module) //Upgrade hook from previous versions to the version 7.1.4
+    && upgradeDatabase_7_1_4($module); //Upgrade database from previous versions to the version 7.1.4
 }
 
 /**
@@ -44,7 +45,7 @@ function upgrade_module_7_1_4($module)
  */
 function upgradePsConfiguration_7_1_4()
 {
-	return Configuration::updateValue('AV_DISPLAYGOOGLESNIPPET', '0');
+    return Configuration::updateValue('AV_DISPLAYGOOGLESNIPPET', '0');
 }
 
 /**
@@ -52,7 +53,7 @@ function upgradePsConfiguration_7_1_4()
  */
 function upgradeHook_7_1_4($module)
 {
-	return true;
+    return true;
 }
 
 /**
@@ -60,5 +61,5 @@ function upgradeHook_7_1_4($module)
  */
 function upgradeDatabase_7_1_4($module)
 {
-	return true;
+    return true;
 }

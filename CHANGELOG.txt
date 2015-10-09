@@ -82,7 +82,7 @@ Prestashop < 1.5
     
     7.0.9, 03/10/2013
 
-        avisverifiesApi.php > getOrders : l.664 - array_push is replade by $orders_list_toreturn[$order['id_order']] = $array_order to avoid duplicates when there are two identicals status change for an order with this line if(empty($already_flag_order) && !$orders_list_toreturn[$order['id_order']]){
+        avisverifiesApi.php > getOrders : l.664 - array_push is replade by $orders_list_toreturn[$order['id_order']] = $array_order to avoid duplicates when there are two identicals status change for an order with this line if(empty($already_flag_order) && !$orders_list_toreturn[$order['id_order']]) {
         Product.php > m.id_module from the query becomes id_module
         
     7.0.8, 02/10/2013

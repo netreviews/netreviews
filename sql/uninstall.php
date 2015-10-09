@@ -36,6 +36,8 @@ $sql[] = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'av_products_reviews;';
 $sql[] = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'av_products_average;';
 $sql[] = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'av_orders;';
 
-foreach ($sql as $query)
-	if (Db::getInstance()->execute($query) == false)
-		return $query;
+foreach ($sql as $query) {
+    if (Db::getInstance()->execute($query) == false) {
+        return $query;
+    }
+}
