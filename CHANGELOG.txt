@@ -1,6 +1,6 @@
 prestashop > 1.5
 
-    7.1.4, 02/09/2015
+    7.1.4.1, 02/09/2015
 
         fix several minor bugs 
         adding a parameter: activation of rich snippets
