@@ -445,7 +445,7 @@ class NetReviews extends Module
         if (Configuration::get('AV_MULTILINGUE') == 'checked') {
             $this->id_lang = $this->context->language->id;
             $this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
-            $this->this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
+            $this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
         }
         if (version_compare(_PS_VERSION_, '1.5', '<')) {
             $display_prod_reviews = Configuration::get('AV_DISPLAYPRODREVIEWS'.$this->group_name);
@@ -480,7 +480,7 @@ class NetReviews extends Module
         if (Configuration::get('AV_MULTILINGUE') == 'checked') {
             $this->id_lang = $this->context->language->id;
             $this->iso_lang = pSQL(Language::getIsoById($this->id_lang));
-            $this->this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
+            $this->group_name = $this->getIdConfigurationGroup($this->iso_lang);
         }
         if (version_compare(_PS_VERSION_, '1.5', '<')) {
             $display_prod_reviews = Configuration::get('AV_DISPLAYPRODREVIEWS'.$this->group_name);

@@ -44,9 +44,9 @@
 		<span property="description">{$product_description|strip_tags|truncate:75}</span>
 		<br>
 		<span rel="offerDetails" typeof="Offer">
-			<meta property="currency" content="EUR">
-			<link property="availability" content="in_stock" />
-			{l s='Price' mod='netreviews'} : <span property="price">{$product_price}</span>€
+			<meta property="currency" content="{$currency->iso_code}">
+			{if $product->quantity > 0}<link itemprop="availability" content="in_stock"/>{/if}
+			{l s='Price' mod='netreviews'} : <span property="price">{$product_price}</span>{$currencySign}
 		</span>
 		<br>
 		<div rel="review" typeof="Review-aggregate">
