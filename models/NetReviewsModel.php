@@ -341,17 +341,16 @@ class NetReviewsModel extends ObjectModel
         }
         $all_orders = array();
         // Get orders with choosen date interval
-        $where_id_shop = (! empty($id_shop)) ?  'AND o.id_shop = '.(int)$id_shop  : '';
-        $select_id_shop = (! empty($id_shop)) ?  ', o.id_shop' : '';
+
         $where_id_state = (! empty($order_statut_list)) ?  ' AND o.current_state IN ('.$order_statut_list.')'  : '';
         $select_id_state = (! empty($order_statut_list)) ?  ', o.current_state' : '';
         $qry_sql = '    SELECT lg.iso_code, o.id_order, o.total_paid, o.id_customer, o.date_add, c.firstname, c.lastname, c.email '
-                        .$select_id_shop.$select_id_state.'
+                        .$select_id_state.'
                         FROM '._DB_PREFIX_.'orders o
                         LEFT JOIN '._DB_PREFIX_.'customer c ON o.id_customer = c.id_customer
                         LEFT JOIN '._DB_PREFIX_.'lang lg ON o.id_lang = lg.id_lang
-                        WHERE (TO_DAYS(DATE_ADD(o.date_add,'.$duree_sql.')) - TO_DAYS(NOW())) >= 0
-                        '.$where_id_shop.$where_id_state;
+                        WHERE (TO_DAYS(DATE_ADD(o.date_add,'.$duree_sql.')) - TO_DAYS(NOW())) >= 0 '
+                        .$where_id_state;
         $item_list = Db::getInstance()->ExecuteS($qry_sql);
         foreach ($item_list as $item) {
             $all_orders[$item['id_order']] = array(
