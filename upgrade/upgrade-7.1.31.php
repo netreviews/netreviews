@@ -139,8 +139,10 @@ function upgradeDatabase($module)
 	$query = array();
 
 	// av_products_reviews
-	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_products_reviews
+	if (Db::getInstance()->ExecuteS('SHOW COLUMNS FROM `'._DB_PREFIX_.'av_products_reviews` WHERE \'field\' = \'lang\'')) {
+		$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_products_reviews
 				CHANGE `lang` `iso_lang` VARCHAR( 5 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT "0";';
+	}
 	$query[] = 'ALTER TABLE '._DB_PREFIX_.'av_products_reviews
 				ADD `id_shop` INT( 2 ) NULL DEFAULT 0;';
 
