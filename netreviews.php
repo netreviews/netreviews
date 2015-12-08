@@ -43,7 +43,7 @@ class NetReviews extends Module
     {
         $this->name = 'netreviews';
         $this->tab = 'advertising_marketing';
-        $this->version = '7.1.4.1';
+        $this->version = '7.1.41';
         $this->author = 'NetReviews';
         $this->need_instance = 0;
         parent::__construct();
