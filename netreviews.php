@@ -157,9 +157,9 @@ class NetReviews extends Module
     {
         global $currentIndex;
         if (version_compare(_PS_VERSION_, '1.5', '<')) {
-            Tools::addCSS(($this->_path).'views/css/avisverifies-style-back.css', 'all');
+            Tools::addCSS(_PS_MODULE_DIR_.$this->name.'/views/css/avisverifies-style-back.css', 'all');
         } else {
-            $this->context->controller->addCSS(($this->_path).'views/css/avisverifies-style-back.css', 'all');
+            $this->context->controller->addCSS(_PS_MODULE_DIR_.$this->name.'/views/css/avisverifies-style-back.css', 'all');
         }
         if (!empty($_POST)) {
             $this->postProcess();
@@ -354,13 +354,13 @@ class NetReviews extends Module
         }
 
         if (version_compare(_PS_VERSION_, '1.5', '<')) {
-            Tools::addCSS(($this->_path).'views/css/avisverifies-style-front.css', 'all');
+            Tools::addCSS(_PS_MODULE_DIR_.$this->name.'/views/css/avisverifies-style-front.css', 'all');
             // If there is a specific css file for the client then load
             // (to avoid the specific problems of loss contained to update the module)
-            if (file_exists('./'.($this->_path).'views/css/avisverifies-style-front-specifique.css')) {
-                Tools::addCSS(($this->_path).'views/css/avisverifies-style-front-specifique.css', 'all');
+            if (file_exists(_PS_MODULE_DIR_.$this->name.'/views/css/avisverifies-style-front-specifique.css')) {
+                Tools::addCSS(_PS_MODULE_DIR_.$this->name.'/views/css/avisverifies-style-front-specifique.css', 'all');
             }
-            Tools::addJS(($this->_path).'views/js/avisverifies.js', 'all');
+            Tools::addJS(_PS_MODULE_DIR_.$this->name.'/views/js/avisverifies.js', 'all');
             if (Configuration::get('AV_SCRIPTFLOAT_ALLOWED'.$this->group_name) != 'yes') {
                 return '';
             }
@@ -368,14 +368,14 @@ class NetReviews extends Module
                 $widget_flottant_code .= "\n".Tools::stripslashes(html_entity_decode(Configuration::get('AV_SCRIPTFLOAT'.$this->group_name)));
             }
         } else {
-            $this->context->controller->addCSS(($this->_path).'views/css/avisverifies-style-front.css', 'all');
+            $this->context->controller->addCSS(_PS_MODULE_DIR_.$this->name.'/views/css/avisverifies-style-front.css', 'all');
             // If there is a specific css file for the client then load
             // (to avoid the specific problems of loss contained to update the module)
-            if (file_exists('./'.($this->_path).'views/css/avisverifies-style-front-specifique.css')) {
-                $this->context->controller->addCSS(($this->_path).'views/css/avisverifies-style-front-specifique.css', 'all');
+            if (file_exists(_PS_MODULE_DIR_.$this->name.'/views/css/avisverifies-style-front-specifique.css')) {
+                $this->context->controller->addCSS(_PS_MODULE_DIR_.$this->name.'/views/css/avisverifies-style-front-specifique.css', 'all');
             }
 
-            $this->context->controller->addJS(($this->_path).'views/js/avisverifies.js', 'all');
+            $this->context->controller->addJS(_PS_MODULE_DIR_.$this->name.'/views/js/avisverifies.js', 'all');
             if (Configuration::get('AV_SCRIPTFLOAT_ALLOWED'.$this->group_name, null, null, $this->context->shop->getContextShopID()) != 'yes') {
                 return '';
             }
@@ -460,13 +460,13 @@ class NetReviews extends Module
         $this->context->smarty->assign(array('count_reviews' => $this->stats_product['nb_reviews']));
 
         if (version_compare(_PS_VERSION_, '1.5', '>')) {
-            if (file_exists(__FILE__.'/views/templates/hook/avisverifies-tab-specifique.tpl')) {
+            if (file_exists(_PS_MODULE_DIR_.$this->name.'/views/templates/hook/avisverifies-tab-specifique.tpl')) {
                 return  ($this->display(__FILE__, '/views/templates/hook/avisverifies-tab-specifique.tpl'));
             } else {
                 return  ($this->display(__FILE__, '/views/templates/hook/avisverifies-tab.tpl'));
             }
         } elseif (version_compare(_PS_VERSION_, '1.5', '<')) {
-            if (file_exists(__FILE__.'avisverifies-tab-specifique.tpl')) {
+            if (file_exists(_PS_MODULE_DIR_.$this->name.'/avisverifies-tab-specifique.tpl')) {
                 return ($this->display(__FILE__, 'avisverifies-tab-specifique.tpl'));
             } else {
                 return ($this->display(__FILE__, 'avisverifies-tab.tpl'));
@@ -544,13 +544,13 @@ class NetReviews extends Module
         ));
 
         if (version_compare(_PS_VERSION_, '1.5', '>')) {
-            if (file_exists(__FILE__.'/views/templates/hook/avisverifies-tab-content-specifique.tpl')) {
+            if (file_exists(_PS_MODULE_DIR_.$this->name.'/views/templates/hook/avisverifies-tab-content-specifique.tpl')) {
                 return  ($this->display(__FILE__, '/views/templates/hook/avisverifies-tab-content-specifique.tpl'));
             } else {
                 return  ($this->display(__FILE__, '/views/templates/hook/avisverifies-tab-content.tpl'));
             }
         } elseif (version_compare(_PS_VERSION_, '1.5', '<')) {
-            if (file_exists(__FILE__.'avisverifies-tab-content-specifique.tpl')) {
+            if (file_exists(_PS_MODULE_DIR_.$this->name.'/avisverifies-tab-content-specifique.tpl')) {
                 return ($this->display(__FILE__, 'avisverifies-tab-content-specifique.tpl'));
             } else {
                 return ($this->display(__FILE__, 'avisverifies-tab-content.tpl'));
@@ -676,13 +676,13 @@ class NetReviews extends Module
 
 
         if (version_compare(_PS_VERSION_, '1.5', '>')) {
-            if (file_exists(__FILE__."/views/templates/hook/$tpl-specifique.tpl")) {
+            if (file_exists(_PS_MODULE_DIR_.$this->name."/views/templates/hook/$tpl-specifique.tpl")) {
                 return  ($this->display(__FILE__, "/views/templates/hook/$tpl-specifique.tpl"));
             } else {
                 return  ($this->display(__FILE__, "/views/templates/hook/$tpl.tpl"));
             }
         } elseif (version_compare(_PS_VERSION_, '1.5', '<')) {
-            if (file_exists(__FILE__."$tpl-specifique.tpl")) {
+            if (file_exists(_PS_MODULE_DIR_.$this->name."/$tpl-specifique.tpl")) {
                 return ($this->display(__FILE__, "$tpl-specifique.tpl"));
             } else {
                 return ($this->display(__FILE__, "$tpl.tpl"));
