@@ -19,7 +19,7 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.4.1
+*  @version   Release: $Revision: 7.1.41
 *  @license   NetReviews
 *  @date      25/08/2015
 *  International Registered Trademark & Property of NetReviews SAS
@@ -43,7 +43,7 @@ class NetReviews extends Module
     {
         $this->name = 'netreviews';
         $this->tab = 'advertising_marketing';
-        $this->version = '7.1.4.1';
+        $this->version = '7.1.41';
         $this->author = 'NetReviews';
         $this->need_instance = 0;
         parent::__construct();
