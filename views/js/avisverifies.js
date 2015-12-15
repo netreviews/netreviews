@@ -1,10 +1,13 @@
 /**
- * @author    NetReviews (www.avis-verifies.com) - Contact: contact@avis-verifies.com
- * @category  js
- * @copyright NetReviews
- * @license   NetReviews 
- * @date 09/04/2014
- */   
+* 2012-2015 NetReviews
+*
+*  @author    NetReviews SAS <contact@avis-verifies.com>
+*  @copyright 2015 NetReviews SAS
+*  @version   Release: $Revision: 7.1.41
+*  @license   NetReviews
+*  @date      25/08/2015
+*  International Registered Trademark & Property of NetReviews SAS
+*/
 
 if(typeof jQuery == 'undefined') {	
 
@@ -49,7 +52,7 @@ if(typeof jQuery == 'undefined') {
 
 jQuery(document).ready(function($) {
 					
-		$('div#av_product_award #bottom #AV_button').live( "click" ,function(){
+		$('#AV_button').live( "click" ,function(){
 			$('#tab_avisverifies').click();
 
 			console.log($('#idTabavisverifies'));
