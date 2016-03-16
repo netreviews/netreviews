@@ -30,36 +30,36 @@ if (!defined('_PS_VERSION_')) {
 }
 
 /**
- * Function used to update your module from previous versions to the version 7.1.31,
+ * Function used to update your module from previous versions to the version 7.1.41,
  * Don't forget to create one file per version.
  */
-function upgrade_module_7_1_31($module)
+function upgrade_module_7_1_4($module)
 {
-    return upgradePsConfiguration_7_1_31($module) //Upgrade PS configuration from previous versions to the version 7.1.31
-    && upgradeHook_7_1_31($module) //Upgrade hook from previous versions to the version 7.1.31
-    && upgradeDatabase_7_1_31($module); //Upgrade database from previous versions to the version 7.1.31
+    return upgradePsConfiguration_7_1_4($module) //Upgrade PS configuration from previous versions to the version 7.1.41
+    && upgradeHook_7_1_4($module) //Upgrade hook from previous versions to the version 7.1.41
+    && upgradeDatabase_7_1_4($module); //Upgrade database from previous versions to the version 7.1.41
 }
 
 /**
- * Function used to update your PS configuration from previous versions to the version 7.1.31,
+ * Function used to update your PS configuration from previous versions to the version 7.1.41,
  */
-function upgradePsConfiguration_7_1_31()
+function upgradePsConfiguration_7_1_4()
+{
+    return Configuration::updateValue('AV_DISPLAYGOOGLESNIPPET', '0');
+}
+
+/**
+ * Function used to update your hook from previous versions to the version 7.1.41,
+ */
+function upgradeHook_7_1_4($module)
 {
     return true;
 }
 
 /**
- * Function used to update your hook from previous versions to the version 7.1.31,
+ * Function used to update your database from previous versions to the version 7.1.41,
  */
-function upgradeHook_7_1_31($module)
-{
-    return true;
-}
-
-/**
- * Function used to update your database from previous versions to the version 7.1.31,
- */
-function upgradeDatabase_7_1_31($module)
+function upgradeDatabase_7_1_4($module)
 {
     return true;
 }

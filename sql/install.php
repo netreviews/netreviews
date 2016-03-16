@@ -19,9 +19,9 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.31
+*  @version   Release: $Revision: 7.1.41
 *  @license   NetReviews
-*  @date      13/02/2015
+*  @date      25/08/2015
 *  International Registered Trademark & Property of NetReviews SAS
 */
 
@@ -30,38 +30,40 @@ $sql[] = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'av_products_reviews;';
 $sql[] = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'av_products_average;';
 $sql[] = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'av_orders;';
 $sql[] = 'CREATE TABLE IF NOT EXISTS '._DB_PREFIX_.'av_products_reviews (
-			  `id_product_av` varchar(36) NOT NULL,
-			  `ref_product` varchar(20) NOT NULL,
-			  `rate` varchar(5) NOT NULL,
-			  `review` text NOT NULL,
-			  `customer_name` varchar(30) NOT NULL,
-			  `horodate` text NOT NULL,
-			  `discussion` text,
-			  `iso_lang` varchar(5) DEFAULT "0",
-			  `id_shop` int(2) DEFAULT 0,
-			  PRIMARY KEY (`id_product_av`,`iso_lang`,`id_shop`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8;';
+              `id_product_av` varchar(36) NOT NULL,
+              `ref_product` varchar(20) NOT NULL,
+              `rate` varchar(5) NOT NULL,
+              `review` text NOT NULL,
+              `customer_name` varchar(30) NOT NULL,
+              `horodate` text NOT NULL,
+              `discussion` text,
+              `iso_lang` varchar(5) DEFAULT "0",
+              `id_shop` int(2) DEFAULT 0,
+              PRIMARY KEY (`id_product_av`,`iso_lang`,`id_shop`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;';
 $sql[] = 'CREATE TABLE IF NOT EXISTS '._DB_PREFIX_.'av_products_average (
-			  `id_product_av` varchar(36) NOT NULL,
-			  `ref_product` varchar(20) NOT NULL,
-			  `rate` varchar(5) NOT NULL,
-			  `nb_reviews` int(10) NOT NULL,
-			  `horodate_update` text NOT NULL,
-			  `iso_lang` varchar(5) DEFAULT "0",
-			  `id_shop` int(2) DEFAULT 0,
-			  PRIMARY KEY (`ref_product`,`iso_lang`,`id_shop`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8;';
+              `id_product_av` varchar(36) NOT NULL,
+              `ref_product` varchar(20) NOT NULL,
+              `rate` varchar(5) NOT NULL,
+              `nb_reviews` int(10) NOT NULL,
+              `horodate_update` text NOT NULL,
+              `iso_lang` varchar(5) DEFAULT "0",
+              `id_shop` int(2) DEFAULT 0,
+              PRIMARY KEY (`ref_product`,`iso_lang`,`id_shop`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;';
 $sql[] = 'CREATE TABLE IF NOT EXISTS '._DB_PREFIX_.'av_orders (
-			  `id_order` int(11) NOT NULL,
-			  `id_shop` int(2) DEFAULT 0,
-			  `flag_get` int(2) DEFAULT NULL,
-			  `horodate_get` varchar(25) DEFAULT NULL,
-			  `id_order_state` int(5) DEFAULT NULL,
-			  `iso_lang` varchar(5) DEFAULT "0",
-			  `horodate_now` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-			  PRIMARY KEY (`id_order`,`iso_lang`,`id_shop`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8;';
+              `id_order` int(11) NOT NULL,
+              `id_shop` int(2) DEFAULT 0,
+              `flag_get` int(2) DEFAULT NULL,
+              `horodate_get` varchar(25) DEFAULT NULL,
+              `id_order_state` int(5) DEFAULT NULL,
+              `iso_lang` varchar(5) DEFAULT "0",
+              `horodate_now` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+              PRIMARY KEY (`id_order`,`iso_lang`,`id_shop`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;';
 
-foreach ($sql as $query)
-	if (Db::getInstance()->execute($query) == false)
-		return $query;
+foreach ($sql as $query) {
+    if (Db::getInstance()->execute($query) == false) {
+        return $query;
+    }
+}
