@@ -3,15 +3,9 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2015 NetReviews SAS
-<<<<<<< HEAD
 *  @version   Release: $Revision: 7.1.41
 *  @license   NetReviews
 *  @date      25/08/2015
-=======
-*  @version   Release: $Revision: 7.1.31
-*  @license   NetReviews
-*  @date      13/02/2015
->>>>>>> refs/remotes/PrestaShop/master
 *  International Registered Trademark & Property of NetReviews SAS
 -->
 
@@ -93,14 +87,9 @@
 				{$i = $i + 1}
 			{/if}
 			
-<<<<<<< HEAD
 			{if $i == 20 && $first}
 				{$first = false}
 				{$i = 1}
-=======
-			{if $first}
-				{$first = false}
->>>>>>> refs/remotes/PrestaShop/master
 			{/if}
 		{/foreach}
 		
@@ -124,7 +113,6 @@
 		vid_shop = {/literal}{if !empty({$id_shop})}{$id_shop}{else}0{/if}{literal} ;
 		
 		counted_reviews = {/literal}{$count_reviews}{literal};
-<<<<<<< HEAD
 		maxpage = Math.ceil(counted_reviews / 20) ;    
 		
 		if($('.groupAvis:hidden').first().length !== 0){
@@ -137,15 +125,6 @@
 				$(this).hide();
 			}else{
 				$(this).attr('rel',parseInt($(this).attr('rel')) + 1 );
-=======
-		maxpage = Math.ceil(counted_reviews / 6) ;    
-		
-		if($('.groupAvis:hidden').first().length !== 0){
-			$('.groupAvis:hidden').first().css({ visibility: "visible", display: "block" });
-			
-			if(maxpage+1 == parseInt($(this).attr('rel')) && $('.groupAvis:hidden').length === 0){    		
-				$(this).hide();
->>>>>>> refs/remotes/PrestaShop/master
 			}
 			
 			return false;

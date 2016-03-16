@@ -19,11 +19,7 @@ $_MODULE['<{netreviews}prestashop>netreviews_0531ff7e475145bab21e82cee3a61cd6'] 
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_10d101a6ca6b4912246b2329448ffbe1'] = ' Writing on our server is not allowed. Please assign write permissions to the folder netreviews';
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_736dca8b248b9c036ed27ef8408496c8'] = 'Unable to read/write export file';
 $_MODULE['<{netreviews}prestashop>netreviewsmodel_9ab3e83b1071d09ca62e4cd258686f6b'] = 'No order to export';
-<<<<<<< HEAD
 $_MODULE['<{netreviews}prestashop>upgrade-7.1.3_ea45551379c29d373e6337331b725caa'] = 'SQL ERROR : %s | Query can\'t be executed. Maybe, check SQL user permissions.';
-=======
-$_MODULE['<{netreviews}prestashop>upgrade-7.1.31_ea45551379c29d373e6337331b725caa'] = 'SQL ERROR : %s | Query can not be executed. Please check SQL user permissions.';
->>>>>>> refs/remotes/PrestaShop/master
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_8fc42c6ddf9966db3b09e84365034357'] = 'the';
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_b6641f306eff8e4dcc8a1232129a5b72'] = 'Comment from';
 $_MODULE['<{netreviews}prestashop>ajax-load-tab-content_4b429ac96c0312b11fe14690dd315384'] = 'Show exchanges';
@@ -87,10 +83,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3204cde6933be298a4a47d
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_ea470f37d7c86badea409748257f8be8'] = 'Advanced configuration';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_29a643370f1bbfe18b466a928ec2874a'] = 'Use the light product widget';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_930a81a525be3439c47c4850a39d0c15'] = 'Use the multilingual configuratio';
-<<<<<<< HEAD
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_9532c2e2b3fb738258d7898600c546bb'] = 'Activate the google rich snippets on your product page';
-=======
->>>>>>> refs/remotes/PrestaShop/master
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_a603905470e2a5b8c13e96b579ef0dba'] = 'Debug ';
 $_MODULE['<{netreviews}prestashop>avisverifies-extraright-light_74dcb1cec50854d2f880279f3dd19da9'] = 'reviews';
 $_MODULE['<{netreviews}prestashop>avisverifies-extraright-light_1c67665285fb6a7d761414e12578e574'] = 'review';
@@ -102,11 +95,7 @@ $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_56d4e9a4c8e9f47549e81
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_f5e686a39e3145171ae51953378ee1cb'] = 'Sceau_100_en.png';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_8f5a56d5830145c11301a269e9d79abc'] = 'Number of Reviews';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_a586532c728620b9fed5f6baa415ee64'] = 'Average Grade';
-<<<<<<< HEAD
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_df7e15919b9d6fa2a432efe1edd6ae72'] = 'Show the attestation of Trust';
-=======
-$_MODULE['<{netreviews}prestashop>avisverifies-tab-content_df7e15919b9d6fa2a432efe1edd6ae72'] = 'Show the trusted certificate ';
->>>>>>> refs/remotes/PrestaShop/master
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_8fc42c6ddf9966db3b09e84365034357'] = 'the';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b6641f306eff8e4dcc8a1232129a5b72'] = 'Comment from';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_4b429ac96c0312b11fe14690dd315384'] = 'Show exchanges';
@@ -114,13 +103,9 @@ $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_b09576f93861b2504f3d3
 $_MODULE['<{netreviews}prestashop>avisverifies-tab-content_28249d01b3a7e45d52dcb8ab6a2f2017'] = 'More reviews...';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab_34e80a799d144cfe4af46815e103f017'] = 'Reviews';
 $_MODULE['<{netreviews}prestashop>avisverifies-tab_457dd55184faedb7885afd4009d70163'] = 'Review';
-<<<<<<< HEAD
 $_MODULE['<{netreviews}prestashop>footer_av_f5e686a39e3145171ae51953378ee1cb'] = 'Sceau_100_en.png';
 $_MODULE['<{netreviews}prestashop>footer_av_deb10517653c255364175796ace3553f'] = 'Product';
 $_MODULE['<{netreviews}prestashop>footer_av_3601146c4e948c32b6424d2c0a7f0118'] = 'Price';
 $_MODULE['<{netreviews}prestashop>footer_av_644672987386569bd1bbd95daacd0562'] = 'Evaluation of';
 $_MODULE['<{netreviews}prestashop>footer_av_663fc7093256cda156e571631ddb295e'] = 'out of';
 $_MODULE['<{netreviews}prestashop>footer_av_74dcb1cec50854d2f880279f3dd19da9'] = 'reviews';
-=======
-$_MODULE['<{netreviews}prestashop>footer_av_e00624537ec204877e6c674bb1b2abac'] = 'Sceau_100_fr.png';
->>>>>>> refs/remotes/PrestaShop/master
