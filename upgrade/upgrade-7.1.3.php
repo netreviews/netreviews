@@ -19,6 +19,7 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2015 NetReviews SAS
+<<<<<<< HEAD
 *  @version   Release: $Revision: 7.1.3
 *  @license   NetReviews
 *  @date      25/08/2015
@@ -28,6 +29,16 @@
 if (!defined('_PS_VERSION_')) {
     exit;
 }
+=======
+*  @version   Release: $Revision: 7.1.31
+*  @license   NetReviews
+*  @date      13/02/2015
+*  International Registered Trademark & Property of NetReviews SAS
+*/
+
+if (!defined('_PS_VERSION_'))
+	exit;
+>>>>>>> refs/remotes/PrestaShop/master
 
 /**
  * Function used to update your module from previous versions to the version 7.1.3,
@@ -35,6 +46,7 @@ if (!defined('_PS_VERSION_')) {
  */
 function upgrade_module_7_1_3($module)
 {
+<<<<<<< HEAD
     return upgradePsConfiguration_7_1_3($module) //Upgrade PS configuration from previous versions to the version 7.1.3
     && upgradeHook_7_1_3($module) //Upgrade hook from previous versions to the version 7.1.3
     && upgradeDatabase_7_1_3($module); //Upgrade database from previous versions to the version 7.1.3
@@ -180,4 +192,8 @@ function upgradeDatabase_7_1_3($module)
     if (empty($error)) {
         return true;
     }
+=======
+	// This upgrade does nothing, but exists in order to replace another one which threw fatal errors.
+	return true;
+>>>>>>> refs/remotes/PrestaShop/master
 }

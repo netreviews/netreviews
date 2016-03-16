@@ -3,9 +3,15 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2015 NetReviews SAS
+<<<<<<< HEAD
 *  @version   Release: $Revision: 7.1.41
 *  @license   NetReviews
 *  @date      25/08/2015
+=======
+*  @version   Release: $Revision: 7.1.31
+*  @license   NetReviews
+*  @date      13/02/2015
+>>>>>>> refs/remotes/PrestaShop/master
 *  International Registered Trademark & Property of NetReviews SAS
 -->
 
@@ -164,15 +170,22 @@
 		</div>
 	</fieldset>
 	<br /><fieldset class="fieldsetav">
+<<<<<<< HEAD
 		<legend>{l s='Advanced configuration' mod='netreviews'}</legend>
+=======
+		<legend>{l s='Advanced configurations' mod='netreviews'}</legend>
+>>>>>>> refs/remotes/PrestaShop/master
 		<div class='config'>
 			<form method="post" action="{$url_back|unescape:'htmlall'}" enctype="multipart/form-data">
 				<label>{l s='Use the light product widget' mod='netreviews'}</label><input type="checkbox" name="avisverifies_lightwidget" id="avisverifies_lightwidget" {$current_lightwidget_checked|escape:'html'} value="checked"/>
 				<div class="clear"></div>
 				<label>{l s='Use the multilingual configuration' mod='netreviews'}</label><input type="checkbox" name="avisverifies_multilingue" id="avisverifies_multilingue" {$current_multilingue_checked|escape:'html'} value="checked"/>
 				<div class="clear"></div>
+<<<<<<< HEAD
 				<label>{l s='Activate the google rich snippets on your product page' mod='netreviews'}</label><input type="checkbox" name="avisverifies_displaygooglesnippet" id="avisverifies_displaygooglesnippet" {$current_displaygooglesnippet_checked|escape:'html'} value="checked"/>
 				<div class="clear"></div>
+=======
+>>>>>>> refs/remotes/PrestaShop/master
 				<hr class="orange" >
 				<center><input type="submit"  name="submit_advanced" id="submit_advanced" value="{l s='Save' mod='netreviews'}" class="button pointer"></center>
 			</form>
@@ -195,4 +208,8 @@
 			</div>
 		</div>
 	</fieldset>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> refs/remotes/PrestaShop/master

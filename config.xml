@@ -2,7 +2,11 @@
 <module>
 	<name>netreviews</name>
 	<displayName><![CDATA[Verified Reviews]]></displayName>
+<<<<<<< HEAD
 	<version><![CDATA[7.1.41]]></version>
+=======
+	<version><![CDATA[7.1.31]]></version>
+>>>>>>> refs/remotes/PrestaShop/master
 	<description><![CDATA[Collect service and product reviews with Verified Reviews. Display reviews on your shop and win the trust of your visitors, to increase your revenue.]]></description>
 	<author><![CDATA[NetReviews]]></author>
 	<tab><![CDATA[advertising_marketing]]></tab>
