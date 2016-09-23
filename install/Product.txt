@@ -13,7 +13,13 @@ class Product extends ProductCore {
     public static function getProductProperties($id_lang, $row, Context $context = null)
     {
         // Avis vérifiés
+
+        if(empty($context) || !isset($context))
+            $context = Context::getContext();
+
         $p = parent::getProductProperties($id_lang, $row, $context);
+
+        // var_dump($p);
 
         $av_model = _PS_MODULE_DIR_.'netreviews/models/NetReviewsModel.php';
         if (!class_exists('NetReviewsModel') && file_exists($av_model))
@@ -21,7 +27,8 @@ class Product extends ProductCore {
 
         $NetReviewsModel = new NetReviewsModel;
 
-        $p['av_stats'] = $NetReviewsModel->getStatsProduct($p['id_product']);
+        $id_shop = (int)$context->shop->id;
+        $p['av_stats'] = $NetReviewsModel->getStatsProduct($p['id_product'],null,$id_shop);
 
         if (!empty($p['av_stats']['rate']))
             $p['av_rate'] = round($p['av_stats']['rate']);

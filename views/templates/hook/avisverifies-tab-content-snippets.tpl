@@ -19,9 +19,9 @@
 
 <div id="av_more_info_tabs"></div>
 <div class="clear"></div>
-<div class="tab-pane fade tab_media" id="idTabavisverifies">
+<div class="tab-pane fade tab_media" id="idTabavisverifies"  >
 
-	<div id="headerAV" style="{if $styleHeaderAV != ''}{$styleHeaderAV}{/if}">{l s='Product Reviews' mod='netreviews'}</div>
+	<div id="headerAV">{l s='Product Reviews' mod='netreviews'}</div>
 	<div id="under-headerAV"  style="background: url({$modules_dir|escape:'htmlall':'UTF-8'}netreviews/views/img/{l s='Sceau_100_en.png' mod='netreviews'}) no-repeat #f1f1f1;background-size:45px 45px;background-repeat:no-repeat;">
 		<ul id="aggregateRatingAV">
 			<li><b>
@@ -49,14 +49,14 @@
 			{if $i == 1 && !$first}
 				<span class="groupAvis">
 			{/if}
-			<div class="reviewAV">
-				<ul class="reviewInfosAV">
-					<li style="text-transform:capitalize">{$review['customer_name']|escape:'htmlall':'UTF-8'}</li>
+			<div class="reviewAV" itemprop="review" itemscope itemtype="http://schema.org/Review" >
+				<ul class="reviewInfosAV"   >
+					<li style="text-transform:capitalize" itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{$review['customer_name']|escape:'htmlall':'UTF-8'}</span></li>
 					<li>&nbsp;{l s='the' mod='netreviews'} {$review['horodate']|escape:'htmlall':'UTF-8'}</li>
-					<li class="rateAV"><img src="{$modules_dir|escape:'htmlall':'UTF-8'}netreviews/views/img/etoile{$review['rate']|escape:'htmlall':'UTF-8'}.png" width="80" height="15" /> {$review['rate']|escape:'htmlall':'UTF-8'}/5</li>
+					<li class="rateAV" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><img src="{$modules_dir|escape:'htmlall':'UTF-8'}netreviews/views/img/etoile{$review['rate']|escape:'htmlall':'UTF-8'}.png" width="80" height="15" /> <span itemprop="ratingValue">{$review['rate']|escape:'htmlall':'UTF-8'}</span>/<span  itemprop="bestRating">5</span></li>
 				</ul>
 
-				<div class="triangle-border top">{$review['avis']|escape:'htmlall':'UTF-8'}</div>
+				<div class="triangle-border top"  itemprop="reviewBody" >{$review['avis']|escape:'htmlall':'UTF-8'}</div>
 
 			{if $review['discussion']|escape:'htmlall':'UTF-8'}
 				{foreach from=$review['discussion'] key=k_discussion item=discussion}

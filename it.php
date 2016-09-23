@@ -1,13 +1,13 @@
 <?php
 /**
-* 2012-2015 NetReviews
+* 2012-2016 NetReviews
 *  it.php file is traduction file
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
-*  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.41
+*  @copyright 2016 NetReviews SAS
+*  @version   Release: $Revision: 7.2.0
 *  @license   NetReviews
-*  @date      25/08/2015
+*  @date      20/09/2016
 *  @category  traduction
 *  International Registered Trademark & Property of NetReviews SAS
 */

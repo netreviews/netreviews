@@ -1,6 +1,6 @@
 <?php
 /**
-* 2012-2015 NetReviews
+* 2012-2016 NetReviews
 *
 * NOTICE OF LICENSE
 *
@@ -20,10 +20,10 @@
 * avisverifiesApi.php file used to execute query from AvisVerifies plateform
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
-*  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.41
+*  @copyright 2016 NetReviews SAS
+*  @version   Release: $Revision: 7.2.0
 *  @license   NetReviews
-*  @date      25/08/2015
+*  @date      20/09/2016
 *  @category  api
 *  International Registered Trademark & Property of NetReviews SAS
 */
@@ -102,6 +102,7 @@ function checkSecurityData(&$post_data)
     $reponse = array();
     /*get($key, $id_lang = null, $id_shop_group = null, $id_shop = null)*/
     $uns_msg = Tools::jsonDecode(NetReviewsModel::acDecodeBase64($post_data['message']), true);
+
     if (empty($uns_msg)) {
         $reponse['debug'] = 'empty message';
         $reponse['return'] = 2;
@@ -244,6 +245,9 @@ function setModuleConfiguration(&$post_data)
     //Multisite structure: updateValue($key, $values, $html = false, $id_shop_group = null, $id_shop = null)
     $reponse = array();
     $uns_msg = Tools::jsonDecode(NetReviewsModel::acDecodeBase64($post_data['message']), true);
+    $delay = $uns_msg['delay'];
+    $delay_product = $uns_msg['delay_product'];
+
     if (!empty($uns_msg)) {
         if (!empty($uns_msg['id_shop'])) {
             if (Configuration::get('AV_MULTILINGUE', null, null, $uns_msg['id_shop']) == 'checked') {
@@ -260,7 +264,8 @@ function setModuleConfiguration(&$post_data)
                                         implode(';', $uns_msg['id_order_status_choosen']) :
                                         $uns_msg['id_order_status_choosen'];
                 Configuration::updateValue('AV_ORDERSTATESCHOOSEN'.$group_name, $orderstatechoosen, false, null, $uns_msg['id_shop']);
-                Configuration::updateValue('AV_DELAY'.$group_name, $uns_msg['delay'], false, null, $uns_msg['id_shop']);
+                Configuration::updateValue('AV_DELAY'.$group_name, $delay, false, null, $uns_msg['id_shop']);
+                Configuration::updateValue('AV_DELAY_PRODUIT'.$group_name, $delay_product, false, null, $uns_msg['id_shop']);
                 Configuration::updateValue('AV_GETPRODREVIEWS'.$group_name, $uns_msg['get_product_reviews'], false, null, $uns_msg['id_shop']);
                 Configuration::updateValue('AV_DISPLAYPRODREVIEWS'.$group_name, $uns_msg['display_product_reviews'], false, null, $uns_msg['id_shop']);
                 Configuration::updateValue('AV_SCRIPTFIXE_ALLOWED'.$group_name, $uns_msg['display_fixe_widget'], false, null, $uns_msg['id_shop']);
@@ -300,7 +305,9 @@ function setModuleConfiguration(&$post_data)
                                         implode(';', $uns_msg['id_order_status_choosen']) :
                                         $uns_msg['id_order_status_choosen'];
                 Configuration::updateValue('AV_ORDERSTATESCHOOSEN', $orderstatechoosen, false, null, $uns_msg['id_shop']);
-                Configuration::updateValue('AV_DELAY', $uns_msg['delay'], false, null, $uns_msg['id_shop']);
+                Configuration::updateValue('AV_DELAY', $delay, false, null, $uns_msg['id_shop']);
+                Configuration::updateValue('AV_DELAY_PRODUIT', $delay_product, false, null, $uns_msg['id_shop']);
+
                 Configuration::updateValue('AV_GETPRODREVIEWS', $uns_msg['get_product_reviews'], false, null, $uns_msg['id_shop']);
                 Configuration::updateValue('AV_DISPLAYPRODREVIEWS', $uns_msg['display_product_reviews'], false, null, $uns_msg['id_shop']);
                 Configuration::updateValue('AV_SCRIPTFIXE_ALLOWED', $uns_msg['display_fixe_widget'], false, null, $uns_msg['id_shop']);
@@ -350,7 +357,8 @@ function setModuleConfiguration(&$post_data)
                                         implode(';', $uns_msg['id_order_status_choosen']) :
                                         $uns_msg['id_order_status_choosen'];
                 Configuration::updateValue('AV_ORDERSTATESCHOOSEN'.$group_name, $orderstatechoosen);
-                Configuration::updateValue('AV_DELAY'.$group_name, $uns_msg['delay']);
+                Configuration::updateValue('AV_DELAY'.$group_name, $delay);
+                Configuration::updateValue('AV_DELAY_PRODUIT'.$group_name, $delay_product);
                 Configuration::updateValue('AV_GETPRODREVIEWS'.$group_name, $uns_msg['get_product_reviews']);
                 Configuration::updateValue('AV_DISPLAYPRODREVIEWS'.$group_name, $uns_msg['display_product_reviews']);
                 Configuration::updateValue('AV_SCRIPTFIXE_ALLOWED'.$group_name, $uns_msg['display_fixe_widget']);
@@ -374,7 +382,9 @@ function setModuleConfiguration(&$post_data)
                                         implode(';', $uns_msg['id_order_status_choosen']) :
                                         $uns_msg['id_order_status_choosen'];
                 Configuration::updateValue('AV_ORDERSTATESCHOOSEN', $orderstatechoosen);
-                Configuration::updateValue('AV_DELAY', $uns_msg['delay']);
+
+                Configuration::updateValue('AV_DELAY', $delay);
+                Configuration::updateValue('AV_DELAY_PRODUIT', $delay_product);
                 Configuration::updateValue('AV_GETPRODREVIEWS', $uns_msg['get_product_reviews']);
                 Configuration::updateValue('AV_DISPLAYPRODREVIEWS', $uns_msg['display_product_reviews']);
                 Configuration::updateValue('AV_SCRIPTFIXE_ALLOWED', $uns_msg['display_fixe_widget']);
@@ -675,7 +685,30 @@ function getModuleAndSiteConfiguration(&$post_data)
 function getOrders(&$post_data)
 {
     // Permet de rendre optionel la demande d'avis pour les id produit contenu dans ce tableau.
-    $Product_exception = array();
+    $product_exception = array(
+        //15
+    );
+    // Permet de rendre optionel la demande d'avis pour les marketplace contenu dans ce tableau.
+    $global_marketplaces=array(
+        // 1 => 'priceminister'
+    );
+    // Ici un tableau d'id catégories autorisées.
+    $idcategories = array(
+        // 3
+    );
+    // Ici un tableau d'id catégories et sous catégories a tester.
+    $idcategorietotest = array();
+
+    $group_name = "";
+
+    foreach ($idcategories as $idcat) {
+        array_push($idcategorietotest, $idcat);
+        $tabcat = getcategoriesrecurcive($idcat);
+        foreach ($tabcat as $cat) {
+            array_push($idcategorietotest, $cat);
+        }
+    }
+    $listofcategoriesaccepted = Category::getCategoryInformations($idcategorietotest);
 
     $reponse = array();
     $post_message = Tools::jsonDecode(NetReviewsModel::acDecodeBase64($post_data['message']), true);
@@ -724,7 +757,8 @@ function getOrders(&$post_data)
     $query_status = '';
     if ($process_choosen == 'onorderstatuschange' && !empty($order_status_choosen)) {
         $order_status_choosen = str_replace(';', ',', $order_status_choosen);
-        $query_status = ' AND oh.id_order_state IN ('.pSQL($order_status_choosen).')';
+        // $query_status = ' AND oh.id_order_state IN ('.pSQL($order_status_choosen).')';
+        $query_status = ' AND o.current_state IN ('.pSQL($order_status_choosen).')';
     }
     if (isset($post_message['iso_lang'])) {
         $o_lang = new Language;
@@ -779,13 +813,14 @@ function getOrders(&$post_data)
     if (!empty($post_message['id_shop'])) {
         $query_id_shop = ' AND oav.id_shop = '.(int)$post_message['id_shop'];
     }
-    $query = '  SELECT oav.id_order, o.date_add as date_order,o.id_customer,o.total_paid,o.id_lang,o.id_shop
+    $query = '  SELECT  o.module, oav.id_order, o.date_add as date_order,o.id_customer,o.total_paid,o.id_lang,o.id_shop, oh.id_order_state, o.current_state as state_order,
                 FROM '._DB_PREFIX_.'av_orders oav
                 LEFT JOIN '._DB_PREFIX_.'orders o
                 ON oav.id_order = o.id_order
                 LEFT JOIN '._DB_PREFIX_.'order_history oh
                 ON oh.id_order = o.id_order
-                WHERE (oav.flag_get IS NULL OR oav.flag_get = 0)'
+                WHERE (oav.flag_get IS NULL OR oav.flag_get = 0)
+                AND o.module NOT IN ("'.implode('", "', $global_marketplaces).'")'
                 .$query_status.$query_id_shop.$query_iso_lang;
     $orders_list = Db::getInstance()->ExecuteS($query);
     $reponse['debug'][] = $query;
@@ -795,34 +830,75 @@ function getOrders(&$post_data)
         // Test if customer email domain is forbidden (marketplaces case)
         $o_customer = new Customer($order['id_customer']);
         $customer_email_extension = explode('@', $o_customer->email);
+
         if (!in_array($customer_email_extension[1], $forbidden_mail_extensions)) {
+
+            $marketplaceKey = array_search($order['module'], $global_marketplaces);
+            if (!empty($marketplaceKey)) {
+                $marketplace = $global_marketplaces[$marketplaceKey];
+            } else {
+                $marketplace = "non";
+            }
+
+            switch ($order['state_order']) {
+                // case 2 :
+                //     $delay_specifique = 5;
+                //     break;
+                default:
+                    $delay_specifique = null;
+                    break;
+            }
+
+            $delay_product_specifique = null;
+
+            $delay_product_get = Configuration::get('AV_DELAY_PRODUIT'.$group_name, null, null, $order['id_shop']);
+
+            if (!empty($delay_product_get) && !empty($delay_specifique)) {
+                $delay_product_specifique = $delay_specifique + $delay_product_get;
+            }
+
             $array_order = array(
+                'info1' => $marketplace,
                 'id_order' => $order['id_order'],
                 'id_lang' => $order['id_lang'],
                 'iso_lang' => pSQL(Language::getIsoById($order['id_lang'])),
                 'id_shop' => $order['id_shop'],
                 'amount_order' => $order['total_paid'],
                 'id_customer' => $order['id_customer'],
+                'state_order' => $order['state_order'],//  Status added here
                 'date_order' => strtotime($order['date_order']), // date timestamp in orders table
                 'date_order_formatted' => $order['date_order'], // date in orders table formatted
                 'firstname_customer' => $o_customer->firstname,
                 'lastname_customer' => $o_customer->lastname,
                 'email_customer' => $o_customer->email,
+                'delay_commande_specifique' => $delay_specifique,
                 'products' => array()
-                );
+            );
+
             //  Add products to array
             if (!empty($allowed_products) && $allowed_products == 'yes') {
                 $o_order = new Order($order['id_order']);
                 $products_in_order = $o_order->getProducts();
                 $array_products = array();
                 foreach ($products_in_order as $element) {
-                    if (!in_array($element['product_id'], $Product_exception)) {
-                        $array_url = NetReviewsModel::getUrlsProduct($element['product_id']);
+                    if (
+                        !in_array($element['product_id'], $product_exception)
+                        // && Product::idIsOnCategoryId($element['product_id'],$listofcategoriesaccepted)
+                        ) {
+
+                        $o_product = new Product($element['product_id'], false, (int)Configuration::get('PS_LANG_DEFAULT'));
+                        $o_manufacturer = new Manufacturer($o_product->id_manufacturer);
+                        $array_url = NetReviewsModel::getUrlsProduct($o_product->id);
                         $product = array(
-                            'id_product' => $element['product_id'],
-                            'name_product' => $element['product_name'],
+                            'id_product' => $o_product->id,
+                            'name_product' => $o_product->name,
+                            'GTIN_EAN' => $o_product->ean13,
+                            'GTIN_UPC' => $o_product->upc,
+                            'MPN' => $o_product->supplier_reference,
+                            'brand_name' => $o_manufacturer->name,
                             'url_image' => $array_url['url_image_product'],
-                            'url' => $array_url['url_product']
+                            'url' => $array_url['url_product'],
+                            'delay_produit_specifique' => $delay_product_specifique,
                         );
                         array_push($array_products, $product);
                         unset($product);
@@ -866,6 +942,7 @@ function getOrders(&$post_data)
             if ($row = Db::getInstance()->getRow($sql)) {
                 $group_name = '_'.Tools::substr($row['name'], 13);
             }
+            $reponse['message']['delay_product'] = Configuration::get('AV_DELAY_PRODUIT'.$group_name, null, null, $post_message['id_shop']) + Configuration::get('AV_DELAY'.$group_name, null, null, $post_message['id_shop']);
             $reponse['message']['delay'] = Configuration::get('AV_DELAY'.$group_name, null, null, $post_message['id_shop']);
             $reponse['sign'] = SHA1(
                 $post_message['query'].
@@ -873,6 +950,7 @@ function getOrders(&$post_data)
                 Configuration::get('AV_CLESECRETE'.$group_name, null, null, $post_message['id_shop'])
             );
         } else {
+            $reponse['message']['delay_product'] = Configuration::get('AV_DELAY_PRODUIT', null, null, $post_message['id_shop']) + Configuration::get('AV_DELAY', null, null, $post_message['id_shop']);
             $reponse['message']['delay'] = Configuration::get('AV_DELAY', null, null, $post_message['id_shop']);
             $reponse['sign'] = SHA1(
                 $post_data['query'].
@@ -890,9 +968,11 @@ function getOrders(&$post_data)
             if ($row = Db::getInstance()->getRow($sql)) {
                 $group_name = '_'.Tools::substr($row['name'], 13);
             }
+            $reponse['message']['delay_product'] = Configuration::get('AV_DELAY_PRODUIT'.$group_name) + Configuration::get('AV_DELAY'.$group_name);
             $reponse['message']['delay'] = Configuration::get('AV_DELAY'.$group_name);
             $reponse['sign'] = SHA1($post_data['query'].Configuration::get('AV_IDWEBSITE'.$group_name).Configuration::get('AV_CLESECRETE'.$group_name));
         } else {
+            $reponse['message']['delay_product'] = Configuration::get('AV_DELAY_PRODUIT') + Configuration::get('AV_DELAY');
             $reponse['message']['delay'] = Configuration::get('AV_DELAY');
             $reponse['sign'] = SHA1($post_data['query'].Configuration::get('AV_IDWEBSITE').Configuration::get('AV_CLESECRETE'));
         }
@@ -978,7 +1058,7 @@ function setProductsReviews(&$post_data)
                                                     (id_product_av, ref_product, rate, review, horodate, customer_name, discussion,iso_lang,id_shop)
                                                     VALUES (\''.pSQL($arra_column[2]).'\',
                                                         \''.(int)$arra_column[4].'\',
-                                                        \''.(float)$arra_column[7].'\',
+                                                        \''.round((float)$arra_column[7], 2).'\',
                                                         \''.pSQL($arra_column[6]).'\',
                                                         \''.pSQL($arra_column[5]).'\',
                                                         \''.pSQL(Tools::ucfirst($arra_column[8][0]).'. '.Tools::ucfirst($arra_column[9])).'\',
@@ -998,7 +1078,7 @@ function setProductsReviews(&$post_data)
                                                     (id_product_av, ref_product, rate, review, horodate, customer_name, discussion,iso_lang,id_shop)
                                                     VALUES (\''.pSQL($arra_column[2]).'\',
                                                         \''.(int)$arra_column[4].'\',
-                                                        \''.(float)$arra_column[7].'\',
+                                                        \''.round((float)$arra_column[7], 2).'\',
                                                         \''.pSQL($arra_column[6]).'\',
                                                         \''.pSQL($arra_column[5]).'\',
                                                         \''.pSQL(urlencode(Tools::ucfirst($arra_column[8][0]).'. '.Tools::ucfirst($arra_column[9]))).'\',
@@ -1045,7 +1125,7 @@ function setProductsReviews(&$post_data)
                                             (id_product_av, ref_product, rate, nb_reviews, horodate_update,iso_lang,id_shop)
                                             VALUES (\''.pSQL($arra_column[1]).'\',
                                                     \''.pSQL($arra_column[2]).'\',
-                                                    \''.(float)$arra_column[3].'\',
+                                                    \''.round((float)$arra_column[3], 2).'\',
                                                     \''.(int)$arra_column[4].'\',
                                                     \''.time().'\',
                                                     '.$iso_lang.',
@@ -1190,6 +1270,7 @@ function getModuleAndSiteInfos($id_shop = null, $group_name = null)
                 'Id_Website_encours' => '',
                 'Cle_Secrete' => $explode_secret_key[0].'-xxxx-xxxx-'.$explode_secret_key[3],
                 'Delay' => Configuration::get('AV_DELAY'.$group_name, null, null, $id_shop),
+                'Delay_product' => Configuration::get('AV_DELAY_PRODUIT'.$group_name, false, null, $id_shop),
                 'Initialisation_du_Processus' => Configuration::get('AV_PROCESSINIT'.$group_name, null, null, $id_shop),
                 'Statut_choisi' => Configuration::get('AV_ORDERSTATESCHOOSEN'.$group_name, null, null, $id_shop),
                 'Recuperation_Avis_Produits' => Configuration::get('AV_GETPRODREVIEWS'.$group_name, null, null, $id_shop),
@@ -1221,6 +1302,7 @@ function getModuleAndSiteInfos($id_shop = null, $group_name = null)
                 'Id_Website_encours' => '',
                 'Cle_Secrete' => $explode_secret_key[0].'-xxxx-xxxx-'.$explode_secret_key[3],
                 'Delay' => Configuration::get('AV_DELAY', null, null, $id_shop),
+                'Delay_product' => Configuration::get('AV_DELAY_PRODUIT', false, null, $id_shop),
                 'Initialisation_du_Processus' => Configuration::get('AV_PROCESSINIT', null, null, $id_shop),
                 'Statut_choisi' => Configuration::get('AV_ORDERSTATESCHOOSEN', null, null, $id_shop),
                 'Recuperation_Avis_Produits' => Configuration::get('AV_GETPRODREVIEWS', null, null, $id_shop),
@@ -1250,6 +1332,7 @@ function getModuleAndSiteInfos($id_shop = null, $group_name = null)
                 'Id_Website_encours' => '',
                 'Cle_Secrete' => $explode_secret_key[0].'-xxxx-xxxx-'.$explode_secret_key[3],
                 'Delay' => Configuration::get('AV_DELAY'.$group_name),
+                'Delay_product' => Configuration::get('AV_DELAY_PRODUIT'.$group_name),
                 'Initialisation_du_Processus' => Configuration::get('AV_PROCESSINIT'.$group_name),
                 'Statut_choisi' => Configuration::get('AV_ORDERSTATESCHOOSEN'.$group_name),
                 'Recuperation_Avis_Produits' => Configuration::get('AV_GETPRODREVIEWS'.$group_name),
@@ -1279,6 +1362,7 @@ function getModuleAndSiteInfos($id_shop = null, $group_name = null)
                 'Id_Website_encours' => '',
                 'Cle_Secrete' => $explode_secret_key[0].'-xxxx-xxxx-'.$explode_secret_key[3],
                 'Delay' => Configuration::get('AV_DELAY'),
+                'Delay_product' => Configuration::get('AV_DELAY_PRODUIT'),
                 'Initialisation_du_Processus' => Configuration::get('AV_PROCESSINIT'),
                 'Statut_choisi' => Configuration::get('AV_ORDERSTATESCHOOSEN'),
                 'Recuperation_Avis_Produits' => Configuration::get('AV_GETPRODREVIEWS'),
@@ -1486,4 +1570,27 @@ function getCountOrder(&$post_data)
         }
     }
     return $reponse;
+}
+/**
+ * Récupération des catégories de produits .
+ *
+ * @param $idcategories : id de catégorie
+ * @param $arraycategories : array de catégorie
+ * @return $arraycategories
+ */
+function getcategoriesrecurcive($idcategories)
+{
+    $arraycategories = array();
+    if (Category::getChildren($idcategories, 1)) {
+        $result = Category::getChildren($idcategories, 1);
+        foreach ($result as $row) {
+            array_push($arraycategories, $row['id_category']);
+            if (Category::getChildren($row['id_category'], 1)) {
+                $arraycategories = array_merge($arraycategories, getcategoriesrecurcive($row['id_category']));
+            }
+        }
+        return $arraycategories;
+    } else {
+        return $arraycategories;
+    }
 }

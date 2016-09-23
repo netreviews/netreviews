@@ -1,21 +1,20 @@
 <!--
-* 2012-2015 NetReviews
+* 2012-2016 NetReviews
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
-*  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.41
+*  @copyright 2016 NetReviews SAS
+*  @version   Release: $Revision: 7.2.0
 *  @license   NetReviews
-*  @date      25/08/2015
+*  @date      20/09/2016
 *  International Registered Trademark & Property of NetReviews SAS
 -->
-
-<li>
-	<a href="#idTabavisverifies" class="avisverifies_tab" id="tab_avisverifies">
-		{$count_reviews|intval}
+<h3 style='{if $styleH3 != ''}{$styleH3}{/if}' >
+	<a href="#idTabavisverifies" class="avisverifies_tab" data-toggle="tab" id="tab_avisverifies" style='{if $styleA != ''}{$styleA}{/if}'>
+		{$count_reviews|escape:'htmlall':'UTF-8'}
 		{if $count_reviews > 1}
-			{l s='Reviews' mod='netreviews'} 
+			{l s='Reviews' mod='netreviews'}
 		{else}
-			{l s='Review' mod='netreviews'} 
-		{/if} 
+			{l s='Review' mod='netreviews'}
+		{/if}
 	</a>
-</li>
+</h3>

@@ -1,11 +1,11 @@
 /**
-* 2012-2015 NetReviews
+* 2012-2016 NetReviews
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
-*  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.41
+*  @copyright 2016 NetReviews SAS
+*  @version   Release: $Revision: 7.2.0
 *  @license   NetReviews
-*  @date      25/08/2015
+*  @date      20/09/2016
 *  International Registered Trademark & Property of NetReviews SAS
 */
 
@@ -23,12 +23,12 @@
 
 #idTabavisverifies p{
 	margin:0;
-	padding:0; 
+	padding:0;
 }
 
 #idTabavisverifies div.ratingWrapper, #av_snippets_block div.ratingWrapper{
 	background:url('../img/mini_etoile_empty.png') no-repeat left bottom;
-	/*display:inline-block;*/	
+	/*display:inline-block;*/
 	height: 12px;
 	width: 70px;
 }
@@ -36,7 +36,7 @@
 
 #idTabavisverifies div.ratingInner, #av_snippets_block div.ratingInner{
 	background:url('../img/mini_etoile_full.png') no-repeat left bottom transparent;
-	/*display:inline-block;*/	
+	/*display:inline-block;*/
 	height: 12px;
 }
 
@@ -56,7 +56,7 @@
 #idTabavisverifies .triangle-border.answer{
 	margin-left: 20px;
 	color:#808080;
-	
+
 }
 
 #idTabavisverifies .triangle-border.top::before {
@@ -131,7 +131,7 @@
 #idTabavisverifies #under-headerAV{
 	display: block;
 	height: 50px;
-	
+
 }
 
 #idTabavisverifies #under-headerAV{
@@ -218,7 +218,7 @@
 }
 
 
-/* ExtraRight */ 
+/* ExtraRight */
 
 .av_product_award{
 	height:77px;
@@ -255,7 +255,7 @@
 	position: absolute;
 	bottom: 2px;
 	width:90%;
-	
+
 
 
 }
@@ -264,25 +264,25 @@
 	margin-left: 56px;
 	margin-top: 3px;
 	font-weight: normal;
-	display: block;	
+	display: block;
 }
 
 
 .av_product_award #top {
 	width: 68%;
 	text-align: center;
-	padding-top:6px; 
+	padding-top:6px;
 }
 
-.av_product_award #top b{ 
+/*.av_product_award #top b{
 	display: block;
-}
+}*/
 
 
-/* ratingWrapper et ratingInner utilisé dans ExtraRight et product_list.tpl*/ 
+/* ratingWrapper et ratingInner utilisé dans ExtraRight et product_list.tpl*/
 div.ratingWrapper{
 	background:url('../img/etoile0.png') no-repeat  left bottom;
-	display:inline-block;	
+	display:inline-block;
 	height: 21px;
 	width: 120px;
 	text-align: left;
@@ -290,7 +290,7 @@ div.ratingWrapper{
 
 div.ratingInner{
 	background:url('../img/etoile5.png') no-repeat  left bottom transparent;
-	display:inline-block;	
+	display:inline-block;
 	height: 21px;
 	text-align: left;
 }
@@ -356,7 +356,7 @@ div.ratingInner.percent100{
  }
 
 
-/* FIN ratingWrapper et ratingInner utilisé dans ExtraRight et product_list.tpl*/ 
+/* FIN ratingWrapper et ratingInner utilisé dans ExtraRight et product_list.tpl*/
 
 
 /* FIN ExtraRight */
@@ -403,4 +403,21 @@ div.ratingInner.percent100{
 	-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
 	box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
 	margin-top: 10px;
+}
+
+#netreviews_global_website_review,#netreviews_category_review{
+        font-size: 10px;
+       text-align: right;
+}
+
+#netreviews_global_website_review div.ratingInner,#netreviews_category_review div.ratingInner{
+        background-size: 65px;
+}
+
+#netreviews_global_website_review .ratingWrapper,#netreviews_category_review .ratingWrapper{
+    background-size: 65px;
+    width:65px;
+}
+.ratingText{
+	margin-top: 8px;
 }

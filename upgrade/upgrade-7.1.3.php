@@ -1,6 +1,6 @@
 <?php
 /**
-* 2012-2015 NetReviews
+* 2012-2016 NetReviews
 *
 * NOTICE OF LICENSE
 *
@@ -18,10 +18,10 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
-*  @copyright 2015 NetReviews SAS
+*  @copyright 2016 NetReviews SAS
 *  @version   Release: $Revision: 7.1.3
 *  @license   NetReviews
-*  @date      25/08/2015
+*  @date      20/09/2016
 *  International Registered Trademark & Property of NetReviews SAS
 */
 
@@ -149,7 +149,7 @@ function upgradeDatabase_7_1_3($module)
     $query[] = 'ALTER TABLE '._DB_PREFIX_.'av_products_reviews
                 DROP PRIMARY KEY ,
                 ADD PRIMARY KEY ( `id_product_av` , `iso_lang` , `id_shop` );';
-                
+
     $query[] = 'UPDATE '._DB_PREFIX_.'av_products_reviews SET `iso_lang` = "0" WHERE `iso_lang` = "" ;';
 
     // av_products_average

@@ -1,6 +1,6 @@
 <?php
 /**
-* 2012-2015 NetReviews
+* 2012-2016 NetReviews
 *
 * NOTICE OF LICENSE
 *
@@ -20,10 +20,10 @@
 * ajax-load.php file used to use ajax load for reviews list using pagination
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
-*  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.41
+*  @copyright 2016 NetReviews SAS
+*  @version   Release: $Revision: 7.2.0
 *  @license   NetReviews
-*  @date      25/08/2015
+*  @date      20/09/2016
 *  @category  ajax
 *  International Registered Trademark & Property of NetReviews SAS
 */
@@ -74,14 +74,18 @@ foreach ($reviews as $k => $review) {
     $my_review['id_product_av'] = $review['id_product_av'];
     $my_review['rate'] = $review['rate'];
     $my_review['avis'] = urldecode($review['review']);
-    $my_review['horodate'] = date('d/m/Y', $review['horodate']);
+    $date = new DateTime();
+    $date->setTimestamp($review['horodate']);
+    $my_review['horodate'] =$date->format('d/m/Y') ;
     $my_review['customer_name'] = urldecode($review['customer_name']);
     $my_review['discussion'] = '';
     $unserialized_discussion = Tools::jsonDecode(NetReviewsModel::AcDecodeBase64($review['discussion']), true);
     if ($unserialized_discussion) {
         foreach ($unserialized_discussion as $k_discussion => $each_discussion) {
+            $date = new DateTime();
+            $date->setTimestamp($each_discussion['horodate']);
             $my_review['discussion'][$k_discussion]['commentaire'] = $each_discussion['commentaire'];
-            $my_review['discussion'][$k_discussion]['horodate'] = date('d/m/Y', time($each_discussion['horodate']));
+            $my_review['discussion'][$k_discussion]['horodate'] = $date->format('d/m/Y') ;
             if ($each_discussion['origine'] == 'ecommercant') {
                 $my_review['discussion'][$k_discussion]['origine'] = Configuration::get('PS_SHOP_NAME');
             } elseif ($each_discussion['origine'] == 'internaute') {
@@ -100,6 +104,7 @@ $smarty->assign(array(
     'n' => $o_av->reviews_by_page,
     'pages_nb' => $pages_nb,
     'start' => $start,
-    'stop' => $stop,
+    'stop' => $stop
+
 ));
 echo $smarty->fetch(dirname(__FILE__).'/views/templates/hook/ajax-load-tab-content.tpl');

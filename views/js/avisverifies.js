@@ -1,15 +1,15 @@
 /**
-* 2012-2015 NetReviews
+* 2012-2016 NetReviews
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
-*  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.41
+*  @copyright 2016 NetReviews SAS
+*  @version   Release: $Revision: 7.2.0
 *  @license   NetReviews
-*  @date      25/08/2015
+*  @date      20/09/2016
 *  International Registered Trademark & Property of NetReviews SAS
 */
 
-if(typeof jQuery == 'undefined') {	
+if(typeof jQuery == 'undefined') {
 
 			function loadScript(url, callback) {
 					var script = document.createElement("script")
@@ -43,20 +43,20 @@ if(typeof jQuery == 'undefined') {
 			if(!jQueryIsLoaded){
 				//https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js
 				loadScript("http://www.avis-verifies.com/review/js/jquery-1.8.2.min.js");
-						
+
 			}
-			
-	
+
+
 }
 
 
 jQuery(document).ready(function($) {
-					
-		$('#AV_button').live( "click" ,function(){
+
+		$('#AV_button').live( "click", function(){
 			$('#tab_avisverifies').click();
 
 			console.log($('#idTabavisverifies'));
-				
+
 			$('html,body').animate({scrollTop: $("#av_more_info_tabs").offset().top}, 'slow');
 
 		});
@@ -64,14 +64,14 @@ jQuery(document).ready(function($) {
 });
 
 function switchCommentsVisibility(review_number){
-	
+
 	comment = $('div[review_number='+review_number+']');
 	console.log(review_number);
 	comment.toggle();
 
 	//Swich entre "afficher les échanges" et "masquer les échanges"
-	$('a#display'+review_number+'[review_number='+review_number+']').toggle();		 			
-	$('a#hide'+review_number+'[review_number='+review_number+']').toggle();	
+	$('a#display'+review_number+'[review_number='+review_number+']').toggle();
+	$('a#hide'+review_number+'[review_number='+review_number+']').toggle();
 }
 
 

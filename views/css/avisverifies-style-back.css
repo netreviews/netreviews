@@ -1,20 +1,22 @@
 /**
-* 2012-2015 NetReviews
+* 2012-2016 NetReviews
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
-*  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.41
+*  @copyright 2016 NetReviews SAS
+*  @version   Release: $Revision: 7.2.0
 *  @license   NetReviews
-*  @date      25/08/2015
+*  @date      20/09/2016
 *  International Registered Trademark & Property of NetReviews SAS
 */
 
 #avisverifies_module label{
-	
+
 	margin-right: 15px;
-	
-	
+	text-align: left;
+
+
 }
+
 
 #avisverifies_module input[type=text] {
 	float:left;
@@ -34,7 +36,7 @@
 }
 
 #avisverifies_module  p.help{
-	
+
 	font-style: italic;
 	color:#9E9E9E;
 	font-size: 11px;
@@ -42,12 +44,12 @@
 
 #avisverifies_module  p.help.withfloat{
 	float:left;
-	
+
 }
 
 #avisverifies_module  p.help.inline{
 	display:inline;
-	
+
 }
 
 #avisverifies_module #order-statut-list{
@@ -253,4 +255,19 @@ div.languages>span{
 #blockConfiguration{
 	width: 70%;
 	margin: 0px auto;
+}
+
+#avisverifies_module table td label{
+    margin-right: 15px;
+    color: #585a69;
+    text-shadow: 0 1px 0 #fff;
+    padding: 0.2em 0em 0 0.5em;
+    text-align: left;
+    float: none;
+    font-weight: bold;
+}
+
+#avisverifies_module table th{
+    width: 200px;
+    text-align: left;
 }

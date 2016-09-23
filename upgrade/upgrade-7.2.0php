@@ -45,7 +45,15 @@ function upgrade_module_7_1_4($module)
  */
 function upgradePsConfiguration_7_1_4()
 {
-    return Configuration::updateValue('AV_DISPLAYGOOGLESNIPPET', '0');
+    return Configuration::updateValue('AV_DELAY_PRODUIT', '')
+        && Configuration::updateValue('AV_DISPLAYGOOGLESNIPPETPRODUIT', '0')
+        && Configuration::updateValue('AV_DISPLAYGOOGLESNIPPETPRODUITLI', '0')
+        && Configuration::updateValue('AV_DISPLAYGOOGLESNIPPETSITE', '0')
+        && Configuration::updateValue('AV_NBOFREVIEWS', '20')
+        && Configuration::updateValue('AV_DISPLAYSTARPLIST', '')
+        && Configuration::updateValue('AV_HOOKPRODUCTTAB_STYLEH3', '')
+        && Configuration::updateValue('AV_HOOKPRODUCTTAB_STYLEHEADERAV', '')
+        && Configuration::updateValue('AV_HOOKPRODUCTTAB_STYLEA', '');
 }
 
 /**

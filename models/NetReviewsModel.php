@@ -1,6 +1,6 @@
 <?php
 /**
-* 2012-2015 NetReviews
+* 2012-2016 NetReviews
 *
 * NOTICE OF LICENSE
 *
@@ -20,10 +20,10 @@
 * NetReviewsModel.php file used to execute specific queries
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
-*  @copyright 2015 NetReviews SAS
-*  @version   Release: $Revision: 7.1.41
+*  @copyright 2016 NetReviews SAS
+*  @version   Release: $Revision: 7.2.0
 *  @license   NetReviews
-*  @date      25/08/2015
+*  @date      20/09/2016
 *  @category  classes
 *  International Registered Trademark & Property of NetReviews SAS
 */
@@ -71,7 +71,7 @@ class NetReviewsModel extends ObjectModel
         if (!empty($id_shop) && Shop::isFeatureActive()) {
             $sql .= ' and (id_shop = '.$id_shop.')';
         } else {
-            $sql .= ' and id_shop = 0';
+            $sql .= ' and id_shop IN(0,1)';
         }
         if ($count_reviews) {
             return Db::getInstance()->getRow($sql);
@@ -96,14 +96,18 @@ class NetReviewsModel extends ObjectModel
         if (!empty($id_shop) && Shop::isFeatureActive()) {
             $sql .= ' and id_shop = '.$id_shop;
         } else {
-            $sql .= ' and id_shop = 0';
+            $sql .= ' and id_shop IN(0,1)';
         }
         return Db::getInstance()->getRow($sql);
     }
+
     public function export($header_colums, $id_shop = null)
     {
         $o_netreviews = new NetReviews;
         $duree = Tools::getValue('duree');
+        $global_marketplaces=array(
+            // '1' => 'priceminister'
+        );
         $order_statut_list = array_map('intval', Tools::getValue('orderstates'));
         $order_statut_list = (!empty($order_statut_list)) ? implode(',', $order_statut_list) : null;
         if (! empty($id_shop)) {
@@ -186,7 +190,7 @@ class NetReviewsModel extends ObjectModel
         $select_id_shop = (! empty($id_shop)) ?  ', o.id_shop' : '';
         $where_id_state = (! empty($order_statut_list)) ?  ' AND o.current_state IN ('.$order_statut_list.')'  : '';
         $select_id_state = (! empty($order_statut_list)) ?  ', o.current_state' : '';
-        $qry_sql = '    SELECT lg.iso_code, o.id_order, o.total_paid, o.id_customer, o.date_add, c.firstname, c.lastname, c.email '
+        $qry_sql = '    SELECT o.module, lg.iso_code, o.id_order, o.total_paid, o.id_customer, o.date_add, c.firstname, c.lastname, c.email '
                         .$select_id_shop.$select_id_state.'
                         FROM '._DB_PREFIX_.'orders o
                         LEFT JOIN '._DB_PREFIX_.'customer c ON o.id_customer = c.id_customer
@@ -195,7 +199,18 @@ class NetReviewsModel extends ObjectModel
                         '.$where_id_shop.$where_id_state;
         $item_list = Db::getInstance()->ExecuteS($qry_sql);
         foreach ($item_list as $item) {
+
+            $marketplaceKey = array_search($item['module'], $global_marketplaces);
+
+            if (!empty($marketplaceKey)) {
+                $marketplace = $global_marketplaces[$marketplaceKey];
+            } else {
+                $marketplace = "non";
+            }
+
+
             $all_orders[$item['id_order']] = array(
+                'TYPE_PAIEMENT' => $marketplace,
                 'ID_ORDER'     => $item['id_order'],
                 'MONTANT_COMMANDE'     => $item['total_paid'],
                 'DATE_ORDER'   => date('d/m/Y', strtotime($item['date_add'])),
@@ -211,18 +226,33 @@ class NetReviewsModel extends ObjectModel
                 'ISO_LANG'  => $item['iso_code'],
                 'PRODUCTS'     => array()
             );
-            $qry_sql = 'SELECT id_order, product_id, product_name FROM '._DB_PREFIX_.'order_detail WHERE id_order = '.(int)$item['id_order'];
+            $qry_sql = 'SELECT id_order, product_id FROM '._DB_PREFIX_.'order_detail WHERE id_order = '.(int)$item['id_order'];
             $product_list = Db::getInstance()->ExecuteS($qry_sql);
             foreach ($product_list as $product) {
-                $array_url = NetReviewsModel::getUrlsProduct($product['product_id']);
+
+
+                $o_product = new Product($product['product_id'], false, (int)Configuration::get('PS_LANG_DEFAULT'));
+                $o_manufacturer = new Manufacturer($o_product->id_manufacturer);
+
+                $array_url = NetReviewsModel::getUrlsProduct($o_product->id);
+
+
                 $all_orders[$product['id_order']]['PRODUCTS'][] = array(
-                    'ID_PRODUCT' => $product['product_id'],
-                    'NOM_PRODUCT' => $product['product_name'],
+                    'ID_PRODUCT' => $o_product->id,
+                    'NOM_PRODUCT' => $o_product->name,
+                    'EAN13_PRODUCT' => $o_product->ean13,
+                    'UPC_PRODUCT' => $o_product->upc,
+                    'MPN_PRODUCT' => $o_product->supplier_reference,
+                    'BRAND_NAME_PRODUCT' => $o_manufacturer->name,
                     'URL_PRODUCT' => $array_url['url_product'],
                     'URL_IMAGE_PRODUCT' => $array_url['url_image_product'],
                 );
             }
+
+
         }
+
+
         if (count($all_orders) > 0) {
             if ($csv = @fopen($file_path, 'w')) {
                 fwrite($csv, $header_colums);
@@ -241,6 +271,10 @@ class NetReviewsModel extends ObjectModel
                             $line[] = $order['PRODUCTS'][$i]['ID_PRODUCT'];
                             $line[] = ''; // Categorie du produit
                             $line[] = utf8_decode($order['PRODUCTS'][$i]['NOM_PRODUCT']);
+                            $line[] = utf8_decode($order['PRODUCTS'][$i]['EAN13_PRODUCT']);
+                            $line[] = utf8_decode($order['PRODUCTS'][$i]['UPC_PRODUCT']);
+                            $line[] = utf8_decode($order['PRODUCTS'][$i]['MPN_PRODUCT']);
+                            $line[] = utf8_decode($order['PRODUCTS'][$i]['BRAND_NAME_PRODUCT']);
                             $line[] = utf8_decode($order['PRODUCTS'][$i]['URL_PRODUCT']); //Url fiche product
                             $line[] = utf8_decode($order['PRODUCTS'][$i]['URL_IMAGE_PRODUCT']); //Url image fiche product
                             $line[] = $order['ORDER_STATE']; //Etat de la commande
@@ -260,9 +294,13 @@ class NetReviewsModel extends ObjectModel
                         $line[] = $delay;
                         $line[] = '';
                         $line[] = ''; // Product category
-                        $line[] = '';
-                        $line[] = '';// URL
-                        $line[] = ''; //Url image fiche product
+                        $line[] = ''; // NOM_PRODUCT
+                        $line[] = ''; // EAN13_PRODUCT
+                        $line[] = ''; // UPC_PRODUCT
+                        $line[] = ''; // MPN_PRODUCT
+                        $line[] = ''; // BRAND_NAME_PRODUCT
+                        $line[] = ''; // URL_PRODUCT
+                        $line[] = ''; //URL_IMAGE_PRODUCT
                         $line[] = $order['ORDER_STATE']; //Order state
                         $line[] = $order['ISO_LANG']; //Order lang
                         if (! empty($id_shop)) {
@@ -285,10 +323,9 @@ class NetReviewsModel extends ObjectModel
             throw new Exception($o_netreviews->l('No order to export'));
         }
     }
-    
+
     public function exportApi($duree, $statut)
     {
-        $o_netreviews = new NetReviews;
         $order_statut_list = array_map('intval', $statut);
         $order_statut_list = (!empty($order_statut_list)) ? implode(',', $order_statut_list) : null;
         $duree_sql = '';
@@ -384,9 +421,7 @@ class NetReviewsModel extends ObjectModel
         if (count($all_orders) > 0) {
             return $all_orders;
         }
-        
     }
-
     public function saveOrderToRequest()
     {
         $qry_order = 'SELECT id_order FROM '._DB_PREFIX_.'av_orders WHERE id_order = '.$this->id_order;
@@ -402,17 +437,14 @@ class NetReviewsModel extends ObjectModel
                                                     )');
         }
     }
-    
     public function getTotalReviews()
     {
         return Db::getInstance()->getRow('SELECT count(*) as nb_reviews FROM '._DB_PREFIX_.'av_products_reviews');
     }
-    
     public function getTotalReviewsAverage()
     {
         return Db::getInstance()->getRow('SELECT count(*) as nb_reviews_average FROM '._DB_PREFIX_.'av_products_average');
     }
-    
     public function getTotalOrders()
     {
         $results = array();
@@ -421,7 +453,6 @@ class NetReviewsModel extends ObjectModel
         $results['not_flagged'] = Db::getInstance()->getRow('SELECT count(*) as nb FROM '._DB_PREFIX_.'av_orders WHERE flag_get IS NOT NULL');
         return $results;
     }
-    
     public static function getUrlsProduct($product_id)
     {
         $product_exist = Db::getInstance()->getRow('SELECT * FROM '._DB_PREFIX_.'product WHERE id_product ='.(int)$product_id);
@@ -437,7 +468,6 @@ class NetReviewsModel extends ObjectModel
             return array('url_product' => $url_product,'url_image_product' => $image_path);
         }
     }
-
     private static function generateCsvLine($list)
     {
         foreach ($list as &$l) {
