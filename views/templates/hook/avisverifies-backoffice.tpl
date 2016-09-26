@@ -84,7 +84,7 @@
 				<li>{l s='With Product Reviews : Your customers will be asked for their review regarding the order (obligatory) AND regarding the purchased products as well' mod='netreviews'}</li>
 			</ul>
 			<br>
-			<form method="post" action="{$url_back|escape:'htmlall':'UTF-8}" enctype="multipart/form-data">
+			<form method="post" action="{$url_back|escape:'htmlall':'UTF-8'}" enctype="multipart/form-data">
 				<label class="floatleft">{l s='Since' mod='netreviews'}</label>
 				<select id="duree" name="duree" class="floatleft">
 					<option value="1w">{l s='1 week' mod='netreviews'}</option>
@@ -132,7 +132,7 @@
 			<p>{l s='Please check your' mod='netreviews'} <a href="{l s='url_avisverifies_track' mod='netreviews'}" target="_blank">{l s='customer area on verified-reviews.com' mod='netreviews'}</a> {l s='to see your login data' mod='netreviews'}</p>
 			<br />
 			<br />
-			<form method="post" action="{$url_back|escape:'htmlall':'UTF-8}" enctype="multipart/form-data">
+			<form method="post" action="{$url_back|escape:'htmlall':'UTF-8'}" enctype="multipart/form-data">
 				<div id="blockConfiguration">
 					{if $current_multilingue_checked  != 'checked'}
 						{foreach from=$languages key=id item=lang}
@@ -178,7 +178,7 @@
 	<fieldset class="fieldsetav">
 		<legend>{l s='Advanced actions' mod='netreviews'}</legend>
 		<div class='config'>
-			<form method="post" action="{$url_back|escape:'htmlall':'UTF-8}" enctype="multipart/form-data">
+			<form method="post" action="{$url_back|escape:'htmlall':'UTF-8'}" enctype="multipart/form-data">
 				<label>{l s='Purge all orders for this shop' mod='netreviews'}&nbsp;({$shop_name|escape:'htmlall':'UTF-8'})</label>&nbsp;<input type="submit"  name="submit_purge" id="submit_purge" value="{l s='Purged' mod='netreviews'}" class="button pointer"></center>
 				<div class="clear"></div>
 			</form>
@@ -187,7 +187,7 @@
 	<br /><fieldset class="fieldsetav">
 		<legend>{l s='Advanced configuration' mod='netreviews'}</legend>
 		<div class='config'>
-			<form method="post" action="{$url_back|escape:'htmlall':'UTF-8}" enctype="multipart/form-data">
+			<form method="post" action="{$url_back|escape:'htmlall':'UTF-8'}" enctype="multipart/form-data">
 				<label>{l s='Use the light product widget' mod='netreviews'}</label><input type="checkbox" name="avisverifies_lightwidget" id="avisverifies_lightwidget" {$current_lightwidget_checked|escape:'htmlall':'UTF-8'} value="checked"/>
 				<div class="clear"></div>
 				<br />
@@ -255,7 +255,7 @@
 	<!--<fieldset class="fieldsetav">
 		<legend>{l s='Advanced visual' mod='netreviews'}</legend>
 		<div class='config'>
-			<form method="post" action="{$url_back|escape:'htmlall':'UTF-8}" enctype="multipart/form-data">
+			<form method="post" action="{$url_back|escape:'htmlall':'UTF-8'}" enctype="multipart/form-data">
 				<p>{l s='To add style to the visual element just wrote css tag separate by semi-colon (exemple: "color:red;text-align:right;...")' mod='netreviews'}</p>
 				<br />
 				<br />

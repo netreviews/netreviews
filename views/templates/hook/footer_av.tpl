@@ -35,7 +35,7 @@
 
 	<div id="av_snippets_left">
 
-		<img src="{$modules_dir|escape:'htmlall':'UTF-8}netreviews/views/img/{l s='Sceau_100_en.png' mod='netreviews'}" width="50"/>
+		<img src="{$modules_dir|escape:'htmlall':'UTF-8'}netreviews/views/img/{l s='Sceau_100_en.png' mod='netreviews'}" width="50"/>
 	</div>
 
 	<div id="av_snippets_right">

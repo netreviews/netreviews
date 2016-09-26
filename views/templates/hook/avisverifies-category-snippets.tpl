@@ -16,7 +16,7 @@
             <span itemprop="rating" itemscope itemtype="http://data-vocabulary.org/rating">
                 <span>
                  <div class="ratingWrapper">
-                    <div class="ratingInner" style="width:{$av_rate_percent|escape:'htmlall':'UTF-8}%"></div>
+                    <div class="ratingInner" style="width:{$av_rate_percent|escape:'htmlall':'UTF-8'}%"></div>
                 </div>
                     <b itemprop="average">{$average_rate|escape:'htmlall':'UTF-8'}</b> /
                     <span itemprop="best">5</span> {l s='on' mod='netreviews'}
