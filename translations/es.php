@@ -81,10 +81,11 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5a0dba8be5b00b2d39c956
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3204cde6933be298a4a47d778cda046d'] = 'Purgado';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_119dd5a342e981b13bf0024d5c6a6933'] = 'Configuracion avanzadas';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_29a643370f1bbfe18b466a928ec2874a'] = 'Use the light product widget';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_930a81a525be3439c47c4850a39d0c15'] = 'Utilice la configuración multi-idioma';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_1e47495d4e272fb384e1e0dbd2b0ba7d'] = 'Activar las estrellas en su página de la lista de productos';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_283e5aef01b3316df98ab408ca385166'] = 'Utilice la configuración multilingüe (por favor, póngase en contacto con nosotros para saber cómo utilizar esta característica).';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_f409d0a1266e0e30558a80728ea20025'] = 'Mostrar las estrellas en su página de la lista de productos.';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_c7137b48f283f70d174468c9da779a9f'] = 'Establecer el número de comentarios producto expuesto.';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_9177f14de913ba5165b7ba0f1492dc43'] = 'Activar los google rich snippets';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_0808b301fa99188bb88f945b4d9fd10b'] = 'Seleccionar la cantidad de aviso colocado';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_6c570a8e985134050f1d9c2622864201'] = 'Atención: tras la activación de fragmentos enriquecidos, se debe verificar que la integración es correcta con una herramienta de prueba de integración.';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_a603905470e2a5b8c13e96b579ef0dba'] = 'Depurar';
 $_MODULE['<{netreviews}prestashop>avisverifies-category-snippets_ed2b5c0139cec8ad2873829dc1117d50'] = 'en';
 $_MODULE['<{netreviews}prestashop>avisverifies-category-snippets_74dcb1cec50854d2f880279f3dd19da9'] = 'opiniones';

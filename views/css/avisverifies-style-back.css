@@ -271,3 +271,15 @@ div.languages>span{
     width: 200px;
     text-align: left;
 }
+
+.text_decoration_none{
+	text-decoration: none;
+	color: #000 !important;
+    font-weight: inherit !important;
+}
+.italic{
+	font-style: italic;
+}
+.cbOrderstates{
+	margin: 5px 0;
+}

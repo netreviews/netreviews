@@ -82,10 +82,11 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5a0dba8be5b00b2d39c956
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3204cde6933be298a4a47d778cda046d'] = 'Purged';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_119dd5a342e981b13bf0024d5c6a6933'] = 'Advanced configuration';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_29a643370f1bbfe18b466a928ec2874a'] = 'Use the light product widget';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_930a81a525be3439c47c4850a39d0c15'] = 'Use the multilingual configuration';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_1e47495d4e272fb384e1e0dbd2b0ba7d'] = 'Activate the stars on your product list page';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_283e5aef01b3316df98ab408ca385166'] = 'Use the multilingual configuration (please contact us to know how to use this feature)	';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_f409d0a1266e0e30558a80728ea20025'] = 'Show the stars on your product list page	';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_c7137b48f283f70d174468c9da779a9f'] = 'Set the number of reviews product displayed	';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_9177f14de913ba5165b7ba0f1492dc43'] = 'Activate the google rich snippets';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_0808b301fa99188bb88f945b4d9fd10b'] = 'Choise the number of reviews';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_6c570a8e985134050f1d9c2622864201'] = 'Warning: after activation of rich snippets, you should verify that the integration is correct with an integration test tool	';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_4844e7f411b19cd9f5f2bd78cc84c1f3'] = 'Advanced visual';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_b679ee01334bcc4b31d65ffa9615c6c0'] = 'To add style to the visual element just wrote css tag separate by semi-colon (exemple: \"color:red;text-align:right;...\")';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5fe3ad826b3c48a8388828a70c5795ec'] = 'Add style for HookProductTab';

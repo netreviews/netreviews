@@ -81,10 +81,11 @@ $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_5a0dba8be5b00b2d39c956
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_3204cde6933be298a4a47d778cda046d'] = 'Gelöscht';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_119dd5a342e981b13bf0024d5c6a6933'] = 'Erweiterte Konfiguration';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_29a643370f1bbfe18b466a928ec2874a'] = 'Das \"light\" Produktwidget benutzen';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_930a81a525be3439c47c4850a39d0c15'] = 'Multi Sprachen Einstellungen benutzen';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_1e47495d4e272fb384e1e0dbd2b0ba7d'] = 'Aktivieren Sie die Sterne auf Ihrer Produktliste Seite';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_283e5aef01b3316df98ab408ca385166'] = 'Verwenden Sie die mehrsprachige Konfiguration (bitte kontaktieren Sie uns wissen, wie diese Funktion zu nutzen).';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_f409d0a1266e0e30558a80728ea20025'] = 'Zeigen Sie die Sterne auf Ihrer Produktliste Seite.';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_c7137b48f283f70d174468c9da779a9f'] = 'Legen Sie die Anzahl der Bewertungen Produkt angezeigt.';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_9177f14de913ba5165b7ba0f1492dc43'] = 'Aktivieren Sie die Google Rich Snippets';
-$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_0808b301fa99188bb88f945b4d9fd10b'] = 'Wählen Sie die Anzahl der Bewertungen';
+$_MODULE['<{netreviews}prestashop>avisverifies-backoffice_6c570a8e985134050f1d9c2622864201'] = 'Achtung: nach der Aktivierung von Rich Snippets, sollten Sie überprüfen, ob die Integration mit einem Integrationstest -Tool korrekt ist.';
 $_MODULE['<{netreviews}prestashop>avisverifies-backoffice_a603905470e2a5b8c13e96b579ef0dba'] = 'Debug';
 $_MODULE['<{netreviews}prestashop>avisverifies-category-snippets_ed2b5c0139cec8ad2873829dc1117d50'] = 'auf';
 $_MODULE['<{netreviews}prestashop>avisverifies-category-snippets_74dcb1cec50854d2f880279f3dd19da9'] = 'Bewertungen';

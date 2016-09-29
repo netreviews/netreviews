@@ -102,22 +102,29 @@
 					<option value="11m">{l s='11 months' mod='netreviews'}</option>
 					<option value="12m">{l s='12 months' mod='netreviews'}</option>
 				</select>
+				<br />
+				<br />
 				<div class="clear"></div>
 				<label class="">{l s='Collect Product Reviews' mod='netreviews'}</label>
 				<select id="productreviews" name="productreviews" class="floatleft">
 					<option value="1">{l s='Yes' mod='netreviews'}</option>
 					<option value="0">{l s='No' mod='netreviews'}</option>
 				</select>
+				<br />
+				<br />
 				<div class="clear"></div>
 				<label class="">{l s='Export orders with status' mod='netreviews'}</label>
 				<div class="floatleft">
-					<div>
-						<a href="javascript:cocheToute();">TOUT COCHER</a>&nbsp;/&nbsp;<a href="javascript:decocheToute();">TOUT DECOCHER</a>
+					<div >
+						<a class="text_decoration_none italic" href="javascript:cocheToute();">Tout Cocher</a>&nbsp;/&nbsp;<a class="text_decoration_none italic" href="javascript:decocheToute();">Tout Decocher</a>
 					</div>
+					<br />
 					{foreach from=$order_statut_list item=state}
-						<input class="cbOrderstates" type="checkbox" checked="checked" name="orderstates[]" value="{$state['id_order_state']|escape:'htmlall':'UTF-8'}"/> <span id="{$state['id_order_state']|escape:'htmlall':'UTF-8'}">{$state['name']|escape:'htmlall':'UTF-8'}</span><br>
+						<input class="cbOrderstates" type="checkbox" name="orderstates[]" value="{$state['id_order_state']|escape:'htmlall':'UTF-8'}"/> <span id="{$state['id_order_state']|escape:'htmlall':'UTF-8'}">{$state['name']|escape:'htmlall':'UTF-8'}</span><br>
 					{/foreach}
 				</div>
+				<br />
+				<br />
 				<div class="clear"></div>
 				<hr class="orange" >
 				<center><input type="submit"  name="submit_export" id="submit_export" value="{l s='Export' mod='netreviews'}" class="button pointer"></center>
@@ -192,15 +199,20 @@
 				<div class="clear"></div>
 				<br />
 				<br />
-				<label>{l s='Use the multilingual configuration' mod='netreviews'}</label><input type="checkbox" name="avisverifies_multilingue" id="avisverifies_multilingue" {$current_multilingue_checked|escape:'htmlall':'UTF-8'} value="checked"/>
+				<label>{l s='Use the multilingual configuration (please contact us to know how to use this feature)' mod='netreviews'}</label><input type="checkbox" name="avisverifies_multilingue" id="avisverifies_multilingue" {$current_multilingue_checked|escape:'htmlall':'UTF-8'} value="checked"/>
 				<div class="clear"></div>
 				<br />
 				<br />
-				<label>{l s='Activate the stars on your product list page' mod='netreviews'}</label><input type="checkbox" name="avisverifies_star_productlist" id="avisverifies_star_productlist" {$current_starproductlist_checked|escape:'htmlall':'UTF-8'} value="checked" />
+				<label>{l s='Show the stars on your product list page' mod='netreviews'}</label><input type="checkbox" name="avisverifies_star_productlist" id="avisverifies_star_productlist" {$current_starproductlist_checked|escape:'htmlall':'UTF-8'} value="checked" />
+				<div class="clear"></div>
+				<br />
+				<br />
+				<label>{l s='Set the number of reviews product displayed' mod='netreviews'}</label><input type="text" name="avisverifies_nb_reviews" id="avisverifies_nb_reviews" value="{$avisverifies_nb_reviews|escape:'htmlall':'UTF-8'}" />
 				<div class="clear"></div>
 				<br />
 				<br />
 				<label class="floatleft">{l s='Activate the google rich snippets' mod='netreviews'}</label>
+				<p>{l s='Warning: after activation of rich snippets, you should verify that the integration is correct with an integration test tool' mod='netreviews'}</p>
 				<div class="clear"></div>
 				<br />
 				<table>
@@ -242,10 +254,7 @@
 					</tr>
 				</table>
 				<div class="clear"></div>
-				<br />
-				<br />
-				<label>{l s='Choise the number of reviews' mod='netreviews'}</label><input type="text" name="avisverifies_nb_reviews" id="avisverifies_nb_reviews" value="{$avisverifies_nb_reviews|escape:'htmlall':'UTF-8'}" />
-				<div class="clear"></div>
+
 				<hr class="orange" >
 				<center><input type="submit"  name="submit_advanced" id="submit_advanced" value="{l s='Save' mod='netreviews'}" class="button pointer"></center>
 			</form>

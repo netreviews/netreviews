@@ -106,7 +106,8 @@ class NetReviewsModel extends ObjectModel
         $o_netreviews = new NetReviews;
         $duree = Tools::getValue('duree');
         $global_marketplaces=array(
-            // '1' => 'priceminister'
+            // Enter here the payment module name for which we will not pick the orders
+            // '1' => 'priceminister' //as example
         );
         $order_statut_list = array_map('intval', Tools::getValue('orderstates'));
         $order_statut_list = (!empty($order_statut_list)) ? implode(',', $order_statut_list) : null;
@@ -324,10 +325,43 @@ class NetReviewsModel extends ObjectModel
         }
     }
 
+
     public function exportApi($duree, $statut)
     {
+        $o_netreviews = new NetReviews;
+        $duree = Tools::getValue('duree');
+        $global_marketplaces=array(
+            // Enter here the payment module name for which we will not pick the orders
+            // '1' => 'priceminister' //as example
+        );
         $order_statut_list = array_map('intval', $statut);
         $order_statut_list = (!empty($order_statut_list)) ? implode(',', $order_statut_list) : null;
+        if (! empty($id_shop)) {
+            $file_name = Configuration::get('AV_CSVFILENAME', null, null, $id_shop);
+            $delay = (Configuration::get('AV_DELAY', null, null, $id_shop)) ? Configuration::get('AV_DELAY', null, null, $id_shop) : 0;
+        } else {
+            $file_name = Configuration::get('AV_CSVFILENAME');
+            $delay = (Configuration::get('AV_DELAY')) ? Configuration::get('AV_DELAY') : 0;
+        }
+        $avis_produit = Tools::getValue('productreviews');
+        if (!empty($file_name)) {
+            $file_path = _PS_MODULE_DIR_.'netreviews/Export_NetReviews_'.str_replace('/', '', Tools::stripslashes($file_name));
+            if (file_exists($file_path)) {
+                if (is_writable($file_path)) {
+                    unlink($file_path);
+                } else {
+                    throw new Exception($o_netreviews->l('Writing on our server is not allowed. Please assign write permissions to the folder netreviews'));
+                }
+            } else {
+                foreach (glob(_PS_MODULE_DIR_.'netreviews/Export_NetReviews_*') as $filename_to_delete) {
+                    if (is_writable($filename_to_delete)) {
+                        unlink($filename_to_delete);
+                    }
+                }
+            }
+        }
+        $file_name = date('d-m-Y').'-'.Tools::substr(md5(rand(0, 10000)), 1, 10).'.csv';
+        $file_path = _PS_MODULE_DIR_.'netreviews/Export_NetReviews_'.$file_name;
         $duree_sql = '';
         switch ($duree) {
             case '1w':
@@ -378,19 +412,31 @@ class NetReviewsModel extends ObjectModel
         }
         $all_orders = array();
         // Get orders with choosen date interval
-
+        $where_id_shop = (! empty($id_shop)) ?  'AND o.id_shop = '.(int)$id_shop  : '';
+        $select_id_shop = (! empty($id_shop)) ?  ', o.id_shop' : '';
         $where_id_state = (! empty($order_statut_list)) ?  ' AND o.current_state IN ('.$order_statut_list.')'  : '';
         $select_id_state = (! empty($order_statut_list)) ?  ', o.current_state' : '';
-        $qry_sql = '    SELECT lg.iso_code, o.id_order, o.total_paid, o.id_customer, o.date_add, c.firstname, c.lastname, c.email '
-                        .$select_id_state.'
+        $qry_sql = '    SELECT o.module, lg.iso_code, o.id_order, o.total_paid, o.id_customer, o.date_add, c.firstname, c.lastname, c.email '
+                        .$select_id_shop.$select_id_state.'
                         FROM '._DB_PREFIX_.'orders o
                         LEFT JOIN '._DB_PREFIX_.'customer c ON o.id_customer = c.id_customer
                         LEFT JOIN '._DB_PREFIX_.'lang lg ON o.id_lang = lg.id_lang
-                        WHERE (TO_DAYS(DATE_ADD(o.date_add,'.$duree_sql.')) - TO_DAYS(NOW())) >= 0 '
-                        .$where_id_state;
+                        WHERE (TO_DAYS(DATE_ADD(o.date_add,'.$duree_sql.')) - TO_DAYS(NOW())) >= 0
+                        '.$where_id_shop.$where_id_state;
         $item_list = Db::getInstance()->ExecuteS($qry_sql);
         foreach ($item_list as $item) {
+
+            $marketplaceKey = array_search($item['module'], $global_marketplaces);
+
+            if (!empty($marketplaceKey)) {
+                $marketplace = $global_marketplaces[$marketplaceKey];
+            } else {
+                $marketplace = "non";
+            }
+
+
             $all_orders[$item['id_order']] = array(
+                'TYPE_PAIEMENT' => $marketplace,
                 'ID_ORDER'     => $item['id_order'],
                 'MONTANT_COMMANDE'     => $item['total_paid'],
                 'DATE_ORDER'   => date('d/m/Y', strtotime($item['date_add'])),
@@ -406,13 +452,24 @@ class NetReviewsModel extends ObjectModel
                 'ISO_LANG'  => $item['iso_code'],
                 'PRODUCTS'     => array()
             );
-            $qry_sql = 'SELECT id_order, product_id, product_name FROM '._DB_PREFIX_.'order_detail WHERE id_order = '.(int)$item['id_order'];
+            $qry_sql = 'SELECT id_order, product_id FROM '._DB_PREFIX_.'order_detail WHERE id_order = '.(int)$item['id_order'];
             $product_list = Db::getInstance()->ExecuteS($qry_sql);
             foreach ($product_list as $product) {
-                $array_url = NetReviewsModel::getUrlsProduct($product['product_id']);
+
+
+                $o_product = new Product($product['product_id'], false, (int)Configuration::get('PS_LANG_DEFAULT'));
+                $o_manufacturer = new Manufacturer($o_product->id_manufacturer);
+
+                $array_url = NetReviewsModel::getUrlsProduct($o_product->id);
+
+
                 $all_orders[$product['id_order']]['PRODUCTS'][] = array(
-                    'ID_PRODUCT' => $product['product_id'],
-                    'NOM_PRODUCT' => $product['product_name'],
+                    'ID_PRODUCT' => $o_product->id,
+                    'NOM_PRODUCT' => $o_product->name,
+                    'EAN13_PRODUCT' => $o_product->ean13,
+                    'UPC_PRODUCT' => $o_product->upc,
+                    'MPN_PRODUCT' => $o_product->supplier_reference,
+                    'BRAND_NAME_PRODUCT' => $o_manufacturer->name,
                     'URL_PRODUCT' => $array_url['url_product'],
                     'URL_IMAGE_PRODUCT' => $array_url['url_image_product'],
                 );
@@ -422,6 +479,7 @@ class NetReviewsModel extends ObjectModel
             return $all_orders;
         }
     }
+
     public function saveOrderToRequest()
     {
         $qry_order = 'SELECT id_order FROM '._DB_PREFIX_.'av_orders WHERE id_order = '.$this->id_order;
