@@ -116,7 +116,7 @@
 				<label class="">{l s='Export orders with status' mod='netreviews'}</label>
 				<div class="floatleft">
 					<div >
-						<a class="text_decoration_none italic" href="javascript:cocheToute();">Tout Cocher</a>&nbsp;/&nbsp;<a class="text_decoration_none italic" href="javascript:decocheToute();">Tout Decocher</a>
+						<a class="text_decoration_none italic" href="javascript:cocheToute();">T{l s='Check all' mod='netreviews'}</a>&nbsp;/&nbsp;<a class="text_decoration_none italic" href="javascript:decocheToute();">{l s='Uncheck all' mod='netreviews'}</a>
 					</div>
 					<br />
 					{foreach from=$order_statut_list item=state}
