@@ -19,7 +19,7 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2016 NetReviews SAS
-*  @version   Release: $Revision: 7.2.0
+*  @version   Release: $Revision: 7.2.1
 *  @license   NetReviews
 *  @date      20/09/2016
 *  International Registered Trademark & Property of NetReviews SAS
@@ -30,18 +30,18 @@ if (!defined('_PS_VERSION_')) {
 }
 
 /**
- * Function used to update your module from previous versions to the version 7.2.0,
+ * Function used to update your module from previous versions to the version 7.2.1,
  * Don't forget to create one file per version.
  */
 function upgrade_module_7_1_4($module)
 {
-    return upgradePsConfiguration_7_1_4($module) //Upgrade PS configuration from previous versions to the version 7.2.0
-    && upgradeHook_7_1_4($module) //Upgrade hook from previous versions to the version 7.2.0
-    && upgradeDatabase_7_1_4($module); //Upgrade database from previous versions to the version 7.2.0
+    return upgradePsConfiguration_7_1_4($module) //Upgrade PS configuration from previous versions to the version 7.2.1
+    && upgradeHook_7_1_4($module) //Upgrade hook from previous versions to the version 7.2.1
+    && upgradeDatabase_7_1_4($module); //Upgrade database from previous versions to the version 7.2.1
 }
 
 /**
- * Function used to update your PS configuration from previous versions to the version 7.2.0,
+ * Function used to update your PS configuration from previous versions to the version 7.2.1,
  */
 function upgradePsConfiguration_7_1_4()
 {
@@ -49,7 +49,7 @@ function upgradePsConfiguration_7_1_4()
 }
 
 /**
- * Function used to update your hook from previous versions to the version 7.2.0,
+ * Function used to update your hook from previous versions to the version 7.2.1,
  */
 function upgradeHook_7_1_4($module)
 {
@@ -57,7 +57,7 @@ function upgradeHook_7_1_4($module)
 }
 
 /**
- * Function used to update your database from previous versions to the version 7.2.0,
+ * Function used to update your database from previous versions to the version 7.2.1,
  */
 function upgradeDatabase_7_1_4($module)
 {
