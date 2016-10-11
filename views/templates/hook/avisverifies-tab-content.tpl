@@ -21,7 +21,7 @@
 <div class="clear"></div>
 <div class="tab-pane fade tab_media" id="idTabavisverifies">
 
-	<div id="headerAV" style="{if $styleHeaderAV != ''}{$styleHeaderAV}{/if}">{l s='Product Reviews' mod='netreviews'}</div>
+	<div id="headerAV" style="{if $styleHeaderAV != ''}{$styleHeaderAV|escape:'htmlall':'UTF-8'}{/if}">{l s='Product Reviews' mod='netreviews'}</div>
 	<div id="under-headerAV"  style="background: url({$modules_dir|escape:'htmlall':'UTF-8'}netreviews/views/img/{l s='Sceau_100_en.png' mod='netreviews'}) no-repeat #f1f1f1;background-size:45px 45px;background-repeat:no-repeat;">
 		<ul id="aggregateRatingAV">
 			<li><b>

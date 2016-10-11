@@ -336,13 +336,8 @@ class NetReviewsModel extends ObjectModel
         );
         $order_statut_list = array_map('intval', $statut);
         $order_statut_list = (!empty($order_statut_list)) ? implode(',', $order_statut_list) : null;
-        if (! empty($id_shop)) {
-            $file_name = Configuration::get('AV_CSVFILENAME', null, null, $id_shop);
-            $delay = (Configuration::get('AV_DELAY', null, null, $id_shop)) ? Configuration::get('AV_DELAY', null, null, $id_shop) : 0;
-        } else {
-            $file_name = Configuration::get('AV_CSVFILENAME');
-            $delay = (Configuration::get('AV_DELAY')) ? Configuration::get('AV_DELAY') : 0;
-        }
+        $file_name = Configuration::get('AV_CSVFILENAME');
+        $delay = (Configuration::get('AV_DELAY')) ? Configuration::get('AV_DELAY') : 0;
         $avis_produit = Tools::getValue('productreviews');
         if (!empty($file_name)) {
             $file_path = _PS_MODULE_DIR_.'netreviews/Export_NetReviews_'.str_replace('/', '', Tools::stripslashes($file_name));
@@ -412,17 +407,15 @@ class NetReviewsModel extends ObjectModel
         }
         $all_orders = array();
         // Get orders with choosen date interval
-        $where_id_shop = (! empty($id_shop)) ?  'AND o.id_shop = '.(int)$id_shop  : '';
-        $select_id_shop = (! empty($id_shop)) ?  ', o.id_shop' : '';
         $where_id_state = (! empty($order_statut_list)) ?  ' AND o.current_state IN ('.$order_statut_list.')'  : '';
         $select_id_state = (! empty($order_statut_list)) ?  ', o.current_state' : '';
         $qry_sql = '    SELECT o.module, lg.iso_code, o.id_order, o.total_paid, o.id_customer, o.date_add, c.firstname, c.lastname, c.email '
-                        .$select_id_shop.$select_id_state.'
+                        .$select_id_state.'
                         FROM '._DB_PREFIX_.'orders o
                         LEFT JOIN '._DB_PREFIX_.'customer c ON o.id_customer = c.id_customer
                         LEFT JOIN '._DB_PREFIX_.'lang lg ON o.id_lang = lg.id_lang
                         WHERE (TO_DAYS(DATE_ADD(o.date_add,'.$duree_sql.')) - TO_DAYS(NOW())) >= 0
-                        '.$where_id_shop.$where_id_state;
+                        '.$where_id_state;
         $item_list = Db::getInstance()->ExecuteS($qry_sql);
         foreach ($item_list as $item) {
 

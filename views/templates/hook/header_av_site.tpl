@@ -11,8 +11,7 @@
 
 <span>
      {if $avisverifies_scriptfloat_allowed eq 'yes'}
-
-      {$avisverifies_scriptfloat}
+        {html_entity_decode($avisverifies_scriptfloat|escape:'htmlall':'UTF-8')}
     {/if}
 </span>
 
