@@ -2,7 +2,11 @@ prestashop > 1.5
 
     7.2.0, 02/09/2015
 
-        fix several minor bugs 
+        fix several minor bugs on snippets
+
+    7.2.0, 02/09/2015
+
+        fix several minor bugs
         adding a parameter: activation of rich snippets
 
     7.1.31,18/02/2015
@@ -22,7 +26,7 @@ prestashop > 1.5
         Change Certificate in Attestation
 
     7.1.3, 31/10/2014
-        
+
         Change "avis" and "aviss" instead of review and reviews
         Alter the table to distinguish opinions on id_shop
         include file into the module base so do lose their most snippet
@@ -54,22 +58,22 @@ prestashop > 1.5
                 http://www.verified-reviews.com/tracker.php?tracker=Presta_module_US&url=http://www.verified-reviews.com/index.php?page=mod_inscription
 
 Prestashop < 1.5
-    
+
     7.0.14, 01/06/2015
 
         avisverifiesApi.php : add 2 new data urlimageproduct and url_image
         Add the same data in export file
-    
+
     7.0.12, 25/11/2013
 
         Product.php : editing method to get product rate and product reviews without testing if module is active (compatibility problems)
         avisverifies-tab-content.tpl : editing ajax display by ignoring page number but display "more comments"
-    
+
     7.0.11, 27/11/2013
 
         AvisverifiesApi.php > edit line 628, check if id_order is already set in array with !isset()
         avisverifies.php > edit call to netreviews.eu by deleting http's protocol and testing if id_order is set in URL before calling Order object
-    
+
     7.0.10, 23/10/2013
 
         edit isActiveModule variable (îs.. -> is)
@@ -79,17 +83,17 @@ Prestashop < 1.5
         All Functions : get Prestashop Configuration value with id_shop if exist
         Implementing Api version information in avisverifiesApi.php
         Editing version information system, using a txt file in module root
-    
+
     7.0.9, 03/10/2013
 
         avisverifiesApi.php > getOrders : l.664 - array_push is replade by $orders_list_toreturn[$order['id_order']] = $array_order to avoid duplicates when there are two identicals status change for an order with this line if(empty($already_flag_order) && !$orders_list_toreturn[$order['id_order']]) {
         Product.php > m.id_module from the query becomes id_module
-        
+
     7.0.8, 02/10/2013
 
         avisverifiesApi.php > getOrders : Db::getInstance()->Execute('UPDATE [...] is moved because some orders was not flag as getted
         HAVING in queries becomes WHERE, easier and quicker
-    
+
     7.0.7, 01/10/2013
 
         ajax-load-tab-content.tpl : deleted an useless space in ['discussion'] } which cause bugs
@@ -97,23 +101,23 @@ Prestashop < 1.5
     7.0.6, 19/09/2013
 
         avisverifiesApi.php : if(isset($id_shop) && ! empty($id_shop)) $line[] = $id_shop; is moved to if/else condition to generate one line by product
-    
+
     7.0.5, 05/09/2013
 
         avisverifiesApi.php : flag query is moved
-    
+
     7.0.4, 03/09/2013
 
         avisverifiesApi.php, major changes : $order['id_order'] != $already_flag_order modified
-    
+
     7.0.3, 02/09/2013
 
         avisverifiesApi.php : ps_ prefix was written in the query order_history
-    
+
     7.0.2, 29/08/2013
 
         avisverifiesModel.php : the order status was deleted from the export query due to some bugs on Prestashop 1.5 if to many orders are exported + dadd_add changed by invoice_date
-    
+
     7.0.1, 27/08/2013
 
         avisverifiesApi.php : add feature "trucate tables product"

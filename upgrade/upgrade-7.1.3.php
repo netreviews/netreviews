@@ -21,7 +21,7 @@
 *  @copyright 2016 NetReviews SAS
 *  @version   Release: $Revision: 7.1.3
 *  @license   NetReviews
-*  @date      20/09/2016
+*  @date      26/10/2016
 *  International Registered Trademark & Property of NetReviews SAS
 */
 

@@ -19,9 +19,9 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2016 NetReviews SAS
-*  @version   Release: $Revision: 7.2.1
+*  @version   Release: $Revision: 7.2.2
 *  @license   NetReviews
-*  @date      20/09/2016
+*  @date      26/10/2016
 *  International Registered Trademark & Property of NetReviews SAS
 */
 
@@ -48,7 +48,7 @@ class NetReviews extends Module
     {
         $this->name = 'netreviews';
         $this->tab = 'advertising_marketing';
-        $this->version = '7.2.1';
+        $this->version = '7.2.2';
         $this->author = 'NetReviews';
         $this->need_instance = 0;
         parent::__construct();
@@ -819,12 +819,15 @@ class NetReviews extends Module
         }
 
         $percent = round($reviews['rate'] * 20) ;
+
+        $product = new Product((int)$id_product);
         $this->context->smarty->assign(array(
             'av_nb_reviews' => $reviews['nb_reviews'],
             'av_rate' =>  $reviews['rate'],
             'av_rate_percent' =>  ($percent) ? $percent : 100,
             'average_rate' => round($reviews['rate'], 1),
             'product_name' => $this->getProductName($id_product, $lang_id),
+            'product_description' => $product->description_short[$lang_id],
         ));
 
         if (Configuration::get('AV_LIGHTWIDGET') == 'checked' && Configuration::get('AV_DISPLAYGOOGLESNIPPETPRODUIT')== "2") {
@@ -870,14 +873,17 @@ class NetReviews extends Module
             $lang_id = 1;
         }
 
+        $product = new Product((int)$id_product);
         $this->context->smarty->assign(array(
             'av_nb_reviews' => $stats_product['nb_reviews'],
             'av_rate' =>  $stats_product['rate'],
             'av_rate_percent' =>  ($percent) ? $percent : 100,
             'link_product' => $params['product']['link'],
             'average_rate' => round($stats_product['rate'], 1),
-            'product_name' => $this->getProductName($id_product, $lang_id)
+            'product_name' => $this->getProductName($id_product, $lang_id),
+            'product_description' => $product->description_short[$lang_id],
         ));
+
 
         $tpl = 'avisverifies-categorystars';
 

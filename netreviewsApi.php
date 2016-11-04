@@ -21,9 +21,9 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2016 NetReviews SAS
-*  @version   Release: $Revision: 7.2.1
+*  @version   Release: $Revision: 7.2.2
 *  @license   NetReviews
-*  @date      20/09/2016
+*  @date      26/10/2016
 *  @category  api
 *  International Registered Trademark & Property of NetReviews SAS
 */

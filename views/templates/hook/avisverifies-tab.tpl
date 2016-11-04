@@ -3,9 +3,9 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2016 NetReviews SAS
-*  @version   Release: $Revision: 7.2.1
+*  @version   Release: $Revision: 7.2.2
 *  @license   NetReviews
-*  @date      20/09/2016
+*  @date      26/10/2016
 *  International Registered Trademark & Property of NetReviews SAS
 -->
 <h3 style="{if $styleH3 != ''}{$styleH3|escape:'htmlall':'UTF-8'}{/if}" >

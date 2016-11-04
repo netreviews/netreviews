@@ -10,19 +10,19 @@
 -->
 
 {if $count_reviews != 0}
-    <div class="col-sm-6" id="netreviews_category_review" itemscope="item" itemtype="http://data-vocabulary.org/Review-aggregate">
+    <div class="col-sm-6" id="netreviews_category_review" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
         <div >
-        <span itemprop="itemReviewed">{$nom_category|escape:'htmlall':'UTF-8'}</span> -
-            <span itemprop="rating" itemscope itemtype="http://data-vocabulary.org/rating">
+        <span>{$nom_category|escape:'htmlall':'UTF-8'}</span> -
+            <span>
                 <span>
                  <div class="ratingWrapper">
                     <div class="ratingInner" style="width:{$av_rate_percent|escape:'htmlall':'UTF-8'}%"></div>
                 </div>
-                    <b itemprop="average">{$average_rate|escape:'htmlall':'UTF-8'}</b> /
-                    <span itemprop="best">5</span> {l s='on' mod='netreviews'}
+                    <b itemprop="ratingValue">{$average_rate|escape:'htmlall':'UTF-8'}</b> /
+                    <span itemprop="bestRating">5</span><meta itemprop="worstRating" content="1"> {l s='on' mod='netreviews'}
                 </span>
              </span>
-            <b itemprop="votes">{$count_reviews|escape:'htmlall':'UTF-8'}</b>
+            <b itemprop="reviewCount" >{$count_reviews|escape:'htmlall':'UTF-8'}</b>
             {if $count_reviews > 1}
                 {l s='reviews' mod='netreviews'}
             {else}

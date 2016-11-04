@@ -3,13 +3,15 @@
 *
 *  @author    NetReviews SAS <contact@avis-verifies.com>
 *  @copyright 2016 NetReviews SAS
-*  @version   Release: $Revision: 7.2.1
+*  @version   Release: $Revision: 7.2.2
 *  @license   NetReviews
-*  @date      20/09/2016
+*  @date      26/10/2016
 *  International Registered Trademark & Property of NetReviews SAS
 -->
 
 <div class="av_product_award light" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+	<meta itemprop="itemreviewed" content="{$product_name|escape:'htmlall':'UTF-8'}">
+	<meta itemprop="description" content="{$product_description|escape:'htmlall':'UTF-8'|truncate:75}">
 	<a href="javascript:()" id="AV_button">
 		<div id="top">
 			<div class="ratingWrapper">
